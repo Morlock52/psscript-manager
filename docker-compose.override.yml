@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Development configuration for backend
+  backend:
+    build:
+      context: ./src/backend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./src/backend:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+    command: npm run dev
+
+  # Development configuration for frontend
+  frontend:
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./src/frontend:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+    command: npm run dev
+    ports:
+      - "5173:5173"
+
+  # Development configuration for AI service
+  ai-service:
+    build:
+      context: ./src/ai
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./src/ai:/app
+    environment:
+      FLASK_ENV: development
+      FLASK_DEBUG: 1
+    command: python -m flask run --host=0.0.0.0 --port=5000
+
+  # Development tools
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: psscript-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+  # Redis commander for Redis management
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: psscript-redis-commander
+    restart: unless-stopped
+    environment:
+      REDIS_HOSTS: local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
