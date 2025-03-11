@@ -96,6 +96,50 @@ Or start individual components:
 ./start-ai-service.sh
 ```
 
+## Docker Deployment
+
+PSScript Manager can be easily deployed using Docker and Docker Compose.
+
+### Prerequisites
+
+- Docker
+- Docker Compose
+
+### Running with Docker
+
+1. Make scripts executable:
+
+```bash
+./make-executable.sh
+```
+
+2. Start the application in production mode:
+
+```bash
+./docker-start.sh
+```
+
+Or in development mode:
+
+```bash
+./docker-start.sh dev
+```
+
+### Docker Components
+
+The Docker setup includes the following services:
+
+- **postgres**: PostgreSQL database with pgvector extension
+- **redis**: Redis for caching and session management
+- **backend**: Node.js API server
+- **frontend**: React web application
+- **ai-service**: Python-based AI service
+
+In development mode, additional services are available:
+
+- **pgadmin**: Web-based PostgreSQL administration tool (available at http://localhost:5050)
+- **redis-commander**: Web-based Redis administration tool (available at http://localhost:8081)
+
 ## Usage
 
 ### Accessing the Application
@@ -162,6 +206,7 @@ psscript-manager/
 │   │       └── services/
 │   └── psscript-vector-db/ # Vector database service
 ├── docker-compose.yml      # Docker configuration
+├── docker-compose.override.yml # Development Docker configuration
 ├── .env.example            # Example environment variables
 └── README.md               # This file
 ```
@@ -200,6 +245,12 @@ python -m pytest
    - Clear node_modules and reinstall dependencies
    - Check for TypeScript errors
    - Verify Vite configuration
+
+4. **Docker Issues**
+   - Ensure Docker and Docker Compose are installed
+   - Check if ports are already in use
+   - Verify Docker daemon is running
+   - Check Docker logs with `docker-compose logs`
 
 ## Contributing
 
