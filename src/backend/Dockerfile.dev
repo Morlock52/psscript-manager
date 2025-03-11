@@ -1,0 +1,24 @@
+# Use Node.js LTS as the base image
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install
+
+# Copy source code
+COPY . .
+
+# Create directories for uploads and logs
+RUN mkdir -p uploads logs
+
+# Expose the port the app runs on
+EXPOSE 4000
+
+# Set environment variables
+ENV NODE_ENV=development
+
+# Run the application in development mode
+CMD ["npm", "run", "dev"]
