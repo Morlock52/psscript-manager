@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="300">
+  <rect x="10" y="10" width="480" height="280" fill="#e0f7fa" stroke="#006064" stroke-width="2" />
+  <text x="250" y="30" font-size="18" text-anchor="middle" fill="#006064">Docker Compose</text>
+  <rect x="40" y="60" width="120" height="60" fill="#e0e0e0" stroke="#424242" stroke-width="1" />
+  <text x="100" y="95" font-size="14" text-anchor="middle" fill="#000">Frontend</text>
+  <rect x="190" y="60" width="120" height="60" fill="#e0e0e0" stroke="#424242" stroke-width="1" />
+  <text x="250" y="95" font-size="14" text-anchor="middle" fill="#000">Backend</text>
+  <rect x="340" y="60" width="120" height="60" fill="#e0e0e0" stroke="#424242" stroke-width="1" />
+  <text x="400" y="95" font-size="14" text-anchor="middle" fill="#000">AI Service</text>
+</svg>
