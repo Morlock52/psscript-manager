@@ -24,3 +24,6 @@ Below is a simple overview of the container layout.
 
 ![Docker architecture](images/docker-architecture.svg)
 
+The database container automatically executes `src/db/schema.sql` when it
+initializes. Modify that file or add migration scripts to `src/db/migrations`
+for custom schemas.
