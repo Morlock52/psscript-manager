@@ -1,8 +1,8 @@
 # PSScript Manager
 
 PSScript Manager is an AI-powered PowerShell script management and analysis platform.
-This repository currently contains only the Docker configuration and placeholder
-service directories. The application source code has not yet been published.
+This repository includes the Docker configuration and a basic AI service implementation.
+The remaining application services are still under development.
 
 ## Features (planned)
 
