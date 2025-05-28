@@ -43,6 +43,12 @@ cp .env.example .env
 The containers will start, but the application services are empty until the
 source code is added.
 
+### Database initialization
+
+The PostgreSQL service loads `src/db/schema.sql` the first time it starts.
+Edit this file or add scripts under `src/db/migrations` to customize the
+initial database structure.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
