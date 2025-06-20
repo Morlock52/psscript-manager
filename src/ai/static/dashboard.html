@@ -6,12 +6,21 @@
 </head>
 <body>
 <h1>PSScript Manager Dashboard</h1>
+<div id="stats">Analyses performed: <span id="analysis-count">0</span></div>
 <form id="analyze-form">
     <textarea id="script" rows="10" cols="70" placeholder="Paste PowerShell script here"></textarea><br>
     <button type="submit">Analyze</button>
 </form>
 <pre id="result"></pre>
 <script>
+async function updateStats() {
+    const res = await fetch('/stats');
+    if (res.ok) {
+        const data = await res.json();
+        document.getElementById('analysis-count').textContent = data.analysis_count;
+    }
+}
+
 document.getElementById('analyze-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const script = document.getElementById('script').value;
@@ -22,7 +31,10 @@ document.getElementById('analyze-form').addEventListener('submit', async (e) => 
     });
     const data = await res.json();
     document.getElementById('result').textContent = data.analysis || data.error;
+    updateStats();
 });
+
+document.addEventListener('DOMContentLoaded', updateStats);
 </script>
 </body>
 </html>
