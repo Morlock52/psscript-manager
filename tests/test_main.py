@@ -65,3 +65,31 @@ def test_analyze_without_openai(tmp_path):
     assert status == 500
     assert result['error'] == 'OpenAI package not installed'
     assert log_file.read_text()
+
+
+def test_analyze_prompt_includes_key_commands(monkeypatch):
+    class FakeChatCompletion:
+        messages = None
+
+        @staticmethod
+        def create(model, messages, temperature):
+            FakeChatCompletion.messages = messages
+            choice = type('Choice', (), {'message': {'content': 'ok'}})()
+            return type('Resp', (), {'choices': [choice]})()
+
+    fake_openai = type(sys)('openai')
+    fake_openai.ChatCompletion = FakeChatCompletion
+    fake_openai.api_key = 'token'
+    monkeypatch.setitem(sys.modules, 'openai', fake_openai)
+
+    os.environ['OPENAI_API_KEY'] = 'token'
+    importlib.reload(main)
+    app = main.create_app()
+    analyze = app.routes[('/analyze', ('POST',))]
+    main.request.json_data = {'script': 'Get-Process'}
+    result = analyze()
+
+    prompt = FakeChatCompletion.messages[1]['content'].lower()
+    assert 'key powershell commands' in prompt
+    assert 'microsoft learn' in prompt
+    assert result['analysis'] == 'ok'

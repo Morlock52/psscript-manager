@@ -39,6 +39,12 @@ def create_app() -> Flask:
 
     @app.route("/analyze", methods=["POST"])
     def analyze():
+        """Analyze a PowerShell script using OpenAI and return a summary.
+
+        The response includes the script's purpose, potential issues and a list
+        of key commands with definitions, example usage and links to Microsoft
+        Learn when available.
+        """
         logger.info("/analyze request received")
         if openai is None:
             logger.error("OpenAI package is not installed")
@@ -55,8 +61,11 @@ def create_app() -> Flask:
             return jsonify(error="Missing 'script' in request"), 400
 
         prompt = (
-            "Analyze the following PowerShell script and summarize its purpose. "
-            "Also identify any potential issues:\n\n" + script
+            "Analyze the following PowerShell script. Summarize its purpose and"
+            " highlight any potential issues. List the key PowerShell commands"
+            " used in the script. For each command provide a brief definition,"
+            " an example of usage and, when available, the Microsoft Learn URL.\n\n"
+            + script
         )
         try:
             response = openai.ChatCompletion.create(
