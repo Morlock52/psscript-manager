@@ -61,9 +61,11 @@ We welcome feature suggestions! Please create an issue with:
    ```
    Edit the `.env` file with your configuration.
 
-3. Set up the database
+3. Make the helper scripts executable and start the containers. This will set
+   up PostgreSQL and Redis automatically:
    ```bash
-   ./setup-local-db.sh
+   ./make-executable.sh
+   ./docker-start.sh dev   # or 'prod'
    ```
 
 4. Install dependencies
@@ -81,9 +83,9 @@ We welcome feature suggestions! Please create an issue with:
    pip install -r requirements.txt
    ```
 
-5. Start the services
+5. If you need to rebuild the containers after pulling updates, run:
    ```bash
-   ./start-all.sh
+   ./update-app.sh dev   # or 'prod'
    ```
 
 ## Coding Standards
