@@ -1,79 +1,74 @@
 # PSScript Manager
 
-PSScript Manager is an AI-powered PowerShell script management and analysis platform.
-This repository includes the Docker configuration and a basic AI service implementation.
-The remaining application services are still under development.
+![License](https://img.shields.io/github/license/YOUR_USERNAME/psscript-manager?style=flat-square)
 
-## Features (planned)
+PSScript Manager is an **AI-powered** platform for managing and analyzing PowerShell scripts.
+It bundles a collection of Docker services to help you explore, categorize and search scripts with the help of language models.
 
-- Script Management
-- AI-Powered Analysis
-- Categorization
-- Search & Discovery
-- Vector Database
-- Multi-Agent System
-- Documentation Integration
-- User Authentication
+## Table of Contents
+- [Features](#features)
+- [Architecture](#architecture)
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [Updating](#updating)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Repository Contents
+## Features
+- Script management and categorization
+- AI‑powered analysis of scripts
+- Search and discovery backed by a vector database
+- Multi‑agent system (planned)
+- Documentation integration
+- User authentication
 
-- `docker-compose.yml` – container configuration
-- `docker-compose.override.yml` – development overrides
-- `docker-start.sh` – helper script to launch containers
-- `make-executable.sh` – sets execute permissions for scripts
+## Architecture
+
+A simplified view of the container layout.
+
+![Docker architecture](docs/images/docker-architecture.svg)
+
+## Quick Start
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/psscript-manager.git
+   cd psscript-manager
+   ```
+2. Run the helper script (choose `dev` or `prod`):
+   ```bash
+   ./setup-check.sh dev
+   ```
+   The script checks prerequisites, creates a `.env` file if needed and launches the containers.
+3. Access the frontend at `http://localhost:5173` once the stack is running.
+
+Logs for the AI service are written to the path specified by `LOG_FILE` in your `.env` file (default `./logs/app.log`).
+
+## Project Structure
+- `docker-compose.yml` & `docker-compose.override.yml` – container configuration
+- `docker-start.sh` – manual script to start containers
+- `make-executable.sh` – sets execute permissions on helper scripts
 - `setup-check.sh` – verifies prerequisites and starts the stack
 - `update-app.sh` – pulls the latest code and rebuilds containers
-- `src/ai` – placeholder for the Python AI service
-- `src/backend` – placeholder for the Node.js API
-- `src/frontend` – placeholder for the React frontend
-
-## Installation
-
-First, clone the repository to your local machine:
-
-```bash
-git clone https://github.com/YOUR_USERNAME/psscript-manager.git
-cd psscript-manager
-```
-
-The root of the cloned project contains a `.env.example` file that you'll copy in the next step.
-
-## Getting Started
-
-Run the automated setup script. Pass `dev` or `prod` depending on your
-environment:
-
-```bash
-./setup-check.sh dev
-```
-
-Logs for the AI service are written to the path specified by `LOG_FILE`
-(default `./logs/app.log`).
-
-The containers will start, but the application services are empty until the source code is added.
+- `src/ai` – Python AI service
+- `src/backend` – Node.js API (placeholder)
+- `src/frontend` – React frontend (placeholder)
 
 ## Updating
-
 To fetch the latest code and rebuild the containers, run:
-
 ```bash
 ./update-app.sh dev   # or 'prod'
 ```
 
 ## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
-
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ## Acknowledgments
-
 - [LangChain](https://github.com/langchain-ai/langchain)
 - [LangGraph](https://github.com/langchain-ai/langgraph)
 - [pgvector](https://github.com/pgvector/pgvector)
 - [React](https://reactjs.org/)
 - [Express](https://expressjs.com/)
 - [TypeScript](https://www.typescriptlang.org/)
-
