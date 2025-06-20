@@ -61,11 +61,10 @@ We welcome feature suggestions! Please create an issue with:
    ```
    Edit the `.env` file with your configuration.
 
-3. Make the helper scripts executable and start the containers. This will set
-   up PostgreSQL and Redis automatically:
+3. Start the containers using the automated setup script. This sets up
+   PostgreSQL and Redis automatically and checks for prerequisites:
    ```bash
-   ./make-executable.sh
-   ./docker-start.sh dev   # or 'prod'
+   ./setup-check.sh dev   # or 'prod'
    ```
 
 4. Install dependencies
