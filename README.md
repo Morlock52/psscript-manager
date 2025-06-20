@@ -16,7 +16,7 @@ It bundles a collection of Docker services to help you explore, categorize and s
 
 ## Features
 - Script management and categorization
-- AI‑powered analysis of scripts
+ - AI‑powered analysis of scripts, including key command summaries with links to Microsoft Learn
 - Search and discovery backed by a vector database
 - Multi‑agent system (planned)
 - Documentation integration
