@@ -2,6 +2,15 @@
 
 This guide explains how to launch the container stack for this project.
 
+First, obtain the source code locally:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/psscript-manager.git
+cd psscript-manager
+```
+
+After cloning, continue with the steps below.
+
 1. Duplicate the sample environment configuration:
 
 ```bash
