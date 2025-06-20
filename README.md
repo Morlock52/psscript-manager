@@ -21,6 +21,7 @@ The remaining application services are still under development.
 - `docker-compose.override.yml` – development overrides
 - `docker-start.sh` – helper script to launch containers
 - `make-executable.sh` – sets execute permissions for scripts
+- `update-app.sh` – pulls the latest code and rebuilds containers
 - `src/ai` – placeholder for the Python AI service
 - `src/backend` – placeholder for the Node.js API
 - `src/frontend` – placeholder for the React frontend
@@ -33,7 +34,7 @@ The remaining application services are still under development.
 cp .env.example .env
 ```
 
-2. Make the startup script executable and run the containers:
+2. Make the helper scripts executable and run the containers:
 
 ```bash
 ./make-executable.sh
@@ -45,6 +46,14 @@ Logs for the AI service are written to the path specified by `LOG_FILE`
 
 The containers will start, but the application services are empty until the
 source code is added.
+
+## Updating
+
+To fetch the latest code and rebuild the containers, run:
+
+```bash
+./update-app.sh dev   # or 'prod'
+```
 
 ## Contributing
 

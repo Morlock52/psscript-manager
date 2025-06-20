@@ -20,6 +20,12 @@ cp .env.example .env
 ./docker-start.sh dev
 ```
 
+4. When updates are available, fetch the latest code and rebuild:
+
+```bash
+./update-app.sh dev
+```
+
 Below is a simple overview of the container layout.
 
 ![Docker architecture](images/docker-architecture.svg)
