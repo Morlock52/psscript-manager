@@ -47,6 +47,7 @@ def test_create_app_and_routes():
     assert isinstance(app, Flask)
     assert ('/health', ('GET',)) in app.routes
     assert ('/analyze', ('POST',)) in app.routes
+    assert ('/dashboard', ('GET',)) in app.routes
 
 
 def test_analyze_without_openai(tmp_path):

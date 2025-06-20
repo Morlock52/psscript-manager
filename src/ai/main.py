@@ -1,5 +1,6 @@
 import os
 import logging
+from pathlib import Path
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -75,6 +76,15 @@ def create_app() -> Flask:
         except Exception as exc:
             logger.exception("Error during analysis")
             return jsonify(error=str(exc)), 500
+
+    static_dir = Path(__file__).parent / "static"
+
+    @app.route("/dashboard", methods=["GET"])
+    def dashboard():
+        html_path = static_dir / "dashboard.html"
+        if html_path.exists():
+            return html_path.read_text(), 200, {"Content-Type": "text/html"}
+        return "<p>Dashboard not found</p>", 404, {"Content-Type": "text/html"}
 
     logger.info("Flask application created")
     return app

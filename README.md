@@ -21,6 +21,7 @@ It bundles a collection of Docker services to help you explore, categorize and s
 - Multi‑agent system (planned)
 - Documentation integration
 - User authentication
+- Built-in dashboard for analyzing scripts
 
 ## Architecture
 
@@ -39,7 +40,8 @@ A simplified view of the container layout.
    ./setup-check.sh dev
    ```
    The script checks prerequisites, creates a `.env` file if needed and launches the containers.
-3. Access the frontend at `http://localhost:5173` once the stack is running.
+3. Access the dashboard at `http://localhost:5000/dashboard` once the stack is running.
+   The placeholder React frontend is still available at `http://localhost:5173`.
 
 Logs for the AI service are written to the path specified by `LOG_FILE` in your `.env` file (default `./logs/app.log`).
 
