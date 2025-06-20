@@ -20,6 +20,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Simple in-memory counter for how many analyses have been performed
+analysis_count = 0
+
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -58,6 +61,7 @@ def create_app() -> Flask:
             "Analyze the following PowerShell script and summarize its purpose. "
             "Also identify any potential issues:\n\n" + script
         )
+        global analysis_count
         try:
             response = openai.ChatCompletion.create(
                 model=model,
@@ -71,6 +75,7 @@ def create_app() -> Flask:
                 temperature=0.2,
             )
             analysis = response.choices[0].message["content"].strip()
+            analysis_count += 1
             logger.info("Analysis completed successfully")
             return jsonify(analysis=analysis)
         except Exception as exc:
@@ -78,6 +83,11 @@ def create_app() -> Flask:
             return jsonify(error=str(exc)), 500
 
     static_dir = Path(__file__).parent / "static"
+
+    @app.route("/stats", methods=["GET"])
+    def stats() -> jsonify:
+        """Return simple usage statistics."""
+        return jsonify(analysis_count=analysis_count)
 
     @app.route("/dashboard", methods=["GET"])
     def dashboard():

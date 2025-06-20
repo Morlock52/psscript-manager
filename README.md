@@ -42,6 +42,7 @@ A simplified view of the container layout.
    The script checks prerequisites, creates a `.env` file if needed and launches the containers.
 3. Access the dashboard at `http://localhost:5000/dashboard` once the stack is running.
    The placeholder React frontend is still available at `http://localhost:5173`.
+   A basic statistics endpoint is available at `http://localhost:5000/stats`.
 
 Logs for the AI service are written to the path specified by `LOG_FILE` in your `.env` file (default `./logs/app.log`).
 

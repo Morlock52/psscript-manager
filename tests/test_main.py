@@ -48,6 +48,7 @@ def test_create_app_and_routes():
     assert ('/health', ('GET',)) in app.routes
     assert ('/analyze', ('POST',)) in app.routes
     assert ('/dashboard', ('GET',)) in app.routes
+    assert ('/stats', ('GET',)) in app.routes
 
 
 def test_analyze_without_openai(tmp_path):
@@ -65,3 +66,36 @@ def test_analyze_without_openai(tmp_path):
     assert status == 500
     assert result['error'] == 'OpenAI package not installed'
     assert log_file.read_text()
+
+
+def test_stats_increment_on_success(tmp_path):
+    class FakeChatCompletion:
+        @staticmethod
+        def create(model, messages, temperature):
+            return type('Resp', (), {
+                'choices': [type('Choice', (), {'message': {'content': 'ok'}})]
+            })
+
+    class FakeOpenAI:
+        api_key = 'test'
+        ChatCompletion = FakeChatCompletion
+
+    log_file = tmp_path / 'app.log'
+    os.environ['LOG_FILE'] = str(log_file)
+    os.environ['OPENAI_API_KEY'] = 'test'
+    logging.getLogger().handlers.clear()
+    importlib.reload(main)
+    main.openai = FakeOpenAI
+    app = main.create_app()
+    analyze = app.routes[('/analyze', ('POST',))]
+    stats = app.routes[('/stats', ('GET',))]
+
+    main.request.json_data = {'script': 'Write-Host "Hi"'}
+    response = analyze()
+    if isinstance(response, tuple):
+        result, status = response
+    else:
+        result, status = response, 200
+    assert status == 200
+    assert result['analysis'] == 'ok'
+    assert stats()['analysis_count'] == 1
