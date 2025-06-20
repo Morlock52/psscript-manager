@@ -40,6 +40,9 @@ cp .env.example .env
 ./docker-start.sh dev   # or 'prod'
 ```
 
+Logs for the AI service are written to the path specified by `LOG_FILE`
+(default `./logs/app.log`).
+
 The containers will start, but the application services are empty until the
 source code is added.
 
