@@ -45,6 +45,16 @@ A simplified view of the container layout.
 
 Logs for the AI service are written to the path specified by `LOG_FILE` in your `.env` file (default `./logs/app.log`).
 
+You can also send requests directly to the AI `/analyze` endpoint:
+
+```bash
+curl -X POST http://localhost:5000/analyze \
+     -H "Content-Type: application/json" \
+     -d '{"script": "Get-Process"}'
+```
+
+The response includes a summary, key cmdlets with definitions and examples, and links to related Microsoft Learn articles when available.
+
 ## Project Structure
 - `docker-compose.yml` & `docker-compose.override.yml` – container configuration
 - `docker-start.sh` – manual script to start containers
