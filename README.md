@@ -26,6 +26,17 @@ The remaining application services are still under development.
 - `src/backend` – placeholder for the Node.js API
 - `src/frontend` – placeholder for the React frontend
 
+## Installation
+
+First, clone the repository to your local machine:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/psscript-manager.git
+cd psscript-manager
+```
+
+The root of the cloned project contains a `.env.example` file that you'll copy in the next step.
+
 ## Getting Started
 
 1. Copy the example environment file:
@@ -44,8 +55,7 @@ cp .env.example .env
 Logs for the AI service are written to the path specified by `LOG_FILE`
 (default `./logs/app.log`).
 
-The containers will start, but the application services are empty until the
-source code is added.
+The containers will start, but the application services are empty until the source code is added.
 
 ## Updating
 
