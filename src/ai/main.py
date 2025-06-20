@@ -58,8 +58,10 @@ def create_app() -> Flask:
             return jsonify(error="Missing 'script' in request"), 400
 
         prompt = (
-            "Analyze the following PowerShell script and summarize its purpose. "
-            "Also identify any potential issues:\n\n" + script
+            "Analyze the following PowerShell script. Summarize its purpose, "
+            "list the key cmdlets with a short definition and example usage, "
+            "and include the Microsoft Learn URL for each when possible. "
+            "Identify any potential issues:\n\n" + script
         )
         global analysis_count
         try:
