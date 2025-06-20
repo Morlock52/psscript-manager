@@ -21,6 +21,7 @@ The remaining application services are still under development.
 - `docker-compose.override.yml` – development overrides
 - `docker-start.sh` – helper script to launch containers
 - `make-executable.sh` – sets execute permissions for scripts
+- `setup-check.sh` – verifies prerequisites and starts the stack
 - `update-app.sh` – pulls the latest code and rebuilds containers
 - `src/ai` – placeholder for the Python AI service
 - `src/backend` – placeholder for the Node.js API
@@ -39,17 +40,11 @@ The root of the cloned project contains a `.env.example` file that you'll copy i
 
 ## Getting Started
 
-1. Copy the example environment file:
+Run the automated setup script. Pass `dev` or `prod` depending on your
+environment:
 
 ```bash
-cp .env.example .env
-```
-
-2. Make the helper scripts executable and run the containers:
-
-```bash
-./make-executable.sh
-./docker-start.sh dev   # or 'prod'
+./setup-check.sh dev
 ```
 
 Logs for the AI service are written to the path specified by `LOG_FILE`

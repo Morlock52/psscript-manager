@@ -1,41 +1,42 @@
 # Setup Guide
 
-This guide explains how to launch the container stack for this project.
+This guide helps you launch the PSScript Manager containers with minimal effort.
+The `setup-check.sh` script verifies prerequisites, installs missing packages when
+possible, checks port availability, and then starts the stack.
 
-First, obtain the source code locally:
+## 1. Clone the repository
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/psscript-manager.git
 cd psscript-manager
 ```
 
-After cloning, continue with the steps below.
+## 2. Run the automated setup
 
-1. Duplicate the sample environment configuration:
+Execute the helper script and choose `dev` or `prod`:
 
 ```bash
-cp .env.example .env
+./setup-check.sh dev
 ```
 
-2. Allow helper scripts to execute:
+The script performs the following actions:
+
+- Ensures **Docker** and **Docker Compose** are installed (installs them on
+  Debian-based systems if missing).
+- Creates `.env` from `.env.example` when not present.
+- Checks that the default ports (5432, 6379, 4000, 5173 and 5000) are free.
+  If a port is taken, the script suggests an alternative value so you can
+  update `.env` accordingly.
+- Starts the Docker containers and prints their status.
+
+## 3. Updating later
+
+When updates are available, run:
 
 ```bash
-./make-executable.sh
-```
-
-3. Start the services. Choose `dev` or `prod` as needed:
-
-```bash
-./docker-start.sh dev
-```
-
-4. When updates are available, fetch the latest code and rebuild:
-
-```bash
-./update-app.sh dev
+./update-app.sh dev   # or 'prod'
 ```
 
 Below is a simple overview of the container layout.
 
 ![Docker architecture](images/docker-architecture.svg)
-
