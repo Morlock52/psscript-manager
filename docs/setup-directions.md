@@ -7,7 +7,7 @@ possible, checks port availability, and then starts the stack.
 ## 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/psscript-manager.git
+git clone https://github.com/Morlock52/psscript-manager.git
 cd psscript-manager
 ```
 

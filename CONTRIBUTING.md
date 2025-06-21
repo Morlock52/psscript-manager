@@ -51,7 +51,7 @@ We welcome feature suggestions! Please create an issue with:
 
 1. Clone your fork of the repository
    ```bash
-   git clone https://github.com/YOUR_USERNAME/psscript-manager.git
+   git clone https://github.com/Morlock52/psscript-manager.git
    cd psscript-manager
    ```
 

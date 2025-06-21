@@ -1,6 +1,6 @@
 # PSScript Manager
 
-![License](https://img.shields.io/github/license/YOUR_USERNAME/psscript-manager?style=flat-square)
+![License](https://img.shields.io/github/license/Morlock52/psscript-manager?style=flat-square)
 
 PSScript Manager is an **AI-powered** platform for managing and analyzing PowerShell scripts.
 It bundles a collection of Docker services to help you explore, categorize and search scripts with the help of language models.
@@ -32,7 +32,7 @@ A simplified view of the container layout.
 ## Quick Start
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/psscript-manager.git
+   git clone https://github.com/Morlock52/psscript-manager.git
    cd psscript-manager
    ```
 2. Run the helper script (choose `dev` or `prod`):
