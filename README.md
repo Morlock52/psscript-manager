@@ -66,6 +66,10 @@ python scripts/openai_config.py
 
 The tool will prompt for your API key, query available models and let you select one to store in `.env` as `OPENAI_MODEL`.
 
+You can also manage these settings directly from the dashboard using the `/config` endpoint.
+`GET /config` returns the saved model and whether an API key is configured,
+while `POST /config` updates the values and persists them to `.env`.
+
 ## Project Structure
 - `docker-compose.yml` & `docker-compose.override.yml` – container configuration
 - `docker-start.sh` – manual script to start containers

@@ -138,3 +138,22 @@ def test_update_config_persists_env(tmp_path):
     assert status == 200
     assert main.openai.api_key == 'new'
     assert 'OPENAI_MODEL=gpt-4' in env_file.read_text()
+
+
+def test_get_config_returns_state(tmp_path):
+    class FakeOpenAI:
+        api_key = 'abc'
+        Model = type('M', (), {})
+        ChatCompletion = type('Chat', (), {})
+
+    os.environ['OPENAI_API_KEY'] = 'abc'
+    os.environ['OPENAI_MODEL'] = 'gpt-test'
+    logging.getLogger().handlers.clear()
+    importlib.reload(main)
+    main.openai = FakeOpenAI
+    app = main.create_app()
+    get_config = app.routes[('/config', ('GET',))]
+    result, status = get_config()
+    assert status == 200
+    assert result['model'] == 'gpt-test'
+    assert result['api_key_configured'] is True
