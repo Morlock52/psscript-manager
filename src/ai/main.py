@@ -9,6 +9,8 @@ try:
 except ImportError:  # pragma: no cover - graceful handling if package is missing
     openai = None
 
+ENV_FILE = Path(os.getenv("ENV_FILE", Path(__file__).resolve().parents[2] / ".env"))
+
 
 log_level = os.getenv("LOG_LEVEL", "INFO").upper()
 log_file = os.getenv("LOG_FILE")
@@ -22,6 +24,24 @@ logger = logging.getLogger(__name__)
 
 # Simple in-memory counter for how many analyses have been performed
 analysis_count = 0
+
+
+def _update_env_file(updates: dict) -> None:
+    """Update key-value pairs in the ENV_FILE if it exists."""
+    try:
+        if not ENV_FILE.exists():
+            ENV_FILE.write_text("")
+        lines = ENV_FILE.read_text().splitlines()
+        mapping = {line.split('=', 1)[0]: i for i, line in enumerate(lines) if '=' in line}
+        for key, value in updates.items():
+            new_line = f"{key}={value}"
+            if key in mapping:
+                lines[mapping[key]] = new_line
+            else:
+                lines.append(new_line)
+        ENV_FILE.write_text("\n".join(lines) + "\n")
+    except Exception:
+        logger.warning("Failed to update %s", ENV_FILE)
 
 
 def create_app() -> Flask:
@@ -83,6 +103,44 @@ def create_app() -> Flask:
         except Exception as exc:
             logger.exception("Error during analysis")
             return jsonify(error=str(exc)), 500
+
+    @app.route("/models", methods=["GET"])
+    def list_models():
+        """Return available OpenAI model IDs."""
+        if openai is None:
+            logger.error("OpenAI package is not installed")
+            return jsonify(error="OpenAI package not installed"), 500
+        if not openai.api_key:
+            logger.error("OPENAI_API_KEY is not configured")
+            return jsonify(error="OPENAI_API_KEY not set"), 500
+        try:
+            resp = openai.Model.list()
+            models = [m["id"] for m in resp.get("data", [])]
+            return jsonify(models=models), 200
+        except Exception as exc:
+            logger.exception("Error fetching models")
+            return jsonify(error=str(exc)), 500
+
+    @app.route("/config", methods=["POST"])
+    def update_config():
+        """Update API key and model configuration."""
+        nonlocal model
+        data = request.get_json() or {}
+        key = data.get("api_key")
+        new_model = data.get("model")
+        updates = {}
+        if key:
+            if openai is not None:
+                openai.api_key = key
+            os.environ["OPENAI_API_KEY"] = key
+            updates["OPENAI_API_KEY"] = key
+        if new_model:
+            model = new_model
+            os.environ["OPENAI_MODEL"] = new_model
+            updates["OPENAI_MODEL"] = new_model
+        if updates:
+            _update_env_file(updates)
+        return jsonify(status="ok", model=model), 200
 
     static_dir = Path(__file__).parent / "static"
 

@@ -99,3 +99,42 @@ def test_stats_increment_on_success(tmp_path):
     assert status == 200
     assert result['analysis'] == 'ok'
     assert stats()['analysis_count'] == 1
+
+
+def test_models_endpoint_without_openai(tmp_path):
+    log_file = tmp_path / 'app.log'
+    os.environ['LOG_FILE'] = str(log_file)
+    logging.getLogger().handlers.clear()
+    importlib.reload(main)
+    main.openai = None
+    app = main.create_app()
+    models = app.routes[('/models', ('GET',))]
+    result, status = models()
+    assert status == 500
+    assert 'error' in result
+
+
+def test_update_config_persists_env(tmp_path):
+    class FakeModel:
+        @staticmethod
+        def list():
+            return {'data': [{'id': 'gpt-3'}, {'id': 'gpt-4'}]}
+
+    class FakeOpenAI:
+        api_key = 'old'
+        Model = FakeModel
+        ChatCompletion = type('Chat', (), {})
+
+    env_file = tmp_path / '.env'
+    os.environ['ENV_FILE'] = str(env_file)
+    os.environ['OPENAI_API_KEY'] = 'old'
+    logging.getLogger().handlers.clear()
+    importlib.reload(main)
+    main.openai = FakeOpenAI
+    app = main.create_app()
+    update = app.routes[('/config', ('POST',))]
+    main.request.json_data = {'api_key': 'new', 'model': 'gpt-4'}
+    result, status = update()
+    assert status == 200
+    assert main.openai.api_key == 'new'
+    assert 'OPENAI_MODEL=gpt-4' in env_file.read_text()

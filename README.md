@@ -56,6 +56,16 @@ curl -X POST http://localhost:5000/analyze \
 
 The response includes a summary, key cmdlets with definitions and examples, and links to related Microsoft Learn articles when available.
 
+### Configuring OpenAI
+
+Use the `scripts/openai_config.py` helper to set your OpenAI API key and choose the model. The script updates your `.env` file:
+
+```bash
+python scripts/openai_config.py
+```
+
+The tool will prompt for your API key, query available models and let you select one to store in `.env` as `OPENAI_MODEL`.
+
 ## Project Structure
 - `docker-compose.yml` & `docker-compose.override.yml` – container configuration
 - `docker-start.sh` – manual script to start containers
