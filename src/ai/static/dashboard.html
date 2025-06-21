@@ -11,6 +11,12 @@
     <textarea id="script" rows="10" cols="70" placeholder="Paste PowerShell script here"></textarea><br>
     <button type="submit">Analyze</button>
 </form>
+<h2>OpenAI Settings</h2>
+<form id="settings-form">
+    <input type="text" id="api-key" placeholder="OpenAI API Key"><br>
+    <select id="model"></select>
+    <button type="submit">Save Settings</button>
+</form>
 <pre id="result"></pre>
 <script>
 async function updateStats() {
@@ -34,7 +40,38 @@ document.getElementById('analyze-form').addEventListener('submit', async (e) => 
     updateStats();
 });
 
-document.addEventListener('DOMContentLoaded', updateStats);
+async function loadModels() {
+    const res = await fetch('/models');
+    if (res.ok) {
+        const data = await res.json();
+        const select = document.getElementById('model');
+        select.innerHTML = '';
+        data.models.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m;
+            opt.textContent = m;
+            select.appendChild(opt);
+        });
+    }
+}
+
+document.getElementById('settings-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const api_key = document.getElementById('api-key').value;
+    const model = document.getElementById('model').value;
+    const res = await fetch('/config', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ api_key, model })
+    });
+    const data = await res.json();
+    alert(data.status ? 'Settings updated' : data.error);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateStats();
+    loadModels();
+});
 </script>
 </body>
 </html>
