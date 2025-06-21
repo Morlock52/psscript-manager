@@ -121,6 +121,14 @@ def create_app() -> Flask:
             logger.exception("Error fetching models")
             return jsonify(error=str(exc)), 500
 
+    @app.route("/config", methods=["GET"])
+    def get_config():
+        """Return current model and whether the API key is configured."""
+        return (
+            jsonify(model=model, api_key_configured=bool(openai and openai.api_key)),
+            200,
+        )
+
     @app.route("/config", methods=["POST"])
     def update_config():
         """Update API key and model configuration."""
@@ -140,7 +148,10 @@ def create_app() -> Flask:
             updates["OPENAI_MODEL"] = new_model
         if updates:
             _update_env_file(updates)
-        return jsonify(status="ok", model=model), 200
+        return (
+            jsonify(status="ok", model=model, api_key_configured=bool(openai and openai.api_key)),
+            200,
+        )
 
     static_dir = Path(__file__).parent / "static"
 

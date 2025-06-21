@@ -40,7 +40,7 @@ document.getElementById('analyze-form').addEventListener('submit', async (e) => 
     updateStats();
 });
 
-async function loadModels() {
+async function loadModels(selected) {
     const res = await fetch('/models');
     if (res.ok) {
         const data = await res.json();
@@ -50,8 +50,18 @@ async function loadModels() {
             const opt = document.createElement('option');
             opt.value = m;
             opt.textContent = m;
+            if (m === selected) opt.selected = true;
             select.appendChild(opt);
         });
+    }
+}
+
+async function fetchConfig() {
+    const res = await fetch('/config');
+    if (!res.ok) return;
+    const data = await res.json();
+    if (data.api_key_configured) {
+        await loadModels(data.model);
     }
 }
 
@@ -65,12 +75,17 @@ document.getElementById('settings-form').addEventListener('submit', async (e) =>
         body: JSON.stringify({ api_key, model })
     });
     const data = await res.json();
-    alert(data.status ? 'Settings updated' : data.error);
+    if (data.status) {
+        await fetchConfig();
+        alert('Settings updated');
+    } else {
+        alert(data.error);
+    }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
     updateStats();
-    loadModels();
+    fetchConfig();
 });
 </script>
 </body>
