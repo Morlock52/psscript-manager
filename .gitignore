@@ -97,3 +97,7 @@ src/backend/uploads/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+# Large files
+deploy/images/
+*.tar
+*.tar.gz
