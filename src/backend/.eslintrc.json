@@ -1,0 +1,41 @@
+{
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "ignorePatterns": ["dist/**/*", "node_modules/**/*"],
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": ["warn", {
+      "ts-nocheck": "allow-with-description",
+      "ts-ignore": "allow-with-description",
+      "ts-expect-error": false
+    }],
+    "@typescript-eslint/no-namespace": "warn",
+    "@typescript-eslint/no-require-imports": "warn",
+    "prefer-const": "warn",
+    "camelcase": ["warn", { "properties": "never" }],
+    "key-spacing": ["warn", { "beforeColon": false, "afterColon": true }],
+    // Custom rule to warn about inconsistent field names between AI service and backend
+    "id-match": ["warn", "^[a-zA-Z_$][a-zA-Z\\d_$]*$", { 
+      "properties": true, 
+      "onlyDeclarations": false,
+      "ignoreDestructuring": true
+    }]
+  }
+}

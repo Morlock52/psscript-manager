@@ -1,0 +1,53 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apk add --no-cache bash curl jq postgresql-client
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy test scripts and data
+COPY test-psscript-core.sh ./
+COPY run-specific-test.sh ./
+COPY run-deployment-tests.sh ./
+COPY verify-test-setup.sh ./
+COPY test-script.ps1 ./
+COPY test-script-modified.ps1 ./
+COPY test-data.csv ./
+COPY testplan.md ./
+COPY README-TESTING.md ./
+COPY README-PSSCRIPT-TESTING.md ./
+COPY TESTING-FRAMEWORK-SUMMARY.md ./
+COPY PSSCRIPT-TEST-SCRIPTS-GUIDE.md ./
+
+# Make scripts executable
+RUN chmod +x *.sh
+
+# Copy wait-for-it script
+COPY wait-for-it.sh ./
+RUN chmod +x wait-for-it.sh
+
+# Create run-tests-in-docker.sh script
+RUN echo '#!/bin/bash\n\
+echo "Running PSScript tests in Docker..."\n\
+./verify-test-setup.sh\n\
+./test-psscript-core.sh\n\
+' > run-tests-in-docker.sh && chmod +x run-tests-in-docker.sh
+
+# Create test results directory
+RUN mkdir -p /app/test-results
+
+# Set environment variables
+ENV NODE_ENV=test
+ENV TEST_ENV=docker
+
+# Set the entrypoint
+ENTRYPOINT ["/bin/bash", "-c"]
+
+# Default command
+CMD ["./run-tests-in-docker.sh"]

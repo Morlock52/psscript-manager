@@ -1,0 +1,202 @@
+# IONOS Server Deployment Commands
+# Execute these commands step by step
+
+# 1. First, SSH into the server:
+ssh root@74.208.184.195
+# Password: Morlock52b
+
+# 2. Check what's using port 80:
+lsof -Pi :80 -sTCP:LISTEN
+netstat -tuln | grep :80
+
+# 3. Stop any existing web service:
+systemctl stop apache2 2>/dev/null || true
+systemctl stop nginx 2>/dev/null || true
+systemctl stop httpd 2>/dev/null || true
+systemctl disable apache2 2>/dev/null || true
+systemctl disable nginx 2>/dev/null || true
+systemctl disable httpd 2>/dev/null || true
+
+# 4. Install Docker if not present:
+if ! command -v docker &> /dev/null; then
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sh get-docker.sh
+    rm get-docker.sh
+fi
+
+# 5. Install Docker Compose:
+if ! command -v docker-compose &> /dev/null; then
+    curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+fi
+
+# 6. Create PSScript directory:
+mkdir -p /opt/psscript
+cd /opt/psscript
+
+# 7. Create docker-compose.yml:
+cat > docker-compose.yml << 'EOF'
+version: '3.8'
+
+services:
+  # Single container with all services
+  psscript-all:
+    image: psscript/all-in-one:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.allinone
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+      - JWT_SECRET=your_secure_jwt_secret_here
+      - OPENAI_API_KEY=your_openai_key_here
+      - MOCK_MODE=true
+    volumes:
+      - psscript_data:/data
+    restart: unless-stopped
+
+volumes:
+  psscript_data:
+EOF
+
+# 8. Create an all-in-one Dockerfile:
+cat > Dockerfile.allinone << 'EOF'
+FROM node:18-alpine
+
+# Install Python, PostgreSQL, Redis, and Nginx
+RUN apk add --no-cache \
+    python3 py3-pip \
+    postgresql postgresql-contrib \
+    redis \
+    nginx \
+    supervisor \
+    curl
+
+# Install pgvector
+RUN apk add --no-cache --virtual .build-deps \
+    postgresql-dev gcc musl-dev make && \
+    cd /tmp && \
+    curl -L https://github.com/pgvector/pgvector/archive/v0.5.1.tar.gz -o pgvector.tar.gz && \
+    tar xzf pgvector.tar.gz && \
+    cd pgvector-0.5.1 && \
+    make && \
+    make install && \
+    apk del .build-deps && \
+    rm -rf /tmp/*
+
+# Create directories
+RUN mkdir -p /app /data/postgres /data/redis /var/log/supervisor
+
+WORKDIR /app
+
+# Copy application files
+COPY . .
+
+# Install dependencies
+RUN cd src/backend && npm ci --only=production
+RUN cd src/frontend && npm ci && npm run build
+RUN cd src/ai && pip3 install -r requirements.txt
+
+# Setup PostgreSQL
+RUN mkdir -p /run/postgresql && chown postgres:postgres /run/postgresql
+
+# Nginx configuration
+RUN echo 'server { \
+    listen 80; \
+    location /api/ { proxy_pass http://localhost:4000; } \
+    location / { root /app/src/frontend/dist; try_files $uri /index.html; } \
+}' > /etc/nginx/http.d/default.conf
+
+# Supervisor configuration
+RUN echo '[supervisord] \
+nodaemon=true \
+\
+[program:postgres] \
+command=su postgres -c "postgres -D /data/postgres" \
+autostart=true \
+\
+[program:redis] \
+command=redis-server \
+autostart=true \
+\
+[program:backend] \
+command=node /app/src/backend/index.js \
+environment=DB_HOST="localhost",REDIS_HOST="localhost" \
+autostart=true \
+\
+[program:ai] \
+command=python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 \
+directory=/app/src/ai \
+autostart=true \
+\
+[program:nginx] \
+command=nginx -g "daemon off;" \
+autostart=true' > /etc/supervisord.conf
+
+# Initialize database
+RUN su postgres -c "initdb -D /data/postgres" && \
+    su postgres -c "pg_ctl -D /data/postgres start" && \
+    su postgres -c "createdb psscript" && \
+    su postgres -c "psql -d psscript -c 'CREATE EXTENSION vector;'" && \
+    su postgres -c "pg_ctl -D /data/postgres stop"
+
+EXPOSE 80
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+EOF
+
+# 9. Quick deploy option - using pre-built images:
+cat > docker-compose-simple.yml << 'EOF'
+version: '3.8'
+
+services:
+  app:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+    restart: unless-stopped
+EOF
+
+# 10. Create a simple test page:
+cat > index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PSScript - Coming Soon</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>PSScript Application</h1>
+    <p>Deployment in progress...</p>
+    <p>Server: 74.208.184.195</p>
+</body>
+</html>
+EOF
+
+# 11. Create nginx config:
+cat > nginx.conf << 'EOF'
+events { worker_connections 1024; }
+http {
+    server {
+        listen 80;
+        location / {
+            root /usr/share/nginx/html;
+            index index.html;
+        }
+    }
+}
+EOF
+
+# 12. Start with the simple version first:
+docker-compose -f docker-compose-simple.yml up -d
+
+# 13. Check if it's working:
+curl http://localhost
+docker ps

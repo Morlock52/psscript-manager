@@ -1,0 +1,62 @@
+# PowerShell Script Template
+name: powershell-script
+description: Template for creating new PowerShell scripts with best practices
+version: "1.0"
+
+variables:
+  script_name: "New-Script"
+  author: "${user.name}"
+  description: "A new PowerShell script"
+  
+template: |
+  <#
+  .SYNOPSIS
+      ${description}
+  
+  .DESCRIPTION
+      Detailed description of what this script does.
+  
+  .PARAMETER ParameterName
+      Description of the parameter
+  
+  .EXAMPLE
+      ${script_name}.ps1 -ParameterName "Value"
+      
+  .NOTES
+      Author: ${author}
+      Date: ${date}
+      Version: 1.0
+  #>
+  
+  [CmdletBinding()]
+  param(
+      [Parameter(Mandatory=$false)]
+      [string]$ParameterName = "DefaultValue"
+  )
+  
+  begin {
+      # Initialize script
+      $ErrorActionPreference = 'Stop'
+      
+      # Import required modules
+      # Import-Module ModuleName -ErrorAction Stop
+  }
+  
+  process {
+      try {
+          # Main script logic here
+          Write-Verbose "Processing with parameter: $ParameterName"
+          
+          # Your code here
+          
+      }
+      catch {
+          Write-Error "An error occurred: $_"
+          throw
+      }
+  }
+  
+  end {
+      # Cleanup operations
+      Write-Verbose "Script completed successfully"
+  }

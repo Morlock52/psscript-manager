@@ -1,0 +1,33 @@
+# PSScript One-Line Installation Command
+# Copy and paste this entire command into your SSH session after logging in as root
+
+curl -fsSL https://get.docker.com | sh && systemctl start docker && systemctl enable docker && curl -L "https://github.com/docker/compose/releases/download/v2.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose && mkdir -p /opt/psscript && cd /opt/psscript && cat > docker-compose.yml << 'EOF'
+version: '3'
+services:
+  web:
+    image: httpd:alpine
+    ports:
+      - "3002:80"
+    volumes:
+      - ./html:/usr/local/apache2/htdocs
+    restart: unless-stopped
+  api:
+    image: node:alpine
+    ports:
+      - "4000:4000"
+    command: node -e "require('http').createServer((req,res)=>{res.setHeader('Access-Control-Allow-Origin','*');res.writeHead(200);res.end(JSON.stringify({status:'ok',time:new Date()}))}).listen(4000,'0.0.0.0',()=>console.log('API on 4000'))"
+    restart: unless-stopped
+  postgres:
+    image: postgres:alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+EOF
+mkdir -p html && echo '<html><head><title>PSScript</title><style>body{font-family:Arial;background:#222;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}.container{text-align:center;padding:40px;background:#333;border-radius:10px}h1{color:#4CAF50}p{color:#ccc}.status{margin:20px 0}.ok{color:#4CAF50}.err{color:#f44336}</style></head><body><div class="container"><h1>PSScript Running!</h1><p>Installation successful. Server time: <span id="time"></span></p><div class="status">Web: <span class="ok">✓ Online</span></div><div class="status">API: <span id="api">Checking...</span></div><div class="status">Access at: http://74.208.184.195:3002</div></div><script>setInterval(()=>{document.getElementById("time").textContent=new Date().toLocaleString()},1000);fetch("http://74.208.184.195:4000").then(r=>r.json()).then(d=>{document.getElementById("api").innerHTML=\'<span class="ok">✓ Online</span>\'}).catch(e=>{document.getElementById("api").innerHTML=\'<span class="err">✗ Offline</span>\'})</script></body></html>' > html/index.html && ufw allow 22/tcp && ufw allow 3002/tcp && ufw allow 4000/tcp && ufw allow 5432/tcp && ufw allow 6379/tcp && echo "y" | ufw enable && docker-compose up -d && sleep 10 && docker-compose ps && echo -e "\n\n✅ Installation Complete!\n\nAccess PSScript at: http://74.208.184.195:3002\n\nCommands:\n  cd /opt/psscript\n  docker-compose ps\n  docker-compose logs -f\n"

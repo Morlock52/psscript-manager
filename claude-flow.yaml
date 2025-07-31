@@ -1,0 +1,117 @@
+# Claude Flow Configuration
+version: "1.0"
+project:
+  name: PSScript
+  description: PowerShell Script Management Platform with AI Analysis
+  type: full-stack
+  
+settings:
+  ai:
+    model: claude-3-opus-20240229
+    temperature: 0.7
+    max_tokens: 4000
+  
+  cache:
+    enabled: true
+    ttl: 3600
+    
+  output:
+    format: markdown
+    verbosity: normal
+    
+workflows:
+  - name: analyze-script
+    description: Analyze a PowerShell script for security and best practices
+    steps:
+      - action: read_file
+        input: "${script_path}"
+      - action: ai_analyze
+        prompt: |
+          Analyze this PowerShell script for:
+          1. Security vulnerabilities
+          2. Best practices compliance
+          3. Performance issues
+          4. Code quality
+          
+          Provide detailed recommendations.
+      - action: save_results
+        output: ".claude-flow/cache/analysis_${timestamp}.md"
+        
+  - name: generate-tests
+    description: Generate unit tests for PowerShell scripts
+    steps:
+      - action: read_file
+        input: "${script_path}"
+      - action: ai_generate
+        prompt: |
+          Generate comprehensive Pester unit tests for this PowerShell script.
+          Include:
+          - Function tests
+          - Parameter validation tests
+          - Error handling tests
+          - Edge case tests
+      - action: save_file
+        output: "${script_path}.Tests.ps1"
+        
+  - name: fix-issues
+    description: Fix linting and code quality issues
+    steps:
+      - action: run_command
+        command: "npm run lint"
+      - action: ai_fix
+        prompt: "Fix the reported linting issues while maintaining functionality"
+      - action: run_command
+        command: "npm run lint:fix"
+        
+  - name: update-docs
+    description: Update project documentation
+    steps:
+      - action: scan_project
+        patterns: ["*.ps1", "*.ts", "*.tsx", "*.js"]
+      - action: ai_document
+        prompt: |
+          Update the project documentation based on the current codebase.
+          Focus on:
+          - API endpoints
+          - PowerShell modules
+          - React components
+          - Database schema
+      - action: save_file
+        output: "docs/API.md"
+        
+templates:
+  script_analysis:
+    prompt: |
+      Analyze the following PowerShell script:
+      
+      ${content}
+      
+      Provide:
+      1. Security assessment (score 1-10)
+      2. Code quality assessment
+      3. Performance considerations
+      4. Recommendations for improvement
+      
+  test_generation:
+    prompt: |
+      Generate Pester tests for:
+      
+      ${content}
+      
+      Requirements:
+      - Use Pester v5 syntax
+      - Include positive and negative test cases
+      - Test all public functions
+      - Include integration tests where applicable
+      
+  documentation:
+    prompt: |
+      Generate documentation for:
+      
+      ${content}
+      
+      Include:
+      - Function descriptions
+      - Parameter documentation
+      - Usage examples
+      - Return value descriptions

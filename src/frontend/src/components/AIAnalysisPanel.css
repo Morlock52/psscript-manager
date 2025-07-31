@@ -1,0 +1,76 @@
+.ai-analysis-container {
+  padding: 16px;
+  height: 100%;
+}
+
+.ai-analysis-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.ai-analysis-error {
+  padding: 16px;
+  text-align: center;
+}
+
+.ai-analysis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.ai-analysis-score-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.ai-analysis-tag-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.ai-analysis-section {
+  margin-bottom: 24px;
+}
+
+.ai-analysis-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ai-analysis-question-section {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+}
+
+.ai-analysis-question-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  min-height: 60px;
+  resize: vertical;
+}
+
+.ai-analysis-flex-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.ai-analysis-flex-grow {
+  flex-grow: 1;
+}

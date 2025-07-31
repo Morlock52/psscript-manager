@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # Extend the base services
+  frontend:
+    extends:
+      file: docker-compose.yml
+      service: frontend
+    environment:
+      - VITE_USE_MOCKS=true
+      - VITE_TEST_MODE=true
+
+  backend:
+    extends:
+      file: docker-compose.yml
+      service: backend
+    environment:
+      - NODE_ENV=test
+      - MOCK_MODE=true
+      - TEST_MODE=true
+    volumes:
+      - ./src/backend:/app
+      - /app/node_modules
+      - ./test-results:/app/test-results
+
+  ai-service:
+    extends:
+      file: docker-compose.yml
+      service: ai-service
+    environment:
+      - MOCK_MODE=true
+      - TEST_MODE=true
+    volumes:
+      - ./src/ai:/app
+      - ./test-results:/app/test-results
+
+  postgres:
+    extends:
+      file: docker-compose.yml
+      service: postgres
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+      - ./src/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./src/db/seeds/01-initial-data.sql:/docker-entrypoint-initdb.d/02-seed-data.sql
+      - ./src/db/seeds/02-test-data.sql:/docker-entrypoint-initdb.d/03-test-data.sql
+
+  redis:
+    extends:
+      file: docker-compose.yml
+      service: redis
+    volumes:
+      - redis_test_data:/data
+
+  # Test runner service
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - ./test-results:/app/test-results
+    depends_on:
+      - backend
+      - ai-service
+      - postgres
+      - redis
+    environment:
+      - API_URL=http://backend:4000/api
+      - TEST_ENV=docker
+      - NODE_ENV=test
+    command: ["./wait-for-it.sh", "backend:4000", "--", "./run-tests-in-docker.sh"]
+
+volumes:
+  postgres_test_data:
+  redis_test_data:

@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-07-28T23:38:09.973Z",
+  "system": {
+    "platform": "darwin",
+    "nodeVersion": "v22.16.0",
+    "isDocker": false
+  },
+  "network": {
+    "dnsResolution": true,
+    "tcpConnectivity": true
+  },
+  "database": {
+    "pgClientConnection": true,
+    "sequelizeConnection": true,
+    "info": {
+      "version": "PostgreSQL 16.9 (Homebrew) on aarch64-apple-darwin24.4.0, compiled by Apple clang version 17.0.0 (clang-1700.0.13.3), 64-bit",
+      "database": "psscript",
+      "server_time": "2025-07-28T23:38:10.254Z",
+      "db_size": "10172 kB",
+      "active_connections": "6",
+      "max_connections": "100",
+      "shared_buffers": "128MB",
+      "work_mem": "4MB"
+    },
+    "tableCount": 20
+  },
+  "recommendations": []
+}

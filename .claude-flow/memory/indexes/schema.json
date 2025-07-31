@@ -1,0 +1,91 @@
+{
+  "version": "1.0",
+  "indexes": {
+    "file_paths": {
+      "type": "btree",
+      "fields": ["path"],
+      "unique": true,
+      "description": "Quick lookup by file path"
+    },
+    "function_names": {
+      "type": "inverted",
+      "fields": ["functions"],
+      "tokenizer": "camelCase",
+      "description": "Search functions across all scripts"
+    },
+    "api_endpoints": {
+      "type": "btree",
+      "fields": ["method", "path"],
+      "compound": true,
+      "description": "API endpoint lookup"
+    },
+    "script_security": {
+      "type": "btree",
+      "fields": ["security_score", "path"],
+      "order": ["desc", "asc"],
+      "description": "Scripts ordered by security score"
+    },
+    "semantic_content": {
+      "type": "vector",
+      "dimensions": 1536,
+      "metric": "cosine",
+      "description": "Semantic search on content"
+    },
+    "dependency_graph": {
+      "type": "graph",
+      "nodes": ["files", "functions", "components"],
+      "edges": ["imports", "calls", "uses"],
+      "description": "Code dependency relationships"
+    },
+    "temporal": {
+      "type": "timeseries",
+      "field": "timestamp",
+      "granularity": "hour",
+      "retention": "30d",
+      "description": "Time-based memory queries"
+    },
+    "tags": {
+      "type": "inverted",
+      "fields": ["tags"],
+      "case_sensitive": false,
+      "description": "Tag-based categorization"
+    },
+    "swarm_agent": {
+      "type": "compound",
+      "fields": ["agent_id", "timestamp"],
+      "description": "Agent-specific memory retrieval"
+    },
+    "task_context": {
+      "type": "compound",
+      "fields": ["task_id", "type", "status"],
+      "description": "Task-based memory organization"
+    }
+  },
+  "relationships": {
+    "script_to_functions": {
+      "from": "file_paths",
+      "to": "function_names",
+      "type": "one_to_many"
+    },
+    "component_to_api": {
+      "from": "dependency_graph",
+      "to": "api_endpoints",
+      "type": "many_to_many"
+    },
+    "agent_to_memory": {
+      "from": "swarm_agent",
+      "to": "semantic_content",
+      "type": "one_to_many"
+    }
+  },
+  "optimization": {
+    "cache_size": "100MB",
+    "bloom_filters": true,
+    "compression": "lz4",
+    "sharding": {
+      "enabled": true,
+      "key": "timestamp",
+      "buckets": 10
+    }
+  }
+}

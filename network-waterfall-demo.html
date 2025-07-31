@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Waterfall - Lazy Loading Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #61dafb;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .waterfall-container {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+        .timeline {
+            position: relative;
+            height: 50px;
+            background: #333;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .time-marker {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #555;
+        }
+        .time-label {
+            position: absolute;
+            top: -20px;
+            font-size: 12px;
+            color: #999;
+            transform: translateX(-50%);
+        }
+        .request-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .request-name {
+            width: 300px;
+            padding-right: 20px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .request-bar-container {
+            flex: 1;
+            position: relative;
+            height: 24px;
+        }
+        .request-bar {
+            position: absolute;
+            height: 100%;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            font-size: 12px;
+            color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            transition: all 0.5s ease-out;
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        .request-bar.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .bar-initial { background: #61dafb; }
+        .bar-lazy { background: #8b5cf6; }
+        .bar-prefetch { background: #10b981; }
+        .bar-dynamic { background: #f59e0b; }
+        .bar-vendor { background: #6366f1; }
+        
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .stat-card {
+            background: #3d3d3d;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #61dafb;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #999;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Network Waterfall - PSScript Lazy Loading</h1>
+        
+        <div class="waterfall-container">
+            <div class="timeline">
+                <div class="time-marker" style="left: 0%"><span class="time-label">0ms</span></div>
+                <div class="time-marker" style="left: 20%"><span class="time-label">1s</span></div>
+                <div class="time-marker" style="left: 40%"><span class="time-label">2s</span></div>
+                <div class="time-marker" style="left: 60%"><span class="time-label">3s</span></div>
+                <div class="time-marker" style="left: 80%"><span class="time-label">4s</span></div>
+                <div class="time-marker" style="left: 100%"><span class="time-label">5s</span></div>
+            </div>
+            
+            <!-- Initial Load -->
+            <div class="request-row">
+                <div class="request-name">index.html</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-initial" style="left: 0%; width: 4%;">12KB</div>
+                </div>
+            </div>
+            
+            <div class="request-row">
+                <div class="request-name">main.tsx</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-initial" style="left: 4%; width: 6%;">45KB</div>
+                </div>
+            </div>
+            
+            <div class="request-row">
+                <div class="request-name">react-vendor.js</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-vendor" style="left: 10%; width: 12%;">280KB</div>
+                </div>
+            </div>
+            
+            <div class="request-row">
+                <div class="request-name">app-core.js</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-initial" style="left: 22%; width: 8%;">120KB</div>
+                </div>
+            </div>
+            
+            <div class="request-row">
+                <div class="request-name">styles.css</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-initial" style="left: 30%; width: 4%;">35KB</div>
+                </div>
+            </div>
+            
+            <!-- Page Ready -->
+            <div class="request-row">
+                <div class="request-name" style="color: #10b981;">⚡ Page Interactive</div>
+                <div class="request-bar-container">
+                    <div style="position: absolute; left: 34%; width: 2px; height: 30px; background: #10b981;"></div>
+                </div>
+            </div>
+            
+            <!-- Lazy Loaded -->
+            <div class="request-row">
+                <div class="request-name">dashboard.js (lazy)</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-lazy" style="left: 36%; width: 8%;">85KB</div>
+                </div>
+            </div>
+            
+            <div class="request-row">
+                <div class="request-name">router.js (lazy)</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-lazy" style="left: 44%; width: 4%;">45KB</div>
+                </div>
+            </div>
+            
+            <!-- User navigates to Scripts page -->
+            <div class="request-row">
+                <div class="request-name" style="color: #f59e0b;">👤 User clicks Scripts</div>
+                <div class="request-bar-container">
+                    <div style="position: absolute; left: 60%; width: 2px; height: 30px; background: #f59e0b;"></div>
+                </div>
+            </div>
+            
+            <div class="request-row">
+                <div class="request-name">scripts.js (lazy)</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-lazy" style="left: 62%; width: 6%;">95KB</div>
+                </div>
+            </div>
+            
+            <div class="request-row">
+                <div class="request-name">virtual-scroll.js</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-lazy" style="left: 68%; width: 4%;">38KB</div>
+                </div>
+            </div>
+            
+            <!-- User opens editor -->
+            <div class="request-row">
+                <div class="request-name" style="color: #f59e0b;">👤 User opens Editor</div>
+                <div class="request-bar-container">
+                    <div style="position: absolute; left: 80%; width: 2px; height: 30px; background: #f59e0b;"></div>
+                </div>
+            </div>
+            
+            <div class="request-row">
+                <div class="request-name">editor.js (heavy)</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-dynamic" style="left: 82%; width: 16%;">2MB</div>
+                </div>
+            </div>
+            
+            <!-- Prefetched -->
+            <div class="request-row">
+                <div class="request-name">upload.js (prefetch)</div>
+                <div class="request-bar-container">
+                    <div class="request-bar bar-prefetch" style="left: 50%; width: 4%; opacity: 0.6;">52KB</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color bar-initial"></div>
+                <span>Initial Bundle</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color bar-vendor"></div>
+                <span>Vendor Bundle</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color bar-lazy"></div>
+                <span>Lazy Loaded</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color bar-dynamic"></div>
+                <span>On-Demand</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color bar-prefetch"></div>
+                <span>Prefetched</span>
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value">1.5s</div>
+                <div class="stat-label">Time to Interactive</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">492KB</div>
+                <div class="stat-label">Initial Download</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">2MB</div>
+                <div class="stat-label">Editor (Deferred)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">65%</div>
+                <div class="stat-label">Size Reduction</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Animate the bars appearing
+        setTimeout(() => {
+            document.querySelectorAll('.request-bar').forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.classList.add('show');
+                }, index * 100);
+            });
+        }, 500);
+    </script>
+</body>
+</html>

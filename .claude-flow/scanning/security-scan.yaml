@@ -1,0 +1,292 @@
+# Security and Performance Scanning Configuration
+version: "1.0"
+
+scanning:
+  # Security Scanning Configuration
+  security:
+    vulnerability_scanning:
+      npm_audit:
+        enabled: true
+        fail_threshold: "high"
+        auto_fix: true
+        ignore_dev_dependencies: false
+        
+      snyk:
+        enabled: true
+        monitor: true
+        fail_threshold: "high"
+        test_all_projects: true
+        patches: true
+        
+      owasp_dependency_check:
+        enabled: true
+        fail_build_on_cvss: 7
+        suppression_file: ".owasp-suppressions.xml"
+        
+    static_analysis:
+      semgrep:
+        enabled: true
+        config:
+          - "auto"
+          - "owasp-top-ten"
+          - "security-audit"
+          - "nodejs"
+          - "typescript"
+          - "react"
+          
+      eslint_security:
+        enabled: true
+        plugins:
+          - "security"
+          - "no-secrets"
+          - "xss"
+          
+      sonarqube:
+        enabled: true
+        project_key: "psscript"
+        quality_gate: "strict"
+        
+    dynamic_analysis:
+      zap:
+        enabled: true
+        api_scan: true
+        ajax_spider: true
+        contexts:
+          - name: "authenticated"
+            auth:
+              method: "jwt"
+              login_url: "/api/auth/login"
+              
+          - name: "public"
+            auth:
+              method: "none"
+              
+        scan_policy:
+          strength: "high"
+          threshold: "medium"
+          
+      burp_suite:
+        enabled: false  # Enterprise only
+        api_key: "${BURP_API_KEY}"
+        
+    secret_scanning:
+      gitleaks:
+        enabled: true
+        config: ".gitleaks.toml"
+        
+      trufflehog:
+        enabled: true
+        entropy_threshold: 4.5
+        
+    powershell_specific:
+      psscriptanalyzer:
+        enabled: true
+        severity: ["Error", "Warning"]
+        rules:
+          - "PSAvoidUsingConvertToSecureStringWithPlainText"
+          - "PSAvoidUsingInvokeExpression"
+          - "PSAvoidUsingPlainTextForPassword"
+          - "PSUsePSCredentialType"
+          
+  # Performance Scanning Configuration
+  performance:
+    lighthouse:
+      enabled: true
+      categories:
+        - performance
+        - accessibility
+        - best-practices
+        - seo
+        
+      thresholds:
+        performance: 90
+        accessibility: 95
+        best_practices: 90
+        seo: 85
+        
+      pages:
+        - url: "/"
+          name: "Landing Page"
+          
+        - url: "/dashboard"
+          name: "Dashboard"
+          auth: true
+          
+        - url: "/scripts"
+          name: "Scripts List"
+          auth: true
+          
+    bundle_analysis:
+      webpack_bundle_analyzer:
+        enabled: true
+        report_filename: "bundle-report.html"
+        
+      size_limits:
+        main_bundle: "500KB"
+        vendor_bundle: "1MB"
+        total_size: "2MB"
+        
+    load_testing:
+      k6:
+        enabled: true
+        
+        scenarios:
+          smoke_test:
+            vus: 1
+            duration: "1m"
+            
+          average_load:
+            vus: 100
+            duration: "5m"
+            thresholds:
+              http_req_duration: ["p(95)<500"]
+              http_req_failed: ["rate<0.1"]
+              
+          stress_test:
+            stages:
+              - duration: "2m"
+                target: 100
+              - duration: "5m"
+                target: 200
+              - duration: "2m"
+                target: 300
+              - duration: "5m"
+                target: 400
+              - duration: "2m"
+                target: 0
+                
+          spike_test:
+            stages:
+              - duration: "10s"
+                target: 0
+              - duration: "10s"
+                target: 1000
+              - duration: "3m"
+                target: 1000
+              - duration: "10s"
+                target: 0
+                
+      artillery:
+        enabled: true
+        config: "artillery.yml"
+        
+    database_performance:
+      pg_analyze:
+        enabled: true
+        slow_query_threshold: "100ms"
+        
+      explain_analyze:
+        enabled: true
+        queries_to_analyze:
+          - "complex_joins"
+          - "aggregations"
+          - "full_table_scans"
+          
+    api_performance:
+      response_time_targets:
+        p50: 100  # ms
+        p95: 500
+        p99: 1000
+        
+      throughput_targets:
+        requests_per_second: 1000
+        concurrent_users: 500
+        
+  # Code Quality Scanning
+  code_quality:
+    complexity_analysis:
+      max_cyclomatic_complexity: 10
+      max_cognitive_complexity: 15
+      max_lines_per_function: 50
+      max_lines_per_file: 300
+      
+    duplication_detection:
+      min_lines: 5
+      threshold: 3  # percent
+      
+    coverage_requirements:
+      branches: 80
+      functions: 80
+      lines: 80
+      statements: 80
+      
+    linting:
+      eslint:
+        extends:
+          - "eslint:recommended"
+          - "plugin:@typescript-eslint/recommended"
+          - "plugin:react/recommended"
+          - "plugin:react-hooks/recommended"
+          
+      prettier:
+        check: true
+        write: false
+        
+      stylelint:
+        enabled: true
+        config: ".stylelintrc.json"
+        
+# Scanning Schedules
+schedules:
+  continuous:
+    - npm_audit
+    - eslint_security
+    - secret_scanning
+    
+  pre_commit:
+    - linting
+    - complexity_analysis
+    
+  pre_push:
+    - unit_tests
+    - integration_tests
+    
+  daily:
+    - vulnerability_scanning
+    - static_analysis
+    - lighthouse
+    
+  weekly:
+    - dynamic_analysis
+    - load_testing
+    - database_performance
+    
+  monthly:
+    - full_security_audit
+    - penetration_testing
+    - performance_baseline
+    
+# Reporting Configuration
+reporting:
+  formats:
+    - html
+    - json
+    - sarif
+    - junit
+    
+  destinations:
+    local: ".claude-flow/scan-results/"
+    
+    s3:
+      enabled: false
+      bucket: "psscript-scan-results"
+      
+    email:
+      enabled: true
+      recipients: ["security@psscript.com"]
+      on_critical: true
+      
+    slack:
+      enabled: true
+      webhook: "${SLACK_WEBHOOK}"
+      channel: "#security-alerts"
+      
+  dashboards:
+    security_posture:
+      url: "/security-dashboard"
+      
+    performance_trends:
+      url: "/performance-dashboard"
+      
+    code_quality:
+      url: "/quality-dashboard"

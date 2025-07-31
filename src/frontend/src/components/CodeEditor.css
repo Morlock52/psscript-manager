@@ -1,0 +1,30 @@
+/* CodeEditor styles */
+.code-editor-container {
+  width: 100%;
+  height: var(--editor-height, 500px);
+  min-height: 300px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Custom styles for monaco editor */
+.monaco-editor .margin {
+  background-color: #1e1e1e;
+}
+
+.monaco-editor .line-numbers {
+  color: #858585;
+}
+
+/* Enhance selection visibility */
+.monaco-editor .selected-text {
+  background-color: rgba(73, 143, 226, 0.3);
+}
+
+/* Better visibility for the current line highlight */
+.monaco-editor .current-line {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.05);
+}

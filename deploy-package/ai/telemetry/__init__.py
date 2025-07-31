@@ -1,0 +1,1 @@
+# OpenTelemetry telemetry module for AI service

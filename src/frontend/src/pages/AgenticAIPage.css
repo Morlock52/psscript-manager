@@ -1,0 +1,43 @@
+.agentic-ai-container {
+  margin-top: 24px;
+  margin-bottom: 64px;
+}
+
+.agentic-ai-paper {
+  padding: 16px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.agentic-ai-tab-panel {
+  height: 100%;
+  padding: 24px;
+}
+
+.agentic-ai-tab-content {
+  height: calc(100vh - 320px);
+  min-height: 600px;
+}
+
+.agentic-ai-editor-container {
+  height: calc(100% - 80px);
+}
+
+.agentic-ai-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.agentic-ai-action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.agentic-ai-generator-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

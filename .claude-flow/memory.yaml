@@ -1,0 +1,158 @@
+# Claude Flow Memory Configuration
+version: "1.0"
+
+memory:
+  # Storage backend configuration
+  storage:
+    type: file  # Options: file, redis, postgresql
+    path: .claude-flow/memory/store
+    
+  # Memory persistence settings
+  persistence:
+    enabled: true
+    auto_save: true
+    save_interval: 300  # seconds
+    max_size: 100MB
+    
+  # Context window management
+  context:
+    max_tokens: 100000
+    compression: true
+    summarization:
+      enabled: true
+      threshold: 50000  # Summarize when context exceeds this
+      
+  # Memory types and their configurations
+  types:
+    project:
+      description: "Long-term project knowledge"
+      ttl: null  # Never expires
+      priority: high
+      indexes:
+        - file_paths
+        - function_names
+        - api_endpoints
+        
+    conversation:
+      description: "Current conversation context"
+      ttl: 86400  # 24 hours
+      priority: medium
+      max_entries: 1000
+      
+    workflow:
+      description: "Workflow execution history"
+      ttl: 604800  # 7 days
+      priority: low
+      max_entries: 500
+      
+    analysis:
+      description: "Code analysis results"
+      ttl: 2592000  # 30 days
+      priority: medium
+      indexes:
+        - script_path
+        - analysis_type
+        - severity
+        
+  # Indexing configuration
+  indexing:
+    enabled: true
+    update_interval: 3600  # 1 hour
+    strategies:
+      - semantic_search
+      - keyword_matching
+      - dependency_graph
+      
+  # Memory retrieval settings
+  retrieval:
+    default_limit: 10
+    relevance_threshold: 0.7
+    include_metadata: true
+    
+# Project-specific memory schemas
+schemas:
+  powershell_script:
+    fields:
+      - name: path
+        type: string
+        indexed: true
+      - name: content
+        type: text
+      - name: functions
+        type: array
+        indexed: true
+      - name: security_score
+        type: number
+      - name: last_analysis
+        type: datetime
+      - name: dependencies
+        type: array
+        
+  api_endpoint:
+    fields:
+      - name: path
+        type: string
+        indexed: true
+      - name: method
+        type: string
+      - name: controller
+        type: string
+      - name: parameters
+        type: object
+      - name: response_type
+        type: string
+      - name: authentication
+        type: boolean
+        
+  component:
+    fields:
+      - name: name
+        type: string
+        indexed: true
+      - name: type
+        type: string
+      - name: path
+        type: string
+      - name: props
+        type: object
+      - name: dependencies
+        type: array
+      - name: used_by
+        type: array
+        
+# Memory queries
+queries:
+  find_similar_scripts:
+    description: "Find PowerShell scripts similar to the current one"
+    type: semantic
+    fields: ["content", "functions"]
+    
+  get_api_usage:
+    description: "Get all components using a specific API endpoint"
+    type: graph
+    start: api_endpoint
+    relation: used_by
+    
+  security_history:
+    description: "Get security analysis history for a script"
+    type: timeline
+    field: security_score
+    group_by: path
+    
+# Auto-memory rules
+auto_memory:
+  - trigger: file_read
+    condition: "*.ps1"
+    action: store_script_analysis
+    
+  - trigger: workflow_complete
+    condition: "security-audit"
+    action: store_security_results
+    
+  - trigger: error
+    condition: "severity >= high"
+    action: store_error_context
+    
+  - trigger: ai_response
+    condition: "tokens > 1000"
+    action: summarize_and_store

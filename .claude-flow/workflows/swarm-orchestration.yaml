@@ -1,0 +1,276 @@
+# Swarm Orchestration Workflow
+name: swarm
+description: Orchestrate multi-agent swarm operations
+trigger: cli
+
+parameters:
+  agents:
+    type: number
+    default: 5
+    description: "Number of agents in the swarm"
+    
+  memory:
+    type: string
+    default: "persistent"
+    description: "Memory type: persistent, session, or none"
+    
+  task:
+    type: string
+    description: "Task to execute with the swarm"
+    
+  config:
+    type: string
+    description: "Custom swarm configuration file"
+
+# Main swarm orchestration
+steps:
+  - name: initialize-swarm
+    action: swarm_init
+    agents: "${agents}"
+    memory_type: "${memory}"
+    config: "${config:-swarm.yaml}"
+    
+  - name: setup-memory-pools
+    action: memory_pool_create
+    pools:
+      - name: global
+        size: 50MB
+        shared: true
+      - name: task
+        size: 20MB
+        shared: true
+      - name: agent
+        size: "${agents * 10}MB"
+        shared: false
+      - name: results
+        size: 30MB
+        shared: orchestrator_only
+        
+  - name: spawn-agents
+    action: parallel
+    tasks:
+      - spawn_orchestrator:
+          role: orchestrator
+          memory_pool: ["global", "task", "results"]
+          capabilities: ["coordinate", "aggregate", "decide"]
+          
+      - spawn_analyzers:
+          count: 2
+          role: analyzer
+          memory_pool: ["global", "task", "agent"]
+          capabilities: ["analyze", "scan", "detect"]
+          specializations:
+            - agent-1: powershell_security
+            - agent-2: typescript_patterns
+            
+      - spawn_developer:
+          role: developer
+          memory_pool: ["global", "task", "agent"]
+          capabilities: ["generate", "fix", "refactor"]
+          
+      - spawn_reviewer:
+          role: reviewer
+          memory_pool: ["global", "task"]
+          capabilities: ["review", "validate", "document"]
+          
+  - name: establish-communication
+    action: setup_channels
+    channels:
+      - type: broadcast
+        name: swarm_updates
+      - type: direct
+        name: agent_messages
+      - type: pubsub
+        topics: ["tasks", "results", "memory_sync"]
+        
+  - name: load-persistent-memory
+    condition: "${memory == 'persistent'}"
+    action: memory_restore
+    from: ".claude-flow/memory/swarm/last_session.json"
+    pools: ["global", "results"]
+    
+  - name: distribute-task
+    action: orchestrator_command
+    command: distribute
+    task: "${task}"
+    strategy: capability_based
+    
+  - name: monitor-execution
+    action: parallel
+    tasks:
+      - monitor_progress:
+          interval: 2000
+          timeout: 300000
+          
+      - monitor_health:
+          check_heartbeat: true
+          check_memory: true
+          interval: 5000
+          
+      - monitor_communication:
+          log_messages: true
+          detect_deadlocks: true
+          
+  - name: coordinate-agents
+    action: orchestrator_loop
+    until: task_complete
+    steps:
+      - collect_updates
+      - resolve_conflicts
+      - reassign_failed_tasks
+      - share_discoveries
+      - update_memory
+      
+  - name: aggregate-results
+    action: orchestrator_command
+    command: aggregate
+    sources: all_agents
+    strategy: intelligent_merge
+    
+  - name: persist-memory
+    condition: "${memory == 'persistent'}"
+    action: memory_save
+    pools: ["global", "results"]
+    to: ".claude-flow/memory/swarm/last_session.json"
+    
+  - name: generate-report
+    action: ai_generate
+    input: "${steps.aggregate-results.output}"
+    prompt: |
+      Generate a comprehensive swarm execution report:
+      
+      1. Task Summary
+         - Original task
+         - Completion status
+         - Time taken
+         
+      2. Agent Performance
+         - Individual agent contributions
+         - Collaboration effectiveness
+         - Resource usage
+         
+      3. Key Findings
+         - Main discoveries
+         - Issues encountered
+         - Recommendations
+         
+      4. Memory Insights
+         - New knowledge gained
+         - Patterns recognized
+         - Future optimizations
+         
+  - name: cleanup-swarm
+    action: parallel
+    tasks:
+      - save_agent_logs
+      - cleanup_temp_memory
+      - terminate_agents
+      - close_channels
+
+# Swarm subcommands
+subcommands:
+  # claude-flow swarm analyze --agents 5 --memory persistent
+  analyze:
+    description: "Analyze codebase with agent swarm"
+    steps:
+      - name: run-swarm
+        action: execute_workflow
+        workflow: swarm
+        parameters:
+          agents: "${agents}"
+          memory: "${memory}"
+          task: |
+            Perform comprehensive analysis of the PSScript codebase:
+            1. Security vulnerabilities
+            2. Code quality issues
+            3. Performance bottlenecks
+            4. Architectural improvements
+            5. Best practices compliance
+            
+  # claude-flow swarm develop --agents 5 --memory persistent
+  develop:
+    description: "Collaborative development with agent swarm"
+    parameters:
+      feature:
+        type: string
+        required: true
+        description: "Feature to develop"
+    steps:
+      - name: run-swarm
+        action: execute_workflow
+        workflow: swarm
+        parameters:
+          agents: "${agents}"
+          memory: "${memory}"
+          task: |
+            Collaboratively develop: ${feature}
+            
+            Requirements:
+            1. Analyze existing code patterns
+            2. Design implementation approach
+            3. Generate code following conventions
+            4. Create comprehensive tests
+            5. Update documentation
+            
+  # claude-flow swarm refactor --agents 5 --memory persistent
+  refactor:
+    description: "Refactor code with agent swarm"
+    parameters:
+      target:
+        type: string
+        required: true
+        description: "Target to refactor (file, directory, or pattern)"
+    steps:
+      - name: run-swarm
+        action: execute_workflow
+        workflow: swarm
+        parameters:
+          agents: "${agents}"
+          memory: "${memory}"
+          task: |
+            Refactor ${target} with focus on:
+            1. Code quality improvements
+            2. Performance optimization
+            3. Security enhancements
+            4. Maintainability
+            5. Test coverage
+            
+  # claude-flow swarm learn --agents 5 --memory persistent
+  learn:
+    description: "Learn from codebase and build knowledge"
+    steps:
+      - name: run-swarm
+        action: execute_workflow
+        workflow: swarm
+        parameters:
+          agents: "${agents}"
+          memory: "persistent"  # Always persistent for learning
+          task: |
+            Deep learning scan of entire codebase:
+            1. Extract architectural patterns
+            2. Identify coding conventions
+            3. Map component relationships
+            4. Analyze security patterns
+            5. Build comprehensive knowledge base
+            6. Create optimization recommendations
+            
+# Error handling
+error_handlers:
+  agent_failure:
+    action: restart_agent
+    max_retries: 3
+    fallback: redistribute_tasks
+    
+  memory_corruption:
+    action: restore_from_backup
+    fallback: reinitialize_memory
+    
+  deadlock:
+    action: reset_communication
+    timeout: 30000
+    fallback: terminate_and_restart
+    
+  task_timeout:
+    action: reassign_task
+    max_reassignments: 2
+    fallback: mark_as_failed

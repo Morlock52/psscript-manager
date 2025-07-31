@@ -1,0 +1,25 @@
+# Claude Flow cache and temporary files
+cache/
+*.cache
+*.tmp
+
+# Logs
+logs/
+*.log
+
+# Reports (keep the directory but not the contents)
+reports/*
+!reports/.gitkeep
+
+# Environment-specific configs
+.env.local
+claude-flow.local.yaml
+
+# API keys and secrets
+.secrets/
+*.key
+*.pem
+
+# Generated files
+generated/
+output/

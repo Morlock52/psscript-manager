@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerShell Script Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        h1 {
+            margin: 0;
+            color: #333;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+        }
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            margin-right: 5px;
+        }
+        .main-content {
+            display: flex;
+            gap: 20px;
+        }
+        .editor-section {
+            flex: 2;
+        }
+        .analysis-section {
+            flex: 1;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        textarea {
+            width: 100%;
+            height: 400px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            resize: vertical;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .score {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .score-item {
+            text-align: center;
+            background-color: #e9e9e9;
+            padding: 10px;
+            border-radius: 4px;
+            flex: 1;
+            margin: 0 5px;
+        }
+        .score-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .api-status {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PowerShell Script Analyzer</h1>
+            <div class="status">
+                <div class="status-indicator"></div>
+                <span>System Online</span>
+            </div>
+        </header>
+        
+        <div class="main-content">
+            <div class="editor-section">
+                <h2>Script Editor</h2>
+                <textarea id="script-editor" placeholder="Enter your PowerShell script here..."></textarea>
+                <button id="analyze-btn">Analyze Script</button>
+                <div class="api-status">
+                    <h3>API Status</h3>
+                    <div id="backend-status">Backend API: <span>Checking...</span></div>
+                    <div id="ai-status">AI Service: <span>Checking...</span></div>
+                </div>
+            </div>
+            
+            <div class="analysis-section">
+                <h2>Analysis Results</h2>
+                <div id="result" class="result">
+                    <p>No script analyzed yet. Enter a PowerShell script and click "Analyze Script".</p>
+                </div>
+                <div id="scores" style="display: none;">
+                    <div class="score">
+                        <div class="score-item">
+                            <div>Security Score</div>
+                            <div id="security-score" class="score-value">0</div>
+                        </div>
+                        <div class="score-item">
+                            <div>Quality Score</div>
+                            <div id="quality-score" class="score-value">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check API status
+            checkBackendStatus();
+            checkAIServiceStatus();
+            
+            // Set up event listener for analyze button
+            document.getElementById('analyze-btn').addEventListener('click', analyzeScript);
+        });
+        
+        function checkBackendStatus() {
+            const backendStatusElement = document.querySelector('#backend-status span');
+            const backendUrl = 'http://' + window.location.hostname + ':4000/api/health';
+            
+            fetch(backendUrl)
+                .then(response => {
+                    if (response.ok) {
+                        backendStatusElement.textContent = 'Connected';
+                        backendStatusElement.style.color = 'green';
+                    } else {
+                        backendStatusElement.textContent = 'Error';
+                        backendStatusElement.style.color = 'red';
+                    }
+                })
+                .catch(error => {
+                    backendStatusElement.textContent = 'Disconnected';
+                    backendStatusElement.style.color = 'red';
+                    console.error('Backend API error:', error);
+                });
+        }
+        
+        function checkAIServiceStatus() {
+            const aiStatusElement = document.querySelector('#ai-status span');
+            const aiServiceUrl = 'http://' + window.location.hostname + ':8000/';
+            
+            fetch(aiServiceUrl)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('AI Service not available');
+                })
+                .then(data => {
+                    aiStatusElement.textContent = 'Connected (' + data.status + ')';
+                    aiStatusElement.style.color = 'green';
+                })
+                .catch(error => {
+                    aiStatusElement.textContent = 'Disconnected';
+                    aiStatusElement.style.color = 'red';
+                    console.error('AI Service error:', error);
+                });
+        }
+        
+        function analyzeScript() {
+            const scriptContent = document.getElementById('script-editor').value;
+            const resultElement = document.getElementById('result');
+            const scoresElement = document.getElementById('scores');
+            
+            if (!scriptContent.trim()) {
+                resultElement.innerHTML = '<p>Please enter a PowerShell script first.</p>';
+                scoresElement.style.display = 'none';
+                return;
+            }
+            
+            resultElement.innerHTML = '<p>Analyzing script...</p>';
+            
+            const backendUrl = 'http://' + window.location.hostname + ':4000/api/scripts/analyze';
+            
+            fetch(backendUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ content: scriptContent })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Analysis failed');
+            })
+            .then(data => {
+                // Display results
+                document.getElementById('security-score').textContent = data.security_score.toFixed(1);
+                document.getElementById('quality-score').textContent = data.code_quality_score.toFixed(1);
+                
+                let resultHtml = `
+                    <h3>Purpose</h3>
+                    <p>${data.purpose}</p>
+                    <h3>Security Analysis</h3>
+                    <p>${data.security_analysis}</p>
+                    <h3>Category</h3>
+                    <p>${data.category}</p>
+                `;
+                
+                if (data.optimization && data.optimization.length > 0) {
+                    resultHtml += '<h3>Optimization Tips</h3><ul>';
+                    data.optimization.forEach(tip => {
+                        resultHtml += `<li>${tip}</li>`;
+                    });
+                    resultHtml += '</ul>';
+                }
+                
+                resultElement.innerHTML = resultHtml;
+                scoresElement.style.display = 'block';
+            })
+            .catch(error => {
+                resultElement.innerHTML = `<p>Error: ${error.message}</p>`;
+                scoresElement.style.display = 'none';
+                console.error('Analysis error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

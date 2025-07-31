@@ -1,0 +1,136 @@
+             section              
+----------------------------------
+ === DATABASE HEALTH OVERVIEW ===
+(1 row)
+
+       metric       |                                                            value                                                             
+--------------------+------------------------------------------------------------------------------------------------------------------------------
+ Database Version   | PostgreSQL 16.9 (Homebrew) on aarch64-apple-darwin24.4.0, compiled by Apple clang version 17.0.0 (clang-1700.0.13.3), 64-bit
+ Database Size      | 10172 kB
+ Active Connections | 1
+ Max Connections    | 100
+ Shared Buffers     | 128MB
+ Work Memory        | 4MB
+(6 rows)
+
+              section              
+-----------------------------------
+ === PGVECTOR EXTENSION STATUS ===
+(1 row)
+
+ pgvector_status 
+-----------------
+ NOT INSTALLED ❌
+(1 row)
+
+         section          
+--------------------------
+ === AI TABLES HEALTH ===
+(1 row)
+
+psql:ai-db-diagnostics-fixed.sql:75: ERROR:  column pst.tablename does not exist
+LINE 27: LEFT JOIN pg_stat_user_tables pst ON pst.tablename = at.tabl...
+                                              ^
+HINT:  Perhaps you meant to reference the column "at.table_name".
+            section            
+-------------------------------
+ === DATA INTEGRITY CHECKS ===
+(1 row)
+
+         check_name         | issue_count 
+----------------------------+-------------
+ Scripts Without Embeddings |           8
+ Scripts Without Analysis   |           4
+ Orphaned Embeddings        |           0
+ Duplicate File Hashes      |           0
+(4 rows)
+
+             section              
+----------------------------------
+ === VECTOR INDEX PERFORMANCE ===
+(1 row)
+
+psql:ai-db-diagnostics-fixed.sql:144: ERROR:  column "tablename" does not exist
+LINE 3:     tablename,
+            ^
+          section          
+---------------------------
+ === QUERY PERFORMANCE ===
+(1 row)
+
+psql:ai-db-diagnostics-fixed.sql:169: ERROR:  column "tablename" does not exist
+LINE 3:     tablename,
+            ^
+             section              
+----------------------------------
+ === CONNECTION POOL ANALYSIS ===
+(1 row)
+
+ state  | connection_count | avg_duration_seconds | max_duration_seconds 
+--------+------------------+----------------------+----------------------
+ active |                1 |                 0.00 |                    0
+(1 row)
+
+         section         
+-------------------------
+ === CACHE HIT RATES ===
+(1 row)
+
+      cache_type      | hit_rate_percent |                   status                   
+----------------------+------------------+--------------------------------------------
+ Index Cache Hit Rate |            76.14 | LOW - Consider increasing shared_buffers ⚠️
+ Table Cache Hit Rate |            92.94 | GOOD ✅
+(2 rows)
+
+         section          
+--------------------------
+ === AI FEATURE USAGE ===
+(1 row)
+
+         metric          | count | percentage 
+-------------------------+-------+------------
+ Scripts with Embeddings |     0 |       0.00
+ Scripts with Analysis   |     4 |      50.00
+ Agent Conversations     |     0 |          0
+ Tool Executions         |     0 |          0
+(4 rows)
+
+          section           
+----------------------------
+ === RECENT AI ACTIVITY ===
+(1 row)
+
+             activity              | count 
+-----------------------------------+-------
+ Recent Script Analyses (Last 24h) |     0
+ Recent Conversations (Last 24h)   |     0
+ Recent Tool Executions (Last 24h) |     0
+(3 rows)
+
+         section          
+--------------------------
+ === STORAGE ANALYSIS ===
+(1 row)
+
+ schema_name |   table_name    | total_size | table_size | indexes_size 
+-------------+-----------------+------------+------------+--------------
+ public      | scripts         | 336 kB     | 8192 bytes | 328 kB
+ public      | users           | 184 kB     | 8192 bytes | 176 kB
+ public      | script_analysis | 128 kB     | 8192 bytes | 120 kB
+ public      | script_versions | 96 kB      | 8192 bytes | 88 kB
+ public      | execution_logs  | 88 kB      | 0 bytes    | 88 kB
+ public      | script_tags     | 72 kB      | 8192 bytes | 64 kB
+ public      | categories      | 64 kB      | 8192 bytes | 56 kB
+ public      | vulnerabilities | 56 kB      | 0 bytes    | 56 kB
+ public      | migrations      | 56 kB      | 8192 bytes | 48 kB
+ public      | tags            | 56 kB      | 8192 bytes | 48 kB
+(10 rows)
+
+             section             
+---------------------------------
+ === RECOMMENDATIONS SUMMARY ===
+(1 row)
+
+psql:ai-db-diagnostics-fixed.sql:349: ERROR:  column "tablename" does not exist
+LINE 35:         'VACUUM table: ' || tablename as recommendation
+                                     ^

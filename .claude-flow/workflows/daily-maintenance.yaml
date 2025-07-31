@@ -1,0 +1,61 @@
+# Daily Maintenance Workflow
+name: daily-maintenance
+description: Perform daily maintenance tasks for the PSScript project
+schedule: "0 9 * * *"  # Run at 9 AM daily
+
+steps:
+  - name: check-services
+    action: run_command
+    command: "docker-compose ps"
+    
+  - name: check-database
+    action: run_command
+    command: "cd src/backend && npm run test:conn"
+    
+  - name: run-linter
+    action: run_command
+    command: "npm run lint"
+    continue_on_error: true
+    
+  - name: analyze-lint-results
+    action: ai_analyze
+    input: "${previous.output}"
+    prompt: |
+      Analyze the linting results and categorize issues by:
+      1. Critical issues that need immediate attention
+      2. Code quality improvements
+      3. Style violations
+      
+      Provide a summary suitable for a daily status report.
+    
+  - name: check-disk-space
+    action: run_command
+    command: "df -h | grep -E '(^/|docker)'"
+    
+  - name: generate-report
+    action: ai_generate
+    inputs:
+      services: "${steps.check-services.output}"
+      database: "${steps.check-database.output}"
+      linting: "${steps.analyze-lint-results.output}"
+      disk: "${steps.check-disk-space.output}"
+    prompt: |
+      Generate a daily maintenance report including:
+      - Service health status
+      - Database connectivity
+      - Code quality metrics
+      - System resources
+      - Recommended actions
+    
+  - name: save-report
+    action: save_file
+    content: "${previous.output}"
+    path: "reports/daily/${date}_maintenance.md"
+    
+notifications:
+  - type: email
+    condition: "on_failure"
+    recipients: ["admin@psscript.local"]
+  - type: slack
+    condition: "always"
+    channel: "#psscript-monitoring"

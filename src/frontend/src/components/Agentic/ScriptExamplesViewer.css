@@ -1,0 +1,43 @@
+.script-examples-container {
+  height: 100%;
+}
+
+.script-example-link {
+  margin-left: 8px;
+}
+
+.script-example-paper {
+  padding: 16px;
+  position: relative;
+}
+
+.script-example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.script-example-tags {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.script-example-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.script-example-code {
+  border-radius: 4px;
+}
+
+.script-example-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}

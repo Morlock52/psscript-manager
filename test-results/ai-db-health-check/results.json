@@ -1,0 +1,515 @@
+{
+  "timestamp": "2025-07-28T23:40:29.103Z",
+  "database": {
+    "connection": {
+      "status": "connected",
+      "version": "PostgreSQL 16.9 (Homebrew) on aarch64-apple-darwin24.4.0, compiled by Apple clang version 17.0.0 (clang-1700.0.13.3), 64-bit",
+      "dbSize": "10416611"
+    },
+    "pgvector": {
+      "status": "not_installed",
+      "message": "pgvector extension is not installed"
+    },
+    "tables": [],
+    "indexes": [],
+    "aiTables": [
+      {
+        "name": "script_embeddings",
+        "exists": true,
+        "table_name": "script_embeddings",
+        "size": "0 bytes",
+        "row_count": "0",
+        "dead_tuples": "0",
+        "last_vacuum": null,
+        "last_analyze": null,
+        "columns": [
+          {
+            "column_name": "id",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": "nextval('script_embeddings_id_seq'::regclass)"
+          },
+          {
+            "column_name": "script_id",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "content_hash",
+            "data_type": "character varying",
+            "is_nullable": "YES",
+            "column_default": null
+          },
+          {
+            "column_name": "created_at",
+            "data_type": "timestamp with time zone",
+            "is_nullable": "YES",
+            "column_default": "CURRENT_TIMESTAMP"
+          },
+          {
+            "column_name": "updated_at",
+            "data_type": "timestamp with time zone",
+            "is_nullable": "YES",
+            "column_default": "CURRENT_TIMESTAMP"
+          }
+        ]
+      },
+      {
+        "name": "script_analysis",
+        "exists": true,
+        "table_name": "script_analysis",
+        "size": "8192 bytes",
+        "row_count": "0",
+        "dead_tuples": "0",
+        "last_vacuum": null,
+        "last_analyze": null,
+        "columns": [
+          {
+            "column_name": "id",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": "nextval('script_analysis_id_seq'::regclass)"
+          },
+          {
+            "column_name": "script_id",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "purpose",
+            "data_type": "text",
+            "is_nullable": "YES",
+            "column_default": null
+          },
+          {
+            "column_name": "parameter_docs",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'{}'::jsonb"
+          },
+          {
+            "column_name": "security_score",
+            "data_type": "integer",
+            "is_nullable": "YES",
+            "column_default": null
+          },
+          {
+            "column_name": "quality_score",
+            "data_type": "integer",
+            "is_nullable": "YES",
+            "column_default": null
+          },
+          {
+            "column_name": "risk_score",
+            "data_type": "integer",
+            "is_nullable": "YES",
+            "column_default": null
+          },
+          {
+            "column_name": "suggestions",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "command_details",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'{}'::jsonb"
+          },
+          {
+            "column_name": "ms_docs_references",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "security_issues",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "best_practice_violations",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "performance_insights",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "potential_risks",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "code_complexity_metrics",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'{}'::jsonb"
+          },
+          {
+            "column_name": "compatibility_notes",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "execution_summary",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'{}'::jsonb"
+          },
+          {
+            "column_name": "analysis_version",
+            "data_type": "character varying",
+            "is_nullable": "YES",
+            "column_default": "'1.0'::character varying"
+          },
+          {
+            "column_name": "owasp_vulnerabilities",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "owasp_compliance_score",
+            "data_type": "double precision",
+            "is_nullable": "YES",
+            "column_default": "0"
+          },
+          {
+            "column_name": "injection_risks",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "authentication_issues",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "exposed_credentials",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "insecure_configurations",
+            "data_type": "jsonb",
+            "is_nullable": "YES",
+            "column_default": "'[]'::jsonb"
+          },
+          {
+            "column_name": "created_at",
+            "data_type": "timestamp with time zone",
+            "is_nullable": "YES",
+            "column_default": "CURRENT_TIMESTAMP"
+          },
+          {
+            "column_name": "updated_at",
+            "data_type": "timestamp with time zone",
+            "is_nullable": "YES",
+            "column_default": "CURRENT_TIMESTAMP"
+          }
+        ]
+      },
+      {
+        "name": "agent_state",
+        "exists": true,
+        "table_name": "agent_state",
+        "size": "0 bytes",
+        "row_count": "0",
+        "dead_tuples": "0",
+        "last_vacuum": null,
+        "last_analyze": null,
+        "columns": [
+          {
+            "column_name": "id",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": "nextval('agent_state_id_seq'::regclass)"
+          },
+          {
+            "column_name": "agent_id",
+            "data_type": "character varying",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "state",
+            "data_type": "jsonb",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "created_at",
+            "data_type": "timestamp with time zone",
+            "is_nullable": "YES",
+            "column_default": "CURRENT_TIMESTAMP"
+          },
+          {
+            "column_name": "updated_at",
+            "data_type": "timestamp with time zone",
+            "is_nullable": "YES",
+            "column_default": "CURRENT_TIMESTAMP"
+          }
+        ]
+      },
+      {
+        "name": "conversation_history",
+        "exists": true,
+        "table_name": "conversation_history",
+        "size": "0 bytes",
+        "row_count": "0",
+        "dead_tuples": "0",
+        "last_vacuum": null,
+        "last_analyze": null,
+        "columns": [
+          {
+            "column_name": "id",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": "nextval('conversation_history_id_seq'::regclass)"
+          },
+          {
+            "column_name": "conversation_id",
+            "data_type": "character varying",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "messages",
+            "data_type": "jsonb",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "agent_type",
+            "data_type": "character varying",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "created_at",
+            "data_type": "timestamp with time zone",
+            "is_nullable": "YES",
+            "column_default": "CURRENT_TIMESTAMP"
+          },
+          {
+            "column_name": "updated_at",
+            "data_type": "timestamp with time zone",
+            "is_nullable": "YES",
+            "column_default": "CURRENT_TIMESTAMP"
+          }
+        ]
+      },
+      {
+        "name": "tool_execution_results",
+        "exists": true,
+        "table_name": "tool_execution_results",
+        "size": "0 bytes",
+        "row_count": "0",
+        "dead_tuples": "0",
+        "last_vacuum": null,
+        "last_analyze": null,
+        "columns": [
+          {
+            "column_name": "id",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": "nextval('tool_execution_results_id_seq'::regclass)"
+          },
+          {
+            "column_name": "tool_name",
+            "data_type": "character varying",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "input",
+            "data_type": "jsonb",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "output",
+            "data_type": "jsonb",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "execution_time",
+            "data_type": "double precision",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "created_at",
+            "data_type": "timestamp with time zone",
+            "is_nullable": "YES",
+            "column_default": "CURRENT_TIMESTAMP"
+          }
+        ]
+      },
+      {
+        "name": "chat_history",
+        "exists": true,
+        "table_name": "chat_history",
+        "size": "0 bytes",
+        "row_count": "0",
+        "dead_tuples": "0",
+        "last_vacuum": null,
+        "last_analyze": null,
+        "columns": [
+          {
+            "column_name": "id",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": "nextval('chat_history_id_seq'::regclass)"
+          },
+          {
+            "column_name": "user_id",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "script_id",
+            "data_type": "integer",
+            "is_nullable": "YES",
+            "column_default": null
+          },
+          {
+            "column_name": "message",
+            "data_type": "text",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "role",
+            "data_type": "character varying",
+            "is_nullable": "NO",
+            "column_default": null
+          },
+          {
+            "column_name": "created_at",
+            "data_type": "timestamp with time zone",
+            "is_nullable": "YES",
+            "column_default": "CURRENT_TIMESTAMP"
+          }
+        ]
+      }
+    ],
+    "dataIntegrity": [
+      {
+        "check": "orphaned_embeddings",
+        "count": 0,
+        "status": "ok"
+      },
+      {
+        "check": "scripts_without_embeddings",
+        "count": 8,
+        "status": "warning"
+      },
+      {
+        "check": "scripts_without_analysis",
+        "count": 4,
+        "status": "warning"
+      }
+    ]
+  },
+  "ai": {
+    "serviceHealth": {
+      "status": "unhealthy",
+      "error": "Request failed with status code 404"
+    },
+    "endpoints": [
+      {
+        "path": "/analyze-script",
+        "method": "POST",
+        "description": "Script analysis",
+        "status": "unavailable",
+        "error": "Request failed with status code 404"
+      },
+      {
+        "path": "/generate-embedding",
+        "method": "POST",
+        "description": "Embedding generation",
+        "status": "unavailable",
+        "error": "Request failed with status code 404"
+      },
+      {
+        "path": "/search-similar",
+        "method": "POST",
+        "description": "Vector similarity search",
+        "status": "unavailable",
+        "error": "Request failed with status code 404"
+      },
+      {
+        "path": "/chat",
+        "method": "POST",
+        "description": "AI chat",
+        "status": "unavailable",
+        "error": "Request failed with status code 405"
+      }
+    ],
+    "embeddings": null,
+    "vectorSearch": null
+  },
+  "performance": {
+    "queries": [],
+    "connectionPool": [
+      {
+        "state": "active",
+        "count": "1",
+        "max_duration_seconds": "-0.000001"
+      }
+    ],
+    "cacheHitRates": [
+      {
+        "name": "index hit rate",
+        "ratio": "0.73684210526315789474"
+      },
+      {
+        "name": "table hit rate",
+        "ratio": "0.91525423728813559322"
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "severity": "critical",
+      "category": "ai",
+      "issue": "pgvector extension not installed",
+      "recommendation": "Install pgvector extension: brew install pgvector (macOS) or follow pgvector installation guide"
+    },
+    {
+      "severity": "high",
+      "category": "ai",
+      "issue": "8 scripts without embeddings",
+      "recommendation": "Generate embeddings for scripts without them to enable AI features"
+    },
+    {
+      "severity": "medium",
+      "category": "performance",
+      "issue": "Low index cache hit rate: 73.68%",
+      "recommendation": "Consider increasing shared_buffers or adding more indexes"
+    },
+    {
+      "severity": "critical",
+      "category": "ai",
+      "issue": "AI service is not healthy",
+      "recommendation": "Check AI service logs and ensure it is running properly"
+    }
+  ]
+}

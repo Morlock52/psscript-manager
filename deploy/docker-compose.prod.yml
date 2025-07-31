@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # Frontend service
+  frontend:
+    image: psscript-frontend:latest
+    ports:
+      - "3002:3002"
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=production
+      - PORT=3002
+      - VITE_API_URL=http://localhost:4000/api
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://0.0.0.0:3002", "||", "exit", "0"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Backend API service
+  backend:
+    image: psscript-backend:latest
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+      - redis
+      - ai-service
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=psscript
+      - DB_USER=postgres
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - REDIS_URL=redis://redis:6379
+      - AI_SERVICE_URL=http://ai-service:8000
+      - JWT_SECRET=${JWT_SECRET:-change_this_in_production}
+    restart: unless-stopped
+
+  # AI analysis service
+  ai-service:
+    image: psscript-ai-service:latest
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-demo-key-for-development}
+      - MOCK_MODE=${MOCK_MODE:-false}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=psscript
+      - DB_USER=postgres
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+    restart: unless-stopped
+
+  # PostgreSQL with pgvector extension
+  postgres:
+    image: pgvector/pgvector:pg15
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME:-psscript}
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+    restart: unless-stopped
+
+  # Redis for caching
+  redis:
+    image: redis:7.0-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

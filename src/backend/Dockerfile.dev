@@ -1,0 +1,24 @@
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
+COPY package*.json ./
+RUN npm install && npm install -g nodemon ts-node typescript
+
+# Copy source code
+COPY . .
+
+# Create directories for uploads and logs
+RUN mkdir -p uploads logs
+
+# Expose the port the app runs on
+EXPOSE 4000
+
+# Set environment variables
+ENV NODE_ENV=development
+ENV TS_NODE_TRANSPILE_ONLY=true
+
+# Run the application in development mode directly with ts-node
+CMD ["ts-node", "src/index.ts"]

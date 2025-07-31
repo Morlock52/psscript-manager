@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: psscript-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+      - ./nginx-http-only.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    image: node:18-alpine
+    container_name: psscript-backend
+    working_dir: /app
+    command: sh -c "npm install && node mock-backend-fixed.js"
+    environment:
+      - PORT=4000
+      - NODE_ENV=production
+    volumes:
+      - ./mock-backend-fixed.js:/app/mock-backend-fixed.js:ro
+      - ./package.json:/app/package.json:ro
+    restart: unless-stopped
+
+  ai-service:
+    image: python:3.11-alpine
+    container_name: psscript-ai
+    working_dir: /app  
+    command: python mock-ai-service.py
+    volumes:
+      - ./mock-ai-service.py:/app/mock-ai-service.py:ro
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: psscript-postgres
+    environment:
+      - POSTGRES_DB=psscript
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: psscript-redis
+    restart: unless-stopped
+
+networks:
+  default:
+    name: psscript-network

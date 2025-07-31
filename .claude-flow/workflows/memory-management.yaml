@@ -1,0 +1,257 @@
+# Memory Management Workflow
+name: memory-management
+description: Manage Claude Flow memory and context
+trigger: manual
+
+subcommands:
+  # claude-flow memory status
+  status:
+    description: "Show current memory usage and statistics"
+    steps:
+      - name: get-memory-stats
+        action: memory_stats
+        
+      - name: format-output
+        action: ai_format
+        input: "${previous.output}"
+        prompt: |
+          Format the memory statistics as a clear table showing:
+          - Total memory usage
+          - Breakdown by memory type
+          - Number of entries per type
+          - Index status
+          - Last update times
+          
+  # claude-flow memory search <query>
+  search:
+    description: "Search through stored memories"
+    parameters:
+      query:
+        type: string
+        required: true
+        description: "Search query"
+      type:
+        type: string
+        default: "all"
+        description: "Memory type to search (project, conversation, workflow, analysis)"
+    steps:
+      - name: search-memories
+        action: memory_search
+        query: "${query}"
+        type: "${type}"
+        limit: 20
+        
+      - name: format-results
+        action: ai_format
+        input: "${previous.results}"
+        prompt: |
+          Format search results showing:
+          - Relevance score
+          - Memory type
+          - Created date
+          - Summary of content
+          - Related items
+          
+  # claude-flow memory recall <context>
+  recall:
+    description: "Recall relevant memories for a context"
+    parameters:
+      context:
+        type: string
+        required: true
+        description: "Context to recall memories for"
+    steps:
+      - name: analyze-context
+        action: ai_analyze
+        input: "${context}"
+        prompt: "Extract key concepts, file paths, and entities from this context"
+        
+      - name: retrieve-memories
+        action: memory_retrieve
+        concepts: "${previous.concepts}"
+        types: ["project", "analysis", "workflow"]
+        
+      - name: synthesize
+        action: ai_synthesize
+        memories: "${previous.memories}"
+        context: "${context}"
+        prompt: |
+          Synthesize the retrieved memories with the current context.
+          Provide:
+          1. Relevant historical information
+          2. Previous similar work
+          3. Learned patterns
+          4. Recommendations based on past experience
+          
+  # claude-flow memory store <type> <content>
+  store:
+    description: "Manually store a memory"
+    parameters:
+      type:
+        type: string
+        required: true
+        description: "Memory type"
+      content:
+        type: string
+        required: true
+        description: "Content to store"
+      metadata:
+        type: object
+        description: "Additional metadata"
+    steps:
+      - name: process-content
+        action: ai_process
+        content: "${content}"
+        prompt: |
+          Extract and structure key information from this content:
+          - Main concepts
+          - Entities (files, functions, variables)
+          - Relationships
+          - Tags
+          
+      - name: store-memory
+        action: memory_store
+        type: "${type}"
+        content: "${content}"
+        processed: "${previous.output}"
+        metadata: "${metadata}"
+        
+  # claude-flow memory clean
+  clean:
+    description: "Clean up old or irrelevant memories"
+    parameters:
+      days:
+        type: number
+        default: 30
+        description: "Remove memories older than this many days"
+      dry_run:
+        type: boolean
+        default: true
+        description: "Show what would be deleted without actually deleting"
+    steps:
+      - name: find-old-memories
+        action: memory_query
+        filter:
+          age_days: "${days}"
+          exclude_types: ["project"]  # Never delete project memories
+          
+      - name: analyze-for-deletion
+        action: ai_analyze
+        memories: "${previous.results}"
+        prompt: |
+          Review these memories and determine which should be deleted:
+          - Remove duplicates
+          - Remove outdated information
+          - Keep anything still relevant
+          - Preserve important error contexts
+          
+      - name: perform-cleanup
+        action: memory_delete
+        ids: "${previous.to_delete}"
+        dry_run: "${dry_run}"
+        
+      - name: optimize-indexes
+        action: memory_reindex
+        
+  # claude-flow memory export
+  export:
+    description: "Export memories to a file"
+    parameters:
+      format:
+        type: string
+        default: "json"
+        description: "Export format (json, markdown, yaml)"
+      types:
+        type: array
+        default: ["all"]
+        description: "Memory types to export"
+    steps:
+      - name: gather-memories
+        action: memory_dump
+        types: "${types}"
+        
+      - name: format-export
+        action: format_convert
+        input: "${previous.data}"
+        format: "${format}"
+        
+      - name: save-export
+        action: save_file
+        content: "${previous.output}"
+        path: "exports/memory-export-${timestamp}.${format}"
+        
+  # claude-flow memory learn
+  learn:
+    description: "Learn from current project state"
+    steps:
+      - name: scan-project
+        action: project_scan
+        patterns:
+          - "*.ps1"
+          - "*.ts"
+          - "*.tsx"
+          - "*.md"
+          
+      - name: analyze-codebase
+        action: ai_analyze
+        files: "${previous.files}"
+        prompt: |
+          Analyze the codebase and extract:
+          1. Project structure and organization
+          2. Key components and their relationships
+          3. API endpoints and their purposes
+          4. PowerShell script patterns
+          5. Common code patterns and conventions
+          6. Security considerations
+          
+      - name: update-project-memory
+        action: memory_update
+        type: "project"
+        content: "${previous.analysis}"
+        
+      - name: build-indexes
+        action: memory_index
+        strategies:
+          - file_dependency_graph
+          - api_component_mapping
+          - script_function_index
+          
+  # claude-flow memory summary
+  summary:
+    description: "Generate a summary of current memories"
+    steps:
+      - name: get-all-memories
+        action: memory_list
+        types: ["all"]
+        
+      - name: generate-summary
+        action: ai_summarize
+        memories: "${previous.memories}"
+        prompt: |
+          Create a comprehensive summary of the stored memories:
+          
+          1. Project Overview
+             - Architecture insights
+             - Key components
+             - Important patterns
+             
+          2. Recent Activity
+             - Last workflows run
+             - Recent analyses
+             - Current focus areas
+             
+          3. Knowledge Base
+             - Learned best practices
+             - Common issues and solutions
+             - Security findings
+             
+          4. Recommendations
+             - Suggested next steps
+             - Areas needing attention
+             - Optimization opportunities
+             
+      - name: save-summary
+        action: memory_store
+        type: "project"
+        content: "${previous.summary}"
+        tags: ["summary", "overview"]

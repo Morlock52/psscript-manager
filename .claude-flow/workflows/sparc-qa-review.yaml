@@ -1,0 +1,373 @@
+# SPARC QA Review Workflow
+name: sparc
+description: Systematic Planning, Analysis, Refactoring, and Completion for comprehensive QA
+version: "1.0"
+trigger: cli
+
+parameters:
+  objective:
+    type: string
+    required: true
+    description: "The SPARC objective to execute"
+    
+  use_swarm:
+    type: boolean
+    default: true
+    description: "Use multi-agent swarm for parallel execution"
+    
+  update_standards:
+    type: boolean
+    default: true
+    description: "Check internet for latest standards and best practices"
+
+# Main SPARC execution
+steps:
+  - name: parse-objective
+    action: ai_analyze
+    input: "${objective}"
+    prompt: |
+      Parse this SPARC objective and extract:
+      1. Main goal
+      2. Specific tasks (numbered list)
+      3. Deliverables
+      4. Success criteria
+      5. Priority areas
+      
+      Format as structured JSON.
+      
+  - name: check-current-standards
+    condition: "${update_standards}"
+    action: parallel
+    tasks:
+      - search_web_standards:
+          action: web_search
+          query: "web development best practices July 2025 enterprise applications"
+          
+      - search_frameworks:
+          action: web_search
+          query: "latest JavaScript TypeScript frameworks 2025 production ready"
+          
+      - search_security:
+          action: web_search
+          query: "OWASP top 10 2025 web application security"
+          
+      - search_testing:
+          action: web_search
+          query: "automated testing frameworks 2025 JavaScript TypeScript"
+          
+  - name: create-qa-plan
+    action: ai_generate
+    inputs:
+      objective: "${steps.parse-objective.output}"
+      standards: "${steps.check-current-standards.output}"
+      project_context: "PSScript - PowerShell Script Management Platform"
+    prompt: |
+      Create a comprehensive QA review plan including:
+      
+      1. Systematic Review Checklist
+         - Frontend components (React/TypeScript)
+         - Backend APIs (Node.js/Express)
+         - Database layer (PostgreSQL/Redis)
+         - Docker configuration
+         - Security measures
+         
+      2. Testing Strategy
+         - Unit tests (Jest, Vitest)
+         - Integration tests (Supertest)
+         - E2E tests (Playwright)
+         - Performance tests (k6, Artillery)
+         - Security tests (OWASP ZAP)
+         
+      3. Refactoring Priorities
+         - Code quality improvements
+         - Performance optimizations
+         - Security enhancements
+         - Modernization opportunities
+         
+      4. Documentation Requirements
+         - Technical documentation
+         - User guides
+         - API documentation
+         - Deployment guides
+         
+  - name: initialize-swarm
+    condition: "${use_swarm}"
+    action: execute_workflow
+    workflow: swarm
+    parameters:
+      agents: 8
+      memory: persistent
+      config: |
+        roles:
+          qa_lead: 1
+          frontend_tester: 2
+          backend_tester: 2
+          security_auditor: 1
+          performance_analyst: 1
+          documentation_writer: 1
+          
+  - name: phase-1-discovery
+    action: parallel
+    timeout: 1800000  # 30 minutes
+    tasks:
+      - scan_frontend:
+          action: analyze_directory
+          path: "src/frontend"
+          patterns: ["*.tsx", "*.ts", "*.jsx", "*.js"]
+          checks:
+            - component_structure
+            - prop_validation
+            - state_management
+            - accessibility
+            - responsive_design
+            
+      - scan_backend:
+          action: analyze_directory
+          path: "src/backend"
+          patterns: ["*.ts", "*.js"]
+          checks:
+            - api_structure
+            - authentication
+            - error_handling
+            - input_validation
+            - database_queries
+            
+      - scan_infrastructure:
+          action: analyze_files
+          files:
+            - "docker-compose.yml"
+            - "Dockerfile*"
+            - "nginx/*.conf"
+          checks:
+            - security_configuration
+            - optimization
+            - best_practices
+            
+      - check_dependencies:
+          action: run_command
+          command: "npm audit --json"
+          
+      - analyze_database:
+          action: run_command
+          command: "cd src/backend && npm run diagnose:db"
+          
+  - name: phase-2-testing
+    action: parallel
+    timeout: 3600000  # 60 minutes
+    tasks:
+      - run_unit_tests:
+          action: run_command
+          command: "npm test"
+          
+      - run_integration_tests:
+          action: run_command
+          command: "npm run test:integration"
+          
+      - run_e2e_tests:
+          action: run_command
+          command: "npm run test:e2e"
+          
+      - security_scan:
+          action: security_audit
+          tools:
+            - dependency_check
+            - code_analysis
+            - vulnerability_scan
+            
+      - performance_test:
+          action: performance_analysis
+          targets:
+            - api_endpoints
+            - database_queries
+            - frontend_rendering
+            
+      - accessibility_test:
+          action: run_command
+          command: "npm run test:a11y"
+          
+  - name: phase-3-analysis
+    action: ai_aggregate
+    inputs:
+      discovery: "${steps.phase-1-discovery.output}"
+      testing: "${steps.phase-2-testing.output}"
+      standards: "${steps.check-current-standards.output}"
+    prompt: |
+      Analyze all findings and create:
+      
+      1. Critical Issues List
+         - Security vulnerabilities
+         - Performance bottlenecks
+         - Broken functionality
+         - Accessibility violations
+         
+      2. Improvement Opportunities
+         - Code quality enhancements
+         - Modern pattern adoption
+         - Performance optimizations
+         - UX improvements
+         
+      3. Refactoring Recommendations
+         - Components needing rewrite
+         - Deprecated patterns to replace
+         - Architecture improvements
+         - Technology upgrades
+         
+  - name: phase-4-implementation
+    action: foreach
+    items: "${steps.phase-3-analysis.critical_issues}"
+    parallel: true
+    steps:
+      - name: fix-issue
+        action: ai_fix
+        issue: "${item}"
+        approach: "refactor_preferred"
+        
+      - name: add-tests
+        action: ai_generate
+        type: "test"
+        for: "${item.fixed_code}"
+        
+      - name: verify-fix
+        action: run_tests
+        related_to: "${item}"
+        
+  - name: phase-5-documentation
+    action: parallel
+    tasks:
+      - create_startup_checklist:
+          action: ai_generate
+          template: "enterprise_checklist"
+          output: "docs/STARTUP_CHECKLIST.md"
+          
+      - create_technical_docs:
+          action: ai_generate
+          template: "comprehensive_technical"
+          include:
+            - architecture_diagrams
+            - data_flow_charts
+            - api_specifications
+            - database_schema
+          output: "docs/TECHNICAL_DOCUMENTATION.md"
+          
+      - create_presentation:
+          action: ai_generate
+          template: "executive_presentation"
+          format: "markdown_slides"
+          output: "docs/presentation/PSSCRIPT_OVERVIEW.md"
+          
+      - create_training_materials:
+          action: ai_generate
+          template: "user_training"
+          scenarios:
+            - user_onboarding
+            - admin_tasks
+            - troubleshooting
+          output: "docs/training/"
+          
+  - name: phase-6-validation
+    action: sequential
+    steps:
+      - name: final_test_suite
+        action: run_command
+        command: "npm run test:all"
+        
+      - name: performance_benchmark
+        action: run_command
+        command: "npm run benchmark"
+        
+      - name: security_validation
+        action: run_command
+        command: "npm run security:scan"
+        
+      - name: build_verification
+        action: run_command
+        command: "npm run build && npm run build:check"
+        
+  - name: generate-qa-report
+    action: ai_generate
+    inputs:
+      all_phases: "${steps}"
+      objective: "${objective}"
+    prompt: |
+      Generate a comprehensive QA report including:
+      
+      1. Executive Summary
+         - Overall application health
+         - Critical findings
+         - Major improvements made
+         
+      2. Detailed Findings
+         - Issues discovered (categorized by severity)
+         - Actions taken for each issue
+         - Refactoring performed
+         
+      3. Test Results
+         - Coverage metrics
+         - Performance benchmarks
+         - Security assessment
+         
+      4. Compliance Status
+         - Adherence to 2025 best practices
+         - Industry standard compliance
+         - Accessibility standards
+         
+      5. Future Recommendations
+         - Short-term improvements
+         - Long-term modernization
+         - Maintenance schedule
+         
+      6. Deliverables Summary
+         - Updated codebase overview
+         - Documentation created
+         - Testing infrastructure
+         
+    output: "QA_REPORT_${timestamp}.md"
+
+# SPARC sub-workflows
+subworkflows:
+  analyze_directory:
+    steps:
+      - name: scan_files
+        action: glob
+        pattern: "${patterns}"
+        path: "${path}"
+        
+      - name: analyze_each
+        action: foreach
+        items: "${previous.files}"
+        action: ai_analyze
+        checks: "${checks}"
+        
+  security_audit:
+    steps:
+      - name: run_tools
+        action: parallel
+        tools: "${tools}"
+        
+      - name: aggregate_findings
+        action: ai_aggregate
+        severity_threshold: "medium"
+        
+  performance_analysis:
+    steps:
+      - name: run_benchmarks
+        action: foreach
+        targets: "${targets}"
+        
+      - name: identify_bottlenecks
+        action: ai_analyze
+        threshold: "p95"
+
+# Error handling
+error_handlers:
+  test_failure:
+    action: capture_logs
+    then: continue_with_report
+    
+  fix_failure:
+    action: rollback_changes
+    then: manual_intervention
+    
+  timeout:
+    action: save_progress
+    then: resume_from_checkpoint

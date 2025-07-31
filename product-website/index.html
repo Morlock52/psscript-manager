@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PSScript: Manage, analyze, and run PowerShell scripts with AI assistance. Learn how to use our platform effectively.">
+  <title>PSScript - AI-Powered PowerShell Management</title>
+  <!-- Upgraded to Tailwind 3.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Animation library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    :root {
+      --primary-color: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary-color: #10b981;
+      --accent-color: #8b5cf6;
+      --dark-bg: #1e293b;
+      --dark-text: #f8fafc;
+    }
+    
+    /* Base typography */
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .testimonial-card {
+      transition: all 0.5s ease;
+    }
+    
+    .dark-mode {
+      background-color: var(--dark-bg);
+      color: var(--dark-text);
+    }
+    
+    .dark-mode .bg-white {
+      background-color: #334155;
+      color: var(--dark-text);
+    }
+    
+    .dark-mode .text-gray-800 {
+      color: var(--dark-text);
+    }
+    
+    .dark-mode .bg-gray-100 {
+      background-color: #1e293b;
+    }
+    
+    .dark-mode .bg-blue-600 {
+      background-color: #1d4ed8;
+    }
+    
+    .dark-mode .bg-gray-800 {
+      background-color: #0f172a;
+    }
+    
+    /* Animation classes */
+    .fade-in {
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Code editor styles */
+    .code-editor {
+      font-family: 'Courier New', monospace;
+      background-color: #1e293b;
+      color: #e2e8f0;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      position: relative;
+    }
+    
+    .code-editor pre {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+    
+    .code-editor .keyword {
+      color: #8b5cf6;
+    }
+    
+    .code-editor .string {
+      color: #10b981;
+    }
+    
+    .code-editor .comment {
+      color: #94a3b8;
+    }
+    
+    .code-editor .function {
+      color: #3b82f6;
+    }
+    
+    .code-editor .variable {
+      color: #f59e0b;
+    }
+    
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .copy-btn:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Progress bar */
+    .progress-bar {
+      height: 0.5rem;
+      background-color: #e2e8f0;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    
+    .progress-bar-fill {
+      height: 100%;
+      background-color: var(--primary-color);
+      transition: width 0.5s ease;
+    }
+    
+    /* Tooltip */
+    .tooltip {
+      position: relative;
+    }
+    
+    .tooltip:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    .tooltip-text {
+      visibility: hidden;
+      opacity: 0;
+      width: 200px;
+      background-color: #334155;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -100px;
+      transition: opacity 0.3s;
+    }
+    
+    .tooltip-text::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #334155 transparent transparent transparent;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Navigation Bar -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center">
+          <i class="fas fa-terminal text-blue-600 text-2xl mr-2"></i>
+          <span class="font-bold text-xl">PSScript</span>
+        </div>
+        
+        <div class="hidden md:flex space-x-8">
+          <a href="#features" class="hover:text-blue-600 transition-colors">Features</a>
+          <a href="#demo" class="hover:text-blue-600 transition-colors">Demo</a>
+          <a href="#screenshots" class="hover:text-blue-600 transition-colors">Screenshots</a>
+          <a href="#testimonials" class="hover:text-blue-600 transition-colors">Testimonials</a>
+          <a href="#getting-started" class="hover:text-blue-600 transition-colors">Get Started</a>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+          <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-200 transition-colors" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors">
+            Sign In
+          </a>
+          <button class="md:hidden focus:outline-none" id="mobileMenuButton" aria-label="Toggle mobile menu">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div class="md:hidden hidden" id="mobileMenu">
+        <div class="py-3 space-y-3">
+          <a href="#features" class="block hover:text-blue-600 transition-colors">Features</a>
+          <a href="#demo" class="block hover:text-blue-600 transition-colors">Demo</a>
+          <a href="#screenshots" class="block hover:text-blue-600 transition-colors">Screenshots</a>
+          <a href="#testimonials" class="block hover:text-blue-600 transition-colors">Testimonials</a>
+          <a href="#getting-started" class="block hover:text-blue-600 transition-colors">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+      <div class="md:w-1/2 mb-8 md:mb-0 animate__animated animate__fadeInLeft">
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight">PowerShell Management Reimagined with AI</h1>
+        <p class="mt-4 text-xl">Manage, analyze, and optimize your PowerShell scripts with advanced AI assistance.</p>
+        <div class="mt-8 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+          <a href="#demo" class="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-6 py-3 rounded-lg shadow-md transition-colors text-center">
+            Try Demo
+          </a>
+          <a href="#getting-started" class="bg-transparent hover:bg-blue-700 border border-white font-semibold px-6 py-3 rounded-lg transition-colors text-center">
+            Get Started
+          </a>
+        </div>
+      </div>
+      <div class="md:w-1/2 animate__animated animate__fadeInRight">
+        <div class="relative">
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-600 opacity-50 rounded-lg transform rotate-3"></div>
+          <div class="code-editor relative z-10 rounded-lg shadow-2xl">
+            <button class="copy-btn" aria-label="Copy code to clipboard">
+              <i class="fas fa-copy"></i>
+            </button>
+            <pre><span class="comment"># AI-Enhanced PowerShell Script</span>
+<span class="keyword">function</span> <span class="function">Get-SystemHealth</span> {
+    <span class="keyword">param</span>(
+        [<span class="keyword">string</span>]<span class="variable">$ComputerName</span> = <span class="string">"localhost"</span>,
+        [<span class="keyword">switch</span>]<span class="variable">$IncludeMemory</span>
+    )
+    
+    <span class="comment"># Get CPU usage</span>
+    <span class="variable">$cpuUsage</span> = <span class="function">Get-Counter</span> <span class="string">'\Processor(_Total)\% Processor Time'</span>
+    
+    <span class="comment"># Get disk info</span>
+    <span class="variable">$diskInfo</span> = <span class="function">Get-Volume</span> | <span class="function">Where-Object</span> { <span class="variable">$_.DriveLetter</span> }
+    
+    <span class="comment"># Return results</span>
+    <span class="keyword">return</span> <span class="variable">$results</span>
+}</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Features Section -->
+  <section id="features" class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold mb-4 text-center">Powerful Features</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">Our platform combines advanced AI capabilities with intuitive interfaces to make PowerShell script management easier than ever.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Feature 1 -->
+        <div class="feature-card bg-white rounded-lg shadow-md p-6 border-t-4 border-blue-600">
+          <div class="text-blue-600 mb-4">
+            <i class="fas fa-brain text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">AI Script Analysis</h3>
+          <p class="text-gray-600">Automatically analyze scripts for security vulnerabilities, performance issues, and best practices.</p>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="feature-card bg-white rounded-lg shadow-md p-6 border-t-4 border-green-500">
+          <div class="text-green-500 mb-4">
+            <i class="fas fa-shield-alt text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Security Scanning</h3>
+          <p class="text-gray-600">Identify potential security risks and get recommendations for hardening your scripts.</p>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="feature-card bg-white rounded-lg shadow-md p-6 border-t-4 border-purple-600">
+          <div class="text-purple-600 mb-4">
+            <i class="fas fa-comments text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">AI Chat Assistant</h3>
+          <p class="text-gray-600">Get help with PowerShell scripting from our intelligent assistant that understands context.</p>
+        </div>
+        
+        <!-- Feature 4 -->
+        <div class="feature-card bg-white rounded-lg shadow-md p-6 border-t-4 border-yellow-500">
+          <div class="text-yellow-500 mb-4">
+            <i class="fas fa-tachometer-alt text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Performance Optimization</h3>
+          <p class="text-gray-600">Get suggestions to improve script performance and efficiency with AI-powered analysis.</p>
+        </div>
+        
+        <!-- Feature 5 -->
+        <div class="feature-card bg-white rounded-lg shadow-md p-6 border-t-4 border-red-500">
+          <div class="text-red-500 mb-4">
+            <i class="fas fa-history text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Version Control</h3>
+          <p class="text-gray-600">Track changes to your scripts over time with built-in versioning and comparison tools.</p>
+        </div>
+        
+        <!-- Feature 6 -->
+        <div class="feature-card bg-white rounded-lg shadow-md p-6 border-t-4 border-indigo-500">
+          <div class="text-indigo-500 mb-4">
+            <i class="fas fa-tags text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Smart Categorization</h3>
+          <p class="text-gray-600">Automatically categorize scripts based on their purpose, functionality, and usage patterns.</p>
+        </div>
+        
+        <!-- Feature 7 -->
+        <div class="feature-card bg-white rounded-lg shadow-md p-6 border-t-4 border-pink-500">
+          <div class="text-pink-500 mb-4">
+            <i class="fas fa-share-alt text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Collaboration Tools</h3>
+          <p class="text-gray-600">Share scripts with team members, add comments, and collaborate on improvements.</p>
+        </div>
+        
+        <!-- Feature 8 -->
+        <div class="feature-card bg-white rounded-lg shadow-md p-6 border-t-4 border-teal-500">
+          <div class="text-teal-500 mb-4">
+            <i class="fas fa-robot text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Workflow Automation</h3>
+          <p class="text-gray-600">Create automated workflows by chaining scripts together with conditional logic.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Interactive Demo Section -->
+  <section id="demo" class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold mb-4 text-center">Try It Yourself</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">Experience the power of our AI-driven script analysis. Enter a PowerShell script below to see it in action.</p>
+      
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
+        <div class="flex border-b">
+          <button class="px-4 py-2 bg-blue-600 text-white font-medium">Script Analysis</button>
+          <button class="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100">Security Check</button>
+          <button class="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100">Optimization</button>
+        </div>
+        
+        <div class="p-6">
+          <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">Enter PowerShell Script:</label>
+            <div class="code-editor">
+              <pre contenteditable="true" id="scriptInput" class="focus:outline-none">function Get-DiskSpace {
+    param(
+        [string]$ComputerName = "localhost"
+    )
+    
+    Get-WmiObject -Class Win32_LogicalDisk -Filter "DriveType=3" -ComputerName $ComputerName |
+    Select-Object DeviceID, 
+                @{Name="Size(GB)";Expression={[math]::Round($_.Size/1GB, 2)}},
+                @{Name="FreeSpace(GB)";Expression={[math]::Round($_.FreeSpace/1GB, 2)}},
+                @{Name="PercentFree";Expression={[math]::Round(($_.FreeSpace/$_.Size)*100, 2)}}
+}</pre>
+            </div>
+          </div>
+          
+          <div class="flex justify-end">
+            <button id="analyzeButton" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md transition-colors">
+              Analyze Script
+            </button>
+          </div>
+          
+          <div id="analysisResults" class="mt-6 hidden">
+            <h3 class="text-xl font-semibold mb-4">Analysis Results</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="font-medium">Security Score</span>
+                  <span class="text-blue-600 font-bold">8.5/10</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-bar-fill" style="width: 85%"></div>
+                </div>
+              </div>
+              
+              <div class="bg-green-50 p-4 rounded-lg">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="font-medium">Code Quality</span>
+                  <span class="text-green-600 font-bold">9.0/10</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-bar-fill bg-green-500" style="width: 90%"></div>
+                </div>
+              </div>
+              
+              <div class="bg-purple-50 p-4 rounded-lg">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="font-medium">Performance</span>
+                  <span class="text-purple-600 font-bold">7.5/10</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-bar-fill bg-purple-500" style="width: 75%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <h4 class="font-medium mb-2">Script Purpose:</h4>
+              <p class="bg-gray-50 p-3 rounded">This script retrieves disk space information from local or remote computers, calculating size, free space, and percentage of free space in GB.</p>
+            </div>
+            
+            <div class="mb-6">
+              <h4 class="font-medium mb-2">Optimization Suggestions:</h4>
+              <ul class="bg-gray-50 p-3 rounded list-disc list-inside space-y-2">
+                <li>Consider adding error handling with try/catch blocks</li>
+                <li>Add parameter validation attributes for input validation</li>
+                <li>For multiple computers, consider using PowerShell remoting instead of WMI</li>
+                <li>Add comment-based help for better documentation</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-medium mb-2">Security Considerations:</h4>
+              <ul class="bg-gray-50 p-3 rounded list-disc list-inside space-y-2">
+                <li>WMI queries require appropriate permissions on remote systems</li>
+                <li>Consider adding credential parameter for remote authentication</li>
+                <li>No critical security issues detected</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- AI Assistant Demo Section -->
+  <section id="ai-assistant" class="py-12 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold mb-4 text-center">AI-Powered Assistant</h2>
+      <p class="text-center mb-12 max-w-3xl mx-auto">Our intelligent assistant helps you write better PowerShell scripts, troubleshoot issues, and learn best practices.</p>
+      
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto text-gray-800">
+        <div class="bg-gray-800 text-white p-4">
+          <h3 class="font-medium">Chat with PSScriptGPT</h3>
+        </div>
+        
+        <div class="h-80 overflow-y-auto p-4 space-y-4" id="chatMessages">
+          <!-- System message -->
+          <div class="flex items-start">
+            <div class="bg-blue-100 rounded-lg p-3 max-w-md">
+              <p class="font-medium text-blue-800">PSScriptGPT</p>
+              <p>Hello! I'm PSScriptGPT, your PowerShell assistant. How can I help you today?</p>
+            </div>
+          </div>
+          
+          <!-- User message -->
+          <div class="flex items-start justify-end">
+            <div class="bg-gray-100 rounded-lg p-3 max-w-md">
+              <p class="font-medium text-gray-800">You</p>
+              <p>How do I find all processes using more than 100MB of memory?</p>
+            </div>
+          </div>
+          
+          <!-- System response -->
+          <div class="flex items-start">
+            <div class="bg-blue-100 rounded-lg p-3 max-w-md">
+              <p class="font-medium text-blue-800">PSScriptGPT</p>
+              <p>You can use the Get-Process cmdlet with filtering. Here's a simple example:</p>
+              <div class="code-editor mt-2 text-sm">
+                <pre>Get-Process | Where-Object {$_.WorkingSet -gt 100MB} | Sort-Object -Descending WorkingSet | Select-Object Name, ID, WorkingSet</pre>
+              </div>
+              <p class="mt-2">This will return all processes using more than 100MB of memory, sorted by memory usage in descending order.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p-4 border-t">
+          <div class="flex">
+            <input type="text" id="chatInput" placeholder="Ask a PowerShell question..." class="flex-1 border rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="sendButton" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg transition-colors" aria-label="Send message">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+          <div class="mt-2 text-xs text-gray-500">
+            <p>Try asking about: script optimization, security best practices, or specific PowerShell commands</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Screenshots Section -->
+  <section id="screenshots" class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold mb-4 text-center">Application Screenshots</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">See our intuitive interface in action with these screenshots of key features.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="group">
+          <div class="overflow-hidden rounded-lg shadow-lg transition-all duration-300 group-hover:shadow-xl">
+            <img src="https://via.placeholder.com/800x600?text=Dashboard+Screenshot" alt="Dashboard Screenshot" class="w-full transition-transform duration-500 group-hover:scale-105">
+          </div>
+          <div class="mt-4">
+            <h3 class="text-xl font-semibold">Dashboard Overview</h3>
+            <p class="text-gray-600 mt-2">The main dashboard provides a comprehensive view of your scripts, recent activities, and important metrics.</p>
+          </div>
+        </div>
+        
+        <div class="group">
+          <div class="overflow-hidden rounded-lg shadow-lg transition-all duration-300 group-hover:shadow-xl">
+            <img src="https://via.placeholder.com/800x600?text=AI+Chat+Screenshot" alt="AI Chat Screenshot" class="w-full transition-transform duration-500 group-hover:scale-105">
+          </div>
+          <div class="mt-4">
+            <h3 class="text-xl font-semibold">AI Chat Interface</h3>
+            <p class="text-gray-600 mt-2">Get instant help with PowerShell scripting through our intelligent chat assistant.</p>
+          </div>
+        </div>
+        
+        <div class="group">
+          <div class="overflow-hidden rounded-lg shadow-lg transition-all duration-300 group-hover:shadow-xl">
+            <img src="https://via.placeholder.com/800x600?text=Script+Analysis+Screenshot" alt="Script Analysis Screenshot" class="w-full transition-transform duration-500 group-hover:scale-105">
+          </div>
+          <div class="mt-4">
+            <h3 class="text-xl font-semibold">Script Analysis</h3>
+            <p class="text-gray-600 mt-2">Detailed analysis of your scripts with security scoring, quality assessment, and optimization suggestions.</p>
+          </div>
+        </div>
+        
+        <div class="group">
+          <div class="overflow-hidden rounded-lg shadow-lg transition-all duration-300 group-hover:shadow-xl">
+            <img src="https://via.placeholder.com/800x600?text=Script+Management+Screenshot" alt="Script Management Screenshot" class="w-full transition-transform duration-500 group-hover:scale-105">
+          </div>
+          <div class="mt-4">
+            <h3 class="text-xl font-semibold">Script Management</h3>
+            <p class="text-gray-600 mt-2">Organize, categorize, and manage your PowerShell scripts with our intuitive interface.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold mb-4 text-center">What Our Users Say</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">Hear from IT professionals who use PSScript to improve their PowerShell workflows.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card bg-white rounded-lg shadow-md p-6">
+          <div class="flex items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+            <div class="ml-4">
+              <h4 class="font-semibold">Michael Johnson</h4>
+              <p class="text-gray-600 text-sm">Systems Administrator</p>
+            </div>
+          </div>
+          <p class="text-gray-600">"The AI-powered analysis has helped me identify security issues in our scripts that I would have missed. It's like having a senior PowerShell expert reviewing my code 24/7."</p>
+          <div class="mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card bg-white rounded-lg shadow-md p-6">
+          <div class="flex items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+            <div class="ml-4">
+              <h4 class="font-semibold">Sarah Williams</h4>
+              <p class="text-gray-600 text-sm">DevOps Engineer</p>
+            </div>
+          </div>
+          <p class="text-gray-600">"The workflow automation features have saved me hours of repetitive work. I can now chain scripts together and schedule them with just a few clicks."</p>
+          <div class="mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card bg-white rounded-lg shadow-md p-6">
+          <div class="flex items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User Avatar" class="w-12 h-12 rounded-full">
+            <div class="ml-4">
+              <h4 class="font-semibold">David Chen</h4>
+              <p class="text-gray-600 text-sm">Security Analyst</p>
+            </div>
+          </div>
+          <p class="text-gray-600">"As a security professional, I appreciate the detailed security analysis. It helps me ensure our automation scripts follow best practices and don't introduce vulnerabilities."</p>
+          <div class="mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Script Categorization Section -->
+  <section id="categorization" class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold mb-4 text-center">Intelligent Script Categorization</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">Our AI automatically categorizes your scripts based on their purpose and functionality, making organization effortless.</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4">How It Works</h3>
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <ol class="list-decimal list-inside space-y-4">
+              <li class="pb-4 border-b border-gray-200">
+                <span class="font-medium">Script Analysis</span>
+                <p class="mt-2 text-gray-600 pl-6">Our AI analyzes your script's content, commands, and patterns to understand its purpose.</p>
+              </li>
+              <li class="py-4 border-b border-gray-200">
+                <span class="font-medium">Category Matching</span>
+                <p class="mt-2 text-gray-600 pl-6">The system matches the script against predefined categories based on its functionality.</p>
+              </li>
+              <li class="py-4 border-b border-gray-200">
+                <span class="font-medium">Confidence Scoring</span>
+                <p class="mt-2 text-gray-600 pl-6">Each potential category receives a confidence score to ensure accurate classification.</p>
+              </li>
+              <li class="pt-4">
+                <span class="font-medium">Automatic Organization</span>
+                <p class="mt-2 text-gray-600 pl-6">Scripts are automatically organized into the appropriate categories in your dashboard.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Popular Categories</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <div class="text-blue-600 mb-2">
+                <i class="fas fa-server"></i>
+              </div>
+              <h4 class="font-medium">System Administration</h4>
+              <p class="text-sm text-gray-600 mt-1">Scripts for managing Windows/Linux systems, configuration, and monitoring.</p>
+            </div>
+            
+            <div class="bg-green-50 p-4 rounded-lg">
+              <div class="text-green-600 mb-2">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h4 class="font-medium">Security & Compliance</h4>
+              <p class="text-sm text-gray-600 mt-1">Scripts for security auditing, hardening, and compliance checks.</p>
+            </div>
+            
+            <div class="bg-purple-50 p-4 rounded-lg">
+              <div class="text-purple-600 mb-2">
+                <i class="fas fa-cogs"></i>
+              </div>
+              <h4 class="font-medium">Automation & DevOps</h4>
+              <p class="text-sm text-gray-600 mt-1">Scripts that automate repetitive tasks and streamline IT processes.</p>
+            </div>
+            
+            <div class="bg-yellow-50 p-4 rounded-lg">
+              <div class="text-yellow-600 mb-2">
+                <i class="fas fa-cloud"></i>
+              </div>
+              <h4 class="font-medium">Cloud Management</h4>
+              <p class="text-sm text-gray-600 mt-1">Scripts for managing resources on Azure, AWS, and other cloud platforms.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Getting Started Section -->
+  <section id="getting-started" class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-semibold mb-4 text-center">Getting Started</h2>
+      <p class="text-gray-600 text-center mb-12 max-w-3xl mx-auto">Follow these simple steps to begin using PSScript and transform your PowerShell workflow.</p>
+      
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div class="p-6">
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">1</div>
+              <div>
+                <h3 class="text-xl font-semibold">Clone the Repository</h3>
+                <p class="text-gray-600 mt-1">Get the source code from our GitHub repository.</p>
+              </div>
+            </div>
+            
+            <div class="code-editor mb-8">
+              <button class="copy-btn" aria-label="Copy code to clipboard">
+                <i class="fas fa-copy"></i>
+              </button>
+              <pre>git clone https://github.com/psscript/psscript.git
+cd psscript</pre>
+            </div>
+            
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">2</div>
+              <div>
+                <h3 class="text-xl font-semibold">Update Environment Configuration</h3>
+                <p class="text-gray-600 mt-1">Set up your environment variables for the application.</p>
+              </div>
+            </div>
+            
+            <div class="code-editor mb-8">
+              <button class="copy-btn" aria-label="Copy code to clipboard">
+                <i class="fas fa-copy"></i>
+              </button>
+              <pre>cp .env.example .env
+# Edit .env with your configuration</pre>
+            </div>
+            
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">3</div>
+              <div>
+                <h3 class="text-xl font-semibold">Run the Setup Script</h3>
+                <p class="text-gray-600 mt-1">Initialize the application with our setup script.</p>
+              </div>
+            </div>
+            
+            <div class="code-editor mb-8">
+              <button class="copy-btn" aria-label="Copy code to clipboard">
+                <i class="fas fa-copy"></i>
+              </button>
+              <pre>./setup.sh</pre>
+            </div>
+            
+            <div class="flex items-center mb-6">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">4</div>
+              <div>
+                <h3 class="text-xl font-semibold">Access the Application</h3>
+                <p class="text-gray-600 mt-1">Open your browser and navigate to the application.</p>
+              </div>
+            </div>
+            
+            <div class="code-editor">
+              <button class="copy-btn" aria-label="Copy code to clipboard">
+                <i class="fas fa-copy"></i>
+              </button>
+              <pre># Start the application
+./start-all.sh
+
+# Open in your browser
+open http://localhost:3000</pre>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <p class="text-gray-600">
+            For detailed instructions, please refer to our <a href="README.md" class="text-blue-600 underline">installation guide</a>.
+          </p>
+          <div class="mt-6">
+            <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg shadow-md transition-colors inline-block">
+              Download Documentation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Newsletter Section -->
+  <section id="newsletter" class="py-16 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-semibold mb-4">Stay Updated</h2>
+        <p class="mb-8">Subscribe to our newsletter to receive the latest updates, tips, and best practices for PowerShell scripting.</p>
+        
+        <form class="flex flex-col sm:flex-row gap-4 justify-center">
+          <input type="email" placeholder="Your email address" class="px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-800 flex-1 max-w-md">
+          <button type="submit" class="bg-white text-blue-600 hover:bg-gray-100 font-semibold px-6 py-3 rounded-lg shadow-md transition-colors">
+            Subscribe
+          </button>
+        </form>
+        
+        <p class="mt-4 text-sm opacity-80">We respect your privacy. Unsubscribe at any time.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-10">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center mb-4">
+            <i class="fas fa-terminal text-blue-400 text-2xl mr-2"></i>
+            <span class="font-bold text-xl">PSScript</span>
+          </div>
+          <p class="text-gray-400">Manage, analyze, and run PowerShell scripts with AI assistance.</p>
+          <div class="mt-4 flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fab fa-github text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fab fa-twitter text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fab fa-linkedin text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Product</h3>
+          <ul class="space-y-2">
+            <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Features</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Release Notes</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Resources</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tutorials</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Community</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">PowerShell Gallery</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold text-lg mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 PSScript. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- JavaScript -->
+  <script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+    
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+    const moonIcon = darkModeToggle.querySelector('i');
+    
+    if (darkModeToggle) {
+      // Check for saved theme preference or use preferred color scheme
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        body.classList.add('dark-mode');
+        moonIcon.classList.remove('fa-moon');
+        moonIcon.classList.add('fa-sun');
+      }
+      
+      darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+          moonIcon.classList.remove('fa-moon');
+          moonIcon.classList.add('fa-sun');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          moonIcon.classList.remove('fa-sun');
+          moonIcon.classList.add('fa-moon');
+          localStorage.setItem('theme', 'light');
+        }
+      });
+    }
+    
+    // Copy code buttons
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    
+    copyButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const codeBlock = button.nextElementSibling;
+        const textToCopy = codeBlock.textContent;
+        
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          // Visual feedback
+          const originalIcon = button.innerHTML;
+          button.innerHTML = '<i class="fas fa-check"></i>';
+          
+          setTimeout(() => {
+            button.innerHTML = originalIcon;
+          }, 2000);
+        });
+      });
+    });
+    
+    // Script analysis demo
+    const analyzeButton = document.getElementById('analyzeButton');
+    const analysisResults = document.getElementById('analysisResults');
+    
+    if (analyzeButton && analysisResults) {
+      analyzeButton.addEventListener('click', () => {
+        // Show loading state
+        analyzeButton.disabled = true;
+        analyzeButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Analyzing...';
+        
+        // Simulate analysis delay
+        setTimeout(() => {
+          // Show results
+          analysisResults.classList.remove('hidden');
+          
+          // Reset button
+          analyzeButton.disabled = false;
+          analyzeButton.innerHTML = 'Analyze Script';
+          
+          // Scroll to results
+          analysisResults.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 1500);
+      });
+    }
+    
+    // Chat demo
+    const chatInput = document.getElementById('chatInput');
+    const sendButton = document.getElementById('sendButton');
+    const chatMessages = document.getElementById('chatMessages');
+    
+    if (chatInput && sendButton && chatMessages) {
+      const sendMessage = () => {
+        const message = chatInput.value.trim();
+        
+        if (message) {
+          // Add user message
+          const userMessageHTML = `
+            <div class="flex items-start justify-end">
+              <div class="bg-gray-100 rounded-lg p-3 max-w-md">
+                <p class="font-medium text-gray-800">You</p>
+                <p>${message}</p>
+              </div>
+            </div>
+          `;
+          
+          chatMessages.insertAdjacentHTML('beforeend', userMessageHTML);
+          
+          // Clear input
+          chatInput.value = '';
+          
+          // Scroll to bottom
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          
+          // Simulate AI response after a delay
+          setTimeout(() => {
+            // Add AI response
+            const aiResponseHTML = `
+              <div class="flex items-start">
+                <div class="bg-blue-100 rounded-lg p-3 max-w-md">
+                  <p class="font-medium text-blue-800">PSScriptGPT</p>
+                  <p>I'd be happy to help with that! However, this is just a demo. In the actual application, you would receive a helpful response about PowerShell scripting.</p>
+                </div>
+              </div>
+            `;
+            
+            chatMessages.insertAdjacentHTML('beforeend', aiResponseHTML);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+          }, 1000);
+        }
+      };
+      
+      // Send on button click
+      sendButton.addEventListener('click', sendMessage);
+      
+      // Send on Enter key
+      chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          sendMessage();
+        }
+      });
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          
+          // Close mobile menu if open
+          if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+    
+    // Animate elements on scroll
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.feature-card, .testimonial-card');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if (elementPosition < screenPosition) {
+          element.classList.add('fade-in');
+        }
+      });
+    };
+    
+    window.addEventListener('scroll', animateOnScroll);
+    window.addEventListener('load', animateOnScroll);
+    
+    console.log('PSScript product website loaded successfully.');
+  </script>
+</body>
+</html>

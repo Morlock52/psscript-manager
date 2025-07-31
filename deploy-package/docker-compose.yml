@@ -1,0 +1,177 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: psscript-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./configs/nginx.conf:/etc/nginx/nginx.conf:ro
+      - nginx-logs:/var/log/nginx
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+        labels: "service=nginx"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: psscript-backend
+    environment:
+      - NODE_ENV=production
+      - PORT=4000
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=psscript
+      - DB_USER=postgres
+      - DB_PASSWORD=${DB_PASSWORD:-secure_password}
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET:-secure_jwt_secret}
+      - AI_SERVICE_URL=http://ai-service:8000
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:4000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      - backend-logs:/app/logs
+      - ./backend/uploads:/app/uploads
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+        labels: "service=backend"
+
+  ai-service:
+    build:
+      context: ./ai
+      dockerfile: Dockerfile.prod
+    container_name: psscript-ai
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - MOCK_MODE=${MOCK_MODE:-false}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=psscript
+      - DB_USER=postgres
+      - DB_PASSWORD=${DB_PASSWORD:-secure_password}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    volumes:
+      - ai-logs:/app/logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+        labels: "service=ai"
+
+  postgres:
+    image: pgvector/pgvector:pg15
+    container_name: psscript-postgres
+    environment:
+      - POSTGRES_DB=psscript
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-secure_password}
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./db/seeds/01-initial-data.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - postgres-logs:/var/log/postgresql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+        labels: "service=postgres"
+
+  redis:
+    image: redis:7-alpine
+    container_name: psscript-redis
+    command: redis-server --appendonly yes --appendfsync everysec
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+        labels: "service=redis"
+
+  # Log collector service
+  promtail:
+    image: grafana/promtail:latest
+    container_name: psscript-promtail
+    volumes:
+      - ./configs/promtail-config.yml:/etc/promtail/config.yml:ro
+      - /var/log:/var/log:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - nginx-logs:/var/log/nginx:ro
+      - backend-logs:/var/log/backend:ro
+      - ai-logs:/var/log/ai:ro
+      - postgres-logs:/var/log/postgres:ro
+    command: -config.file=/etc/promtail/config.yml
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data:
+  redis_data:
+  nginx-logs:
+  backend-logs:
+  ai-logs:
+  postgres-logs:
+
+networks:
+  default:
+    name: psscript-network

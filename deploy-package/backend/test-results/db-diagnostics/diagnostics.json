@@ -1,0 +1,1272 @@
+{
+  "timestamp": "2025-07-28T23:38:09.973Z",
+  "system": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "nodeVersion": "v22.16.0",
+    "uptime": 0.462496917,
+    "hostname": "Davids-MacBook-Air.local",
+    "cpus": 8,
+    "loadAvg": [
+      13.33984375,
+      22.85888671875,
+      38.166015625
+    ],
+    "freeMemoryMB": 180,
+    "totalMemoryMB": 16384,
+    "memoryUsage": {
+      "rss": 69648384,
+      "heapTotal": 20512768,
+      "heapUsed": 14820720,
+      "external": 1935776,
+      "arrayBuffers": 16939
+    },
+    "environment": "development",
+    "isDocker": false
+  },
+  "network": {
+    "interfaces": {
+      "lo0": [
+        {
+          "address": "127.0.0.1",
+          "netmask": "255.0.0.0",
+          "family": "IPv4",
+          "internal": true
+        },
+        {
+          "address": "::1",
+          "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+          "family": "IPv6",
+          "internal": true
+        },
+        {
+          "address": "fe80::1",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": true
+        }
+      ],
+      "en0": [
+        {
+          "address": "fe80::18db:9e21:5d78:22e5",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": false
+        },
+        {
+          "address": "fdae:26fa:98af:4a48:1414:2bad:e49:64ae",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": false
+        },
+        {
+          "address": "192.168.1.247",
+          "netmask": "255.255.255.0",
+          "family": "IPv4",
+          "internal": false
+        }
+      ],
+      "awdl0": [
+        {
+          "address": "fe80::6ca3:b9ff:fe3d:6046",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": false
+        }
+      ],
+      "llw0": [
+        {
+          "address": "fe80::6ca3:b9ff:fe3d:6046",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": false
+        }
+      ],
+      "utun0": [
+        {
+          "address": "fe80::218a:324e:d3c2:5376",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": false
+        }
+      ],
+      "utun1": [
+        {
+          "address": "fe80::5a1f:84e6:a93e:fc3b",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": false
+        }
+      ],
+      "utun2": [
+        {
+          "address": "fe80::fc3e:9df4:c24c:a05a",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": false
+        }
+      ],
+      "utun3": [
+        {
+          "address": "fe80::ce81:b1c:bd2c:69e",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": false
+        }
+      ],
+      "utun4": [
+        {
+          "address": "fe80::894d:b1da:4c70:a6cb",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": false
+        }
+      ],
+      "utun5": [
+        {
+          "address": "fe80::297:7e32:801:774",
+          "netmask": "ffff:ffff:ffff:ffff::",
+          "family": "IPv6",
+          "internal": false
+        }
+      ]
+    },
+    "dnsServers": [
+      "1.1.1.1",
+      "8.8.8.8"
+    ],
+    "dnsResolution": {
+      "success": true,
+      "message": "Hostname is localhost, no DNS resolution needed",
+      "addresses": [
+        {
+          "address": "127.0.0.1",
+          "family": 4
+        },
+        {
+          "address": "::1",
+          "family": 6
+        }
+      ]
+    },
+    "tcpConnectivity": {
+      "success": true,
+      "time": 7
+    }
+  },
+  "database": {
+    "connection": {
+      "success": true,
+      "time": 74
+    },
+    "info": {
+      "version": "PostgreSQL 16.9 (Homebrew) on aarch64-apple-darwin24.4.0, compiled by Apple clang version 17.0.0 (clang-1700.0.13.3), 64-bit",
+      "database": "psscript",
+      "server_time": "2025-07-28T23:38:10.254Z",
+      "db_size": "10172 kB",
+      "active_connections": "6",
+      "max_connections": "100",
+      "shared_buffers": "128MB",
+      "work_mem": "4MB"
+    },
+    "tables": [
+      {
+        "table_name": "users",
+        "row_count": "2",
+        "size": "8192 bytes",
+        "total_size": "184 kB",
+        "seq_scan": "11",
+        "idx_scan": "0",
+        "seq_tup_read": "29",
+        "idx_tup_fetch": "0",
+        "inserts": "2",
+        "updates": "1",
+        "deletes": "0",
+        "dead_tuples": "1"
+      },
+      {
+        "table_name": "script_versions",
+        "row_count": "1",
+        "size": "8192 bytes",
+        "total_size": "96 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "1",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "scripts",
+        "row_count": "1",
+        "size": "8192 bytes",
+        "total_size": "336 kB",
+        "seq_scan": "4",
+        "idx_scan": "0",
+        "seq_tup_read": "30",
+        "idx_tup_fetch": "0",
+        "inserts": "1",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "conversation_history",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "32 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "chat_history",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "40 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "assistants",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "24 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "vulnerabilities",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "56 kB",
+        "seq_scan": "5",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "agent_state",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "24 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "script_analysis",
+        "row_count": "0",
+        "size": "8192 bytes",
+        "total_size": "128 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "categories",
+        "row_count": "0",
+        "size": "8192 bytes",
+        "total_size": "64 kB",
+        "seq_scan": "27",
+        "idx_scan": "0",
+        "seq_tup_read": "351",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "tool_execution_results",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "32 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "script_embeddings",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "32 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "threads",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "32 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "runs",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "40 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "schema_migrations",
+        "row_count": "0",
+        "size": "8192 bytes",
+        "total_size": "40 kB",
+        "seq_scan": "1",
+        "idx_scan": "0",
+        "seq_tup_read": "11",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "execution_logs",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "88 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "migrations",
+        "row_count": "0",
+        "size": "8192 bytes",
+        "total_size": "56 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "tags",
+        "row_count": "0",
+        "size": "8192 bytes",
+        "total_size": "56 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "messages",
+        "row_count": "0",
+        "size": "0 bytes",
+        "total_size": "32 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      },
+      {
+        "table_name": "script_tags",
+        "row_count": "0",
+        "size": "8192 bytes",
+        "total_size": "72 kB",
+        "seq_scan": "0",
+        "idx_scan": "0",
+        "seq_tup_read": "0",
+        "idx_tup_fetch": "0",
+        "inserts": "0",
+        "updates": "0",
+        "deletes": "0",
+        "dead_tuples": "0"
+      }
+    ],
+    "indexes": [
+      {
+        "index_name": "idx_scripts_public_created",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_category_created",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "users_pkey",
+        "table_name": "users",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "users_username_key",
+        "table_name": "users",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "users_email_key",
+        "table_name": "users",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "scripts_pkey",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "scripts_file_hash_key",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "script_analysis_pkey",
+        "table_name": "script_analysis",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "script_analysis_script_id_key",
+        "table_name": "script_analysis",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_user_id",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_category_id",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_file_hash",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_analysis_script_id",
+        "table_name": "script_analysis",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "categories_pkey",
+        "table_name": "categories",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "categories_name_key",
+        "table_name": "categories",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "agent_state_pkey",
+        "table_name": "agent_state",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_agent_state_agent_id",
+        "table_name": "agent_state",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "conversation_history_pkey",
+        "table_name": "conversation_history",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_conversation_history_conversation_id",
+        "table_name": "conversation_history",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_conversation_history_agent_type",
+        "table_name": "conversation_history",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "tool_execution_results_pkey",
+        "table_name": "tool_execution_results",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_tool_execution_results_tool_name",
+        "table_name": "tool_execution_results",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_tool_execution_results_execution_time",
+        "table_name": "tool_execution_results",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_user_created",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_title_search",
+        "table_name": "scripts",
+        "index_size": "24 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_content_search",
+        "table_name": "scripts",
+        "index_size": "24 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_analysis_created",
+        "table_name": "script_analysis",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_execution_logs_status_created",
+        "table_name": "execution_logs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_execution_logs_execution_time",
+        "table_name": "execution_logs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "script_versions_pkey",
+        "table_name": "script_versions",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "script_versions_script_id_version_key",
+        "table_name": "script_versions",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_versions_script_id",
+        "table_name": "script_versions",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_versions_user_id",
+        "table_name": "script_versions",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "tags_pkey",
+        "table_name": "tags",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "tags_name_key",
+        "table_name": "tags",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "script_tags_pkey",
+        "table_name": "script_tags",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "script_tags_script_id_tag_id_key",
+        "table_name": "script_tags",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "execution_logs_pkey",
+        "table_name": "execution_logs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_tags_script_id",
+        "table_name": "script_tags",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_tags_tag_id",
+        "table_name": "script_tags",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_execution_logs_script_id",
+        "table_name": "execution_logs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_execution_logs_user_id",
+        "table_name": "execution_logs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_execution_logs_status",
+        "table_name": "execution_logs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "script_embeddings_pkey",
+        "table_name": "script_embeddings",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "script_embeddings_script_id_key",
+        "table_name": "script_embeddings",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_embeddings_script_id",
+        "table_name": "script_embeddings",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_users_role",
+        "table_name": "users",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_users_created_at",
+        "table_name": "users",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_users_last_login",
+        "table_name": "users",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_categories_name",
+        "table_name": "categories",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_tags_name",
+        "table_name": "tags",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_versions_created",
+        "table_name": "script_versions",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "chat_history_pkey",
+        "table_name": "chat_history",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_chat_history_user_id",
+        "table_name": "chat_history",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_chat_history_script_id",
+        "table_name": "chat_history",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "assistants_pkey",
+        "table_name": "assistants",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "assistants_assistant_id_key",
+        "table_name": "assistants",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "threads_pkey",
+        "table_name": "threads",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "threads_thread_id_key",
+        "table_name": "threads",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "messages_pkey",
+        "table_name": "messages",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "messages_message_id_key",
+        "table_name": "messages",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "runs_pkey",
+        "table_name": "runs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "runs_run_id_key",
+        "table_name": "runs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_threads_user_id",
+        "table_name": "threads",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_messages_thread_id",
+        "table_name": "messages",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_runs_thread_id",
+        "table_name": "runs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_runs_status",
+        "table_name": "runs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_embeddings_content_hash",
+        "table_name": "script_embeddings",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "schema_migrations_pkey",
+        "table_name": "schema_migrations",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "schema_migrations_name_key",
+        "table_name": "schema_migrations",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_is_public",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_created_at",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_updated_at",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_users_username",
+        "table_name": "users",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_users_email",
+        "table_name": "users",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_users_is_active",
+        "table_name": "users",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_users_is_admin",
+        "table_name": "users",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_analysis_security_score",
+        "table_name": "script_analysis",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_analysis_quality_score",
+        "table_name": "script_analysis",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_script_analysis_risk_score",
+        "table_name": "script_analysis",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_user_public",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_category_public",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_title_gin",
+        "table_name": "scripts",
+        "index_size": "24 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_description_gin",
+        "table_name": "scripts",
+        "index_size": "24 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_chat_history_created_at",
+        "table_name": "chat_history",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_execution_logs_executed_at",
+        "table_name": "execution_logs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_execution_logs_script_user",
+        "table_name": "execution_logs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_scripts_public_active",
+        "table_name": "scripts",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_users_active",
+        "table_name": "users",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_execution_logs_pending",
+        "table_name": "execution_logs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_execution_logs_failed",
+        "table_name": "execution_logs",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "migrations_pkey",
+        "table_name": "migrations",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "migrations_filename_key",
+        "table_name": "migrations",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_migrations_filename",
+        "table_name": "migrations",
+        "index_size": "16 kB",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "vulnerabilities_pkey",
+        "table_name": "vulnerabilities",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_vulnerabilities_script_id",
+        "table_name": "vulnerabilities",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_vulnerabilities_severity",
+        "table_name": "vulnerabilities",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_vulnerabilities_status",
+        "table_name": "vulnerabilities",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_vulnerabilities_created_at",
+        "table_name": "vulnerabilities",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      },
+      {
+        "index_name": "idx_vulnerabilities_script_severity",
+        "table_name": "vulnerabilities",
+        "index_size": "8192 bytes",
+        "scans": "0",
+        "reads": "0",
+        "fetches": "0"
+      }
+    ],
+    "pool": [
+      {
+        "state": "active",
+        "count": "1",
+        "max_time_seconds": "-0.000001"
+      }
+    ]
+  },
+  "connection": {
+    "pgClient": {
+      "success": true,
+      "connectTime": 18,
+      "queryTime": 16
+    }
+  },
+  "recommendations": []
+}

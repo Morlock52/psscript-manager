@@ -1,0 +1,118 @@
+# PSScript Server Diagnostic Commands
+# Run these commands after SSHing into the server
+
+# 1. Connect to server:
+ssh root@74.208.184.195
+# Password: Morlock52b
+
+# 2. Once connected, run these diagnostic commands:
+
+# Check if Docker is installed
+docker --version
+
+# Check if Docker Compose is installed
+docker-compose --version
+
+# Check if application directory exists
+ls -la /opt/psscript
+
+# If directory exists, check Docker status
+cd /opt/psscript
+docker-compose ps
+
+# Check if containers are running
+docker ps -a
+
+# Check listening ports
+netstat -tlnp | grep -E '3002|4000|8000'
+
+# Check firewall status
+ufw status
+
+# Check recent Docker logs (if containers exist)
+docker-compose logs --tail=50
+
+# Check system resources
+free -h
+df -h
+
+# If nothing is deployed yet, we need to deploy it.
+# First, let's create the directory and basic setup:
+
+mkdir -p /opt/psscript
+cd /opt/psscript
+
+# Create a simple docker-compose.yml to test
+cat > docker-compose.yml << 'EOF'
+version: '3.8'
+
+services:
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "3002:80"
+    volumes:
+      - ./frontend-test:/usr/share/nginx/html
+    restart: unless-stopped
+
+  backend:
+    image: node:18-alpine
+    ports:
+      - "4000:4000"
+    command: sh -c "echo 'Backend would run here' && tail -f /dev/null"
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=psscript
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.0-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+EOF
+
+# Create a test frontend page
+mkdir -p frontend-test
+cat > frontend-test/index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PSScript Test</title>
+</head>
+<body>
+    <h1>PSScript Test Page</h1>
+    <p>If you see this, the frontend container is working!</p>
+    <p>Server Time: <span id="time"></span></p>
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html>
+EOF
+
+# Start the containers
+docker-compose up -d
+
+# Wait a bit
+sleep 10
+
+# Check status
+docker-compose ps
+
+# Test if services are accessible
+curl http://localhost:3002
+curl http://localhost:4000
+
+# If you see any errors, check the logs:
+docker-compose logs

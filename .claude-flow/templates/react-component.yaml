@@ -1,0 +1,56 @@
+# React Component Template
+name: react-component
+description: Template for creating new React components with TypeScript
+version: "1.0"
+
+variables:
+  component_name: "NewComponent"
+  description: "A new React component"
+  
+template: |
+  import React, { useState, useEffect } from 'react';
+  import { Card } from '../components/ui/Card';
+  import { Button } from '../components/ui/Button';
+  
+  interface ${component_name}Props {
+    // Define component props here
+    title?: string;
+    onAction?: () => void;
+  }
+  
+  export const ${component_name}: React.FC<${component_name}Props> = ({ 
+    title = '${description}',
+    onAction 
+  }) => {
+    const [state, setState] = useState<string>('');
+    
+    useEffect(() => {
+      // Component mount logic
+      return () => {
+        // Cleanup on unmount
+      };
+    }, []);
+    
+    const handleClick = () => {
+      if (onAction) {
+        onAction();
+      }
+    };
+    
+    return (
+      <Card className="p-6">
+        <h2 className="text-2xl font-bold mb-4">{title}</h2>
+        
+        <div className="space-y-4">
+          {/* Component content */}
+          <p>Component content goes here</p>
+          
+          <Button onClick={handleClick}>
+            Action
+          </Button>
+        </div>
+      </Card>
+    );
+  };
+  
+  export default ${component_name};

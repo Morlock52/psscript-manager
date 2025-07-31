@@ -1,0 +1,94 @@
+# Security Audit Workflow
+name: security-audit
+description: Perform comprehensive security audit of PowerShell scripts
+trigger: manual
+
+parameters:
+  target_directory:
+    type: string
+    default: "./scripts"
+    description: "Directory containing PowerShell scripts to audit"
+  
+  severity_threshold:
+    type: string
+    default: "medium"
+    description: "Minimum severity level to report (low, medium, high, critical)"
+
+steps:
+  - name: find-scripts
+    action: find_files
+    pattern: "*.ps1"
+    directory: "${target_directory}"
+    
+  - name: analyze-each-script
+    action: foreach
+    items: "${previous.files}"
+    steps:
+      - name: read-script
+        action: read_file
+        path: "${item}"
+        
+      - name: security-analysis
+        action: ai_analyze
+        content: "${previous.content}"
+        prompt: |
+          Perform a comprehensive security analysis of this PowerShell script:
+          
+          1. Check for hardcoded credentials
+          2. Identify potential injection vulnerabilities
+          3. Review file system operations for security risks
+          4. Check for unsafe execution of external commands
+          5. Identify privilege escalation risks
+          6. Review network operations
+          7. Check for proper error handling
+          8. Identify data exposure risks
+          
+          Rate each finding by severity: low, medium, high, critical
+          
+      - name: generate-pssa-report
+        action: run_command
+        command: "Invoke-ScriptAnalyzer -Path '${item}' -Severity Error,Warning"
+        shell: "pwsh"
+        
+  - name: aggregate-results
+    action: ai_aggregate
+    inputs: "${steps.analyze-each-script.results}"
+    prompt: |
+      Aggregate all security findings and create a comprehensive report:
+      
+      1. Executive summary
+      2. Critical findings requiring immediate attention
+      3. Statistics by severity level
+      4. Common vulnerability patterns
+      5. Remediation recommendations
+      6. Best practices checklist
+      
+  - name: generate-remediation-scripts
+    action: ai_generate
+    input: "${previous.output}"
+    prompt: |
+      Based on the security findings, generate:
+      
+      1. PowerShell scripts to fix common issues
+      2. Pre-commit hooks for security validation
+      3. Security policy configuration file
+      
+  - name: save-audit-report
+    action: save_file
+    content: "${steps.aggregate-results.output}"
+    path: "reports/security-audit-${timestamp}.md"
+    
+  - name: save-remediation-tools
+    action: save_files
+    files:
+      - path: "tools/Fix-SecurityIssues.ps1"
+        content: "${steps.generate-remediation-scripts.scripts}"
+      - path: ".git/hooks/pre-commit"
+        content: "${steps.generate-remediation-scripts.hooks}"
+      - path: "PSScriptAnalyzerSettings.psd1"
+        content: "${steps.generate-remediation-scripts.config}"
+
+outputs:
+  report_path: "${steps.save-audit-report.path}"
+  critical_count: "${steps.aggregate-results.critical_count}"
+  high_count: "${steps.aggregate-results.high_count}"
