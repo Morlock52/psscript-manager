@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Blazing fast Bun backend
+  backend:
+    image: oven/bun:1-alpine
+    container_name: psscript-blazing
+    working_dir: /app
+    volumes:
+      - ./demo-app:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=file:/app/psscript.db
+    command: bun run dev
+    restart: unless-stopped
+
+  # Optional: Local AI with Ollama
+  ollama:
+    image: ollama/ollama:latest
+    container_name: psscript-ai
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+    restart: unless-stopped
+
+  # Nginx for production-like setup
+  nginx:
+    image: nginx:alpine
+    container_name: psscript-nginx
+    ports:
+      - "8080:80"  # Changed from 80 to 8080 to avoid conflict
+    volumes:
+      - ./nginx-demo.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  ollama_data:

@@ -10,7 +10,7 @@ import morgan from 'morgan';
 import logger from './utils/logger';
 // import { initializeTelemetry } from './telemetry/tracing'; // Temporarily disabled
 // import { telemetryMiddleware, errorTrackingMiddleware } from './middleware/telemetryMiddleware';
-import { getPrometheusMetrics } from './telemetry/metrics';
+// import { getPrometheusMetrics } from './telemetry/metrics'; // Temporarily disabled
 import authRoutes from './routes/auth'; // Re-enabled auth routes
 import enhancedAuthRoutes from './routes/enhancedAuth';
 import passport from 'passport';
@@ -461,6 +461,9 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 // Initialize Passport
 app.use(passport.initialize());
 
+// Import distributed cache middleware
+// import { cacheMiddleware } from './middleware/cache'; // Temporarily disabled until TypeScript is fixed
+
 // Create a simple cache middleware to replace Redis
 const cacheMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
   // Skip non-GET requests
@@ -537,16 +540,16 @@ app.use(cacheMiddleware);
 // Setup Swagger API documentation
 setupSwagger(app);
 
-// Metrics endpoint for Prometheus scraping
-app.get('/metrics', (req, res) => {
-  res.set('Content-Type', 'text/plain');
-  getPrometheusMetrics()
-    .then(metrics => res.send(metrics))
-    .catch(err => {
-      logger.error('Error generating metrics:', err);
-      res.status(500).send('Error generating metrics');
-    });
-});
+// Metrics endpoint for Prometheus scraping - Temporarily disabled
+// app.get('/metrics', (req, res) => {
+//   res.set('Content-Type', 'text/plain');
+//   getPrometheusMetrics()
+//     .then(metrics => res.send(metrics))
+//     .catch(err => {
+//       logger.error('Error generating metrics:', err);
+//       res.status(500).send('Error generating metrics');
+//     });
+// });
 
 // API routes
 app.use('/api/auth', enhancedAuthRoutes); // Enhanced auth routes with MFA and OAuth
@@ -700,91 +703,6 @@ const startServer = async () => {
         maxItems: MAX_CACHE_ITEMS,
         maxMemory: `${Math.round(MAX_MEMORY_USAGE/1024/1024)}MB`
       });
-    });
-    
-    // Add endpoint to test cache with random data
-    app.get('/api/cache/test', (req, res) => {
-      const count = parseInt(req.query.count as string, 10) || 100;
-      const sizeKB = parseInt(req.query.sizeKB as string, 10) || 1;
-      const ttl = parseInt(req.query.ttl as string, 10) || 60;
-      
-      try {
-        // Generate random data to store in cache
-        const generateRandomString = (sizeKB: number) => {
-          const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-          let result = '';
-          // 1KB is roughly 1000 characters
-          const length = sizeKB * 1000;
-          for (let i = 0; i < length; i++) {
-            result += chars.charAt(Math.floor(Math.random() * chars.length));
-          }
-          return result;
-        };
-        
-        const startTime = Date.now();
-        const randomData = generateRandomString(sizeKB);
-        
-        // Store items in cache
-        for (let i = 0; i < count; i++) {
-          const key = `test:cache:${Date.now()}:${i}`;
-          cache.set(key, { data: randomData, index: i }, ttl);
-        }
-        
-        const endTime = Date.now();
-        
-        res.json({
-          success: true,
-          message: `Added ${count} items (${sizeKB}KB each) to cache with TTL of ${ttl}s`,
-          timeTaken: `${endTime - startTime}ms`,
-          currentSize: cache.stats().size
-        });
-      } catch (error) {
-        res.status(500).json({
-          success: false, 
-          message: 'Error during cache test',
-          error: error instanceof Error ? error.message : String(error)
-        });
-      }
-    });
-    
-    // Add endpoint to persist cache to file
-    app.post('/api/cache/persist', async (req, res) => {
-      try {
-        const filePath = req.query.path as string || './cache-backup.json';
-        const success = await cache.persistence.saveToFile(filePath);
-        
-        res.json({
-          success,
-          message: success ? `Cache persisted to ${filePath}` : `Failed to persist cache to ${filePath}`,
-          cacheSize: cache.stats().size
-        });
-      } catch (error) {
-        res.status(500).json({
-          success: false,
-          message: 'Error persisting cache',
-          error: error instanceof Error ? error.message : String(error)
-        });
-      }
-    });
-    
-    // Add endpoint to load cache from file
-    app.post('/api/cache/load', async (req, res) => {
-      try {
-        const filePath = req.query.path as string || './cache-backup.json';
-        const success = await cache.persistence.loadFromFile(filePath);
-        
-        res.json({
-          success,
-          message: success ? `Cache loaded from ${filePath}` : `Failed to load cache from ${filePath}`,
-          cacheSize: cache.stats().size
-        });
-      } catch (error) {
-        res.status(500).json({
-          success: false,
-          message: 'Error loading cache',
-          error: error instanceof Error ? error.message : String(error)
-        });
-      }
     });
     
     console.log('Starting HTTP server on port', port);

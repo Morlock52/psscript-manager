@@ -328,7 +328,7 @@ const AIFeatures: React.FC = () => {
   // Group features by category
   const featuresByCategory = aiFeatures.reduce((acc, feature) => {
     if (!acc[feature.category]) acc[feature.category] = [];
-    acc[feature.category].push(feature);
+    acc[feature.category]!.push(feature);
     return acc;
   }, {} as Record<string, AIFeature[]>);
 
@@ -433,7 +433,7 @@ const AIFeatures: React.FC = () => {
                         return;
                       }
                       
-                      executeFeature.mutate({ feature, script: selectedScript || undefined });
+                      executeFeature.mutate({ feature, ...(selectedScript && { script: selectedScript }) });
                     }}
                     disabled={activeFeature === feature.id || (feature.requiresScript && !selectedScript)}
                     className={`px-3 py-1 text-sm rounded-md transition-colors ${

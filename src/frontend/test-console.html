@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Console Error Test</title>
+</head>
+<body>
+    <h1>PSScript Console Test</h1>
+    <iframe id="app-frame" src="http://localhost:3002" width="100%" height="600px" style="border: 1px solid #ccc;"></iframe>
+    <div id="errors" style="margin-top: 20px;">
+        <h2>Console Errors:</h2>
+        <pre id="error-log" style="background: #f0f0f0; padding: 10px; max-height: 300px; overflow-y: auto;"></pre>
+    </div>
+    <script>
+        const errorLog = document.getElementById('error-log');
+        let errors = [];
+        
+        // Capture errors from the main window
+        window.addEventListener('error', (e) => {
+            errors.push(`Main Window Error: ${e.message} at ${e.filename}:${e.lineno}:${e.colno}`);
+            errorLog.textContent = errors.join('\n');
+        });
+        
+        // Try to capture iframe errors (may be blocked by same-origin policy)
+        const iframe = document.getElementById('app-frame');
+        iframe.onload = () => {
+            try {
+                iframe.contentWindow.addEventListener('error', (e) => {
+                    errors.push(`App Error: ${e.message}`);
+                    errorLog.textContent = errors.join('\n');
+                });
+            } catch (e) {
+                errors.push('Cannot access iframe console due to same-origin policy');
+                errorLog.textContent = errors.join('\n');
+            }
+        };
+        
+        // Check if the app loads
+        setTimeout(() => {
+            try {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const rootContent = iframeDoc.getElementById('root');
+                if (rootContent && rootContent.innerHTML.trim() === '') {
+                    errors.push('ERROR: React app did not render - root element is empty');
+                    errorLog.textContent = errors.join('\n');
+                }
+            } catch (e) {
+                console.log('Cannot check iframe content');
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

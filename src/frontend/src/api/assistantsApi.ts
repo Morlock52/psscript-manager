@@ -382,7 +382,7 @@ class AssistantsApiClient {
       const assistantMessages = messages.data
         .filter(msg => msg.role === 'assistant' && msg.run_id === run.id);
       
-      return assistantMessages.length > 0 ? assistantMessages[0] : null;
+      return assistantMessages.length > 0 ? assistantMessages[0]! : null;
     }
     
     return null;

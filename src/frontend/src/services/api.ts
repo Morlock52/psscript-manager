@@ -10,18 +10,28 @@ interface ImportMeta {
   };
 }
 
-// Determine if we're running in a development environment
-const isDevelopment = import.meta.env.DEV || 
-  (typeof window !== 'undefined' && window.location.hostname === 'localhost');
+// Function to determine the correct API URL based on environment
+const getApiUrl = (): string => {
+  // If VITE_API_URL is explicitly set, use it
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  
+  // In development, use localhost
+  if (import.meta.env.DEV || (typeof window !== 'undefined' && window.location.hostname === 'localhost')) {
+    return 'http://localhost:4005/api';
+  }
+  
+  // In production, use relative URL to work with any domain
+  return '/api';
+};
 
-// Default API URL: Prioritize localhost for browser, fallback to VITE_API_URL for other contexts
-const browserApiUrl = typeof window !== 'undefined' ? `http://localhost:4000/api` : undefined;
-const API_URL = browserApiUrl || import.meta.env.VITE_API_URL || 'http://localhost:4000/api'; // Default fallback
+const API_URL = getApiUrl();
 
-// Force log the API URL to ensure it's correct
-console.log('Determined API URL:', API_URL);
-
-console.log('Using API URL:', API_URL);
+// Log API URL only in development
+if (import.meta.env.DEV) {
+  console.log('Using API URL:', API_URL);
+}
 
 // Create axios instance with default config
 const apiClient = axios.create({

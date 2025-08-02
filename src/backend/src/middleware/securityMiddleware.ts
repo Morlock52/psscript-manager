@@ -16,7 +16,7 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3002';
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
+    if (!origin || origin === 'null') return callback(null, true);
     
     if (ALLOWED_ORIGINS.includes(origin)) {
       callback(null, true);
@@ -105,7 +105,7 @@ export const additionalSecurityHeaders = (req: Request, res: Response, next: Nex
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Download-Options', 'noopen');
   res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
-  res.setHeader('Clear-Site-Data', '"cache", "cookies", "storage"');
+  // res.setHeader('Clear-Site-Data', '"cache", "cookies", "storage"'); // Disabled - this clears everything on each request!
   
   // Cache control for API endpoints
   if (req.path.startsWith('/api/')) {

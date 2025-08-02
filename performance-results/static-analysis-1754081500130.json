@@ -1,0 +1,4127 @@
+{
+  "timestamp": "2025-08-01T20:51:40.129Z",
+  "analysis": {
+    "frontend": {
+      "bundleSize": {
+        "bundles": {
+          "styles": [
+            {
+              "file": "/assets/AgenticAIPage-4adf4217.css",
+              "size": "2.34 KB"
+            },
+            {
+              "file": "/assets/editor-6eda2c60.css",
+              "size": "46.08 KB"
+            }
+          ],
+          "main": [
+            {
+              "file": "/assets/index-35a511e3.css",
+              "size": "60.89 KB"
+            },
+            {
+              "file": "/assets/index-72fdd647.js",
+              "size": "48.24 KB"
+            },
+            {
+              "file": "/js/date-utils-index.js-5ebf14a0.js",
+              "size": "70.04 KB"
+            }
+          ],
+          "vendor": [
+            {
+              "file": "/assets/react-vendor-5e8f3fb6.css",
+              "size": "13.82 KB"
+            },
+            {
+              "file": "/js/react-vendor-chunk-da25532b.js",
+              "size": "2347.47 KB"
+            }
+          ],
+          "other": [
+            {
+              "file": "/js/1c-chunk-0c2ce303.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/AIFeatures-AIFeatures.tsx-37075152.js",
+              "size": "15.13 KB"
+            },
+            {
+              "file": "/js/AgentOrchestrationPage-AgentOrchestrationPage.tsx-c5c1449e.js",
+              "size": "13.24 KB"
+            },
+            {
+              "file": "/js/AgenticAIPage-AgenticAIPage.tsx-d3bfb522.js",
+              "size": "32.54 KB"
+            },
+            {
+              "file": "/js/ApiSettings-ApiSettings.tsx-914d9c51.js",
+              "size": "4.13 KB"
+            },
+            {
+              "file": "/js/AppearanceSettings-AppearanceSettings.tsx-1bbe4339.js",
+              "size": "7.59 KB"
+            },
+            {
+              "file": "/js/Card-chunk-4fd5f6b1.js",
+              "size": "5.96 KB"
+            },
+            {
+              "file": "/js/ChatHistory-ChatHistory.tsx-25e9b8af.js",
+              "size": "8.30 KB"
+            },
+            {
+              "file": "/js/Dashboard-Dashboard.tsx-12b1e2ac.js",
+              "size": "32.50 KB"
+            },
+            {
+              "file": "/js/Documentation-Documentation.tsx-73018bd9.js",
+              "size": "13.71 KB"
+            },
+            {
+              "file": "/js/DocumentationCrawl-DocumentationCrawl.tsx-0f300668.js",
+              "size": "7.42 KB"
+            },
+            {
+              "file": "/js/DocumentationErrorBoundary-DocumentationErrorBoundary.tsx-39d2f376.js",
+              "size": "1.74 KB"
+            },
+            {
+              "file": "/js/Login-Login.tsx-e7a1fdbd.js",
+              "size": "3.62 KB"
+            },
+            {
+              "file": "/js/NotFound-NotFound.tsx-09dce866.js",
+              "size": "1.12 KB"
+            },
+            {
+              "file": "/js/NotificationSettings-NotificationSettings.tsx-ddbd53ca.js",
+              "size": "8.32 KB"
+            },
+            {
+              "file": "/js/ProfileSettings-ProfileSettings.tsx-9eef8903.js",
+              "size": "5.74 KB"
+            },
+            {
+              "file": "/js/Register-Register.tsx-c395625c.js",
+              "size": "4.55 KB"
+            },
+            {
+              "file": "/js/ScriptAnalysis-ScriptAnalysis.tsx-64e836c0.js",
+              "size": "35.49 KB"
+            },
+            {
+              "file": "/js/ScriptDetail-ScriptDetail.tsx-c953d3fa.js",
+              "size": "18.19 KB"
+            },
+            {
+              "file": "/js/ScriptEditor-ScriptEditor.tsx-d63e3993.js",
+              "size": "2.56 KB"
+            },
+            {
+              "file": "/js/ScriptManagement-ScriptManagement.tsx-ab4d6155.js",
+              "size": "19.44 KB"
+            },
+            {
+              "file": "/js/ScriptUpload-ScriptUpload.tsx-cc60c1cb.js",
+              "size": "14.14 KB"
+            },
+            {
+              "file": "/js/SecuritySettings-SecuritySettings.tsx-3675a7b0.js",
+              "size": "9.50 KB"
+            },
+            {
+              "file": "/js/Settings-Settings.tsx-f3ad8610.js",
+              "size": "15.57 KB"
+            },
+            {
+              "file": "/js/SettingsLayout-chunk-d67ee385.js",
+              "size": "4.73 KB"
+            },
+            {
+              "file": "/js/SimpleChatWithAI-SimpleChatWithAI.tsx-4e6d45e9.js",
+              "size": "24.78 KB"
+            },
+            {
+              "file": "/js/UIComponentsDemo-UIComponentsDemo.tsx-37f4eb76.js",
+              "size": "13.03 KB"
+            },
+            {
+              "file": "/js/UserManagement-UserManagement.tsx-ec9cc36f.js",
+              "size": "7.83 KB"
+            },
+            {
+              "file": "/js/abap-chunk-468eee42.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/abnf-chunk-54e963c8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/abnf-chunk-956599b8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/accesslog-chunk-a8fea9a9.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/actionscript-chunk-b210e0cb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/actionscript-chunk-b56fb60b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ada-chunk-2d9387ce.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ada-chunk-a7952c0d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/agda-chunk-9d7b50f8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/al-chunk-e983c618.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/angelscript-chunk-ba2afcb8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/antlr4-chunk-b04ac67c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/apache-chunk-032975d8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/apacheconf-chunk-4f55a926.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/apex-chunk-1f7add0f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/apl-chunk-a3082298.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/applescript-chunk-9d334d5e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/applescript-chunk-be18b2fe.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/aql-chunk-d1cbaa2c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/arcade-chunk-2bc214a5.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/arduino-chunk-555062ab.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/arduino-chunk-acb23ccd.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/arff-chunk-0d7339e9.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/armasm-chunk-99df6fbd.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/asciidoc-chunk-109983e9.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/asciidoc-chunk-300dadaa.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/asm6502-chunk-905021f6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/asmatmel-chunk-99821312.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/aspectj-chunk-2239a7bc.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/aspnet-chunk-8f5cbaa7.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/autohotkey-chunk-1f3187c2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/autohotkey-chunk-f6f67a8a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/autoit-chunk-48bf1da5.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/autoit-chunk-903b6014.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/avisynth-chunk-73b189da.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/avrasm-chunk-e3143a26.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/avro-idl-chunk-23bf6db8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/awk-chunk-cebb9da7.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/axapta-chunk-641361e9.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/bash-chunk-6494c7ab.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/bash-chunk-f17b328a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/basic-chunk-44e2ad3c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/basic-chunk-af92b654.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/batch-chunk-4950a66a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/bbcode-chunk-3b04804a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/bicep-chunk-c21abecd.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/birb-chunk-20f210ed.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/bison-chunk-23591ed8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/bnf-chunk-a5b2779e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/bnf-chunk-b768e530.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/brainfuck-chunk-63d754b8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/brainfuck-chunk-bb142bca.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/brightscript-chunk-3bb7a080.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/bro-chunk-d22045b2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/bsl-chunk-f7fc2001.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/c-chunk-68815340.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/c-chunk-9646bb9c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/c-like-chunk-ee902b29.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cal-chunk-fdec8290.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/capnproto-chunk-294d3689.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ceylon-chunk-e9ac8ad3.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cfscript-chunk-6f818b37.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/chaiscript-chunk-6b45e5c2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cil-chunk-81d98642.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/clean-chunk-629764b9.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/clojure-chunk-21bcb41f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/clojure-chunk-47898751.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/clojure-repl-chunk-78159985.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cmake-chunk-415104e2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cmake-chunk-676a7068.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cobol-chunk-c0248283.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/coffeescript-chunk-83e2b93a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/coffeescript-chunk-92fab13b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/concurnas-chunk-004fbbcd.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/coq-chunk-a017c589.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/coq-chunk-cf15a265.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cos-chunk-940af61b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cpp-chunk-82df9a22.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cpp-chunk-cd54ad55.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/crmsh-chunk-a20d21ae.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/crystal-chunk-d692cdf6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/crystal-chunk-e9d9291e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/csharp-chunk-31b744a6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/csharp-chunk-8725661e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cshtml-chunk-05727a27.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/csp-chunk-4f8b9e7d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/csp-chunk-ef44f33c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/css-chunk-b89f82a3.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/css-extras-chunk-aeb1885e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/csv-chunk-0d69a1f4.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/cypher-chunk-002e95bb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/d-chunk-7311c1ac.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/d-chunk-9e181f86.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dart-chunk-45c7cfce.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dart-chunk-64f37b73.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/data-fetching-chunk-e9f3beea.js",
+              "size": "67.42 KB"
+            },
+            {
+              "file": "/js/dataweave-chunk-c5fa40c8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dax-chunk-29d78e35.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/delphi-chunk-f8cbf141.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dhall-chunk-05ad3b87.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/diff-chunk-0a742820.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/diff-chunk-d79ce4d3.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/django-chunk-7b86f770.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/django-chunk-81052261.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dns-chunk-79a8b16e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dns-zone-file-chunk-57920e05.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/docker-chunk-280ee15d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dockerfile-chunk-a8cc5b1a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dos-chunk-5563af67.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dot-chunk-1c0a31dc.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dsconfig-chunk-dc2e8831.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dts-chunk-7479c0ac.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/dust-chunk-5f970b75.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ebnf-chunk-35cc9a4a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ebnf-chunk-c1900f28.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/editor-chunk-85777d73.js",
+              "size": "1968.82 KB"
+            },
+            {
+              "file": "/js/editorconfig-chunk-99fd725e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/eiffel-chunk-02bfe68e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ejs-chunk-6fc1140f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/elixir-chunk-09498a05.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/elixir-chunk-a05f219e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/elm-chunk-7c3171fa.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/elm-chunk-95c69bc6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/erb-chunk-365e91e1.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/erb-chunk-5f18ab00.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/erlang-chunk-bba5603f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/erlang-chunk-d6b01842.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/erlang-repl-chunk-e31c7c41.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/etlua-chunk-19ede395.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/excel-chunk-eedc74a6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/excel-formula-chunk-76ba7e80.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/factor-chunk-2aca4cec.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/false-chunk-fa3b1503.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/firestore-security-rules-chunk-df55f350.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/fix-chunk-7de4ed73.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/flix-chunk-68ae26b0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/flow-chunk-cbbc1b22.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/fortran-chunk-4ebeeed1.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/fortran-chunk-eb68eded.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/fsharp-chunk-629b80d0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/fsharp-chunk-6da79015.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ftl-chunk-39e10e18.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gams-chunk-1e423ea5.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gap-chunk-6d408516.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gauss-chunk-90e06be6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gcode-chunk-6f6fa489.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gcode-chunk-832d357d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gdscript-chunk-807a4406.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gedcom-chunk-36098907.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gherkin-chunk-5ccbe55b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gherkin-chunk-76ff975b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/git-chunk-88e1a0c6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/glsl-chunk-6eb7ddfa.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/glsl-chunk-d52cb68b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gml-chunk-5b988d79.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gml-chunk-e2897ee0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gn-chunk-15c9d3f0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/go-chunk-b413adb9.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/go-chunk-ebc0d4f6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/go-module-chunk-bf251ece.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/golo-chunk-2c9cdbce.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/gradle-chunk-5253b206.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/graphql-chunk-5c13aad6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/groovy-chunk-12b4aa2b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/groovy-chunk-dd9a24a5.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/haml-chunk-76f5847a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/haml-chunk-b2d3377b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/handlebars-chunk-90547f2c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/handlebars-chunk-f0fce7ec.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/haskell-chunk-5afbbc10.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/haskell-chunk-a63f3302.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/haxe-chunk-d2aed3f7.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/haxe-chunk-de55916f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/hcl-chunk-47ec8db6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/hlsl-chunk-02bf1bc4.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/hoon-chunk-740b9ebd.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/hpkp-chunk-fd97357b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/hsp-chunk-e9a3f347.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/hsts-chunk-9dde6f18.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/htmlbars-chunk-a1ea88d0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/http-chunk-17479ec5.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/http-chunk-9c07668f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/hy-chunk-198537d9.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ichigojam-chunk-8b18ebdb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/icon-chunk-8bf01401.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/icu-message-format-chunk-d15e32fd.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/idris-chunk-6d899f43.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/iecst-chunk-2660562c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ignore-chunk-383088c4.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/inform7-chunk-58ba4266.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/inform7-chunk-c81de652.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ini-chunk-1e57613f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ini-chunk-abfb02bb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/io-chunk-e1e38204.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/irpf90-chunk-03c45192.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/isbl-chunk-449197d5.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/j-chunk-41d3f284.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/java-chunk-4c236819.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/java-chunk-68bc587e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/javadoc-chunk-e23103fc.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/javadoclike-chunk-1da68726.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/javascript-chunk-fe1a2ee0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/javastacktrace-chunk-27e3ff38.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/jboss-cli-chunk-8bed25e3.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/jexl-chunk-d3d9328a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/jolie-chunk-f65539c6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/jq-chunk-5a484f98.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/js-extras-chunk-c09abf7b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/js-templates-chunk-52523f05.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/jsdoc-chunk-1264d7ca.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/json-chunk-924c8318.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/json-chunk-fa511a84.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/json5-chunk-754ecc71.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/jsonp-chunk-09072fcd.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/jsstacktrace-chunk-ef8d41a1.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/jsx-chunk-2664446f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/julia-chunk-11f45a31.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/julia-chunk-abf5b5a2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/julia-repl-chunk-da40bedb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/keepalived-chunk-561f2db9.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/keyman-chunk-192b244f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/kotlin-chunk-0e087993.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/kotlin-chunk-d454d401.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/kumir-chunk-927b941c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/kusto-chunk-ba220018.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/lasso-chunk-fb1714f1.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/latex-chunk-0938e44e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/latex-chunk-72309546.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/latte-chunk-b14ff7b0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ldif-chunk-e0efecfd.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/leaf-chunk-9ca7d74c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/less-chunk-6bcaf859.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/less-chunk-89c3482f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/lilypond-chunk-9cb11bc0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/liquid-chunk-665cf49c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/lisp-chunk-7bd7ce8a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/lisp-chunk-da425eb1.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/livecodeserver-chunk-a96a900e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/livescript-chunk-53e6ed90.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/livescript-chunk-69a20ba2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/llvm-chunk-0b7d1a20.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/llvm-chunk-d76007b8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/log-chunk-f95ac89f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/lolcode-chunk-b26e7aa6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/lsl-chunk-2e371103.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/lua-chunk-046f1762.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/lua-chunk-3cc89405.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/magma-chunk-1203789c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/makefile-chunk-281d1d7a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/makefile-chunk-a1e6c6d9.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/markdown-chunk-08c61c5e.js",
+              "size": "36.22 KB"
+            },
+            {
+              "file": "/js/markdown-chunk-59a58507.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/markdown-chunk-83eedd8c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/markup-templating-chunk-84b4d046.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/mathematica-chunk-d5957d96.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/matlab-chunk-1d997a84.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/matlab-chunk-c9d28841.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/maxima-chunk-716a3257.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/maxscript-chunk-5883f7cb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/mel-chunk-d1ee963b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/mel-chunk-db9cdf61.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/mercury-chunk-201ee6db.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/mermaid-chunk-a229c41e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/mipsasm-chunk-91548a98.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/mizar-chunk-5428a718.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/mizar-chunk-b6ee64ae.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/mojolicious-chunk-a71f800b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/mongodb-chunk-07e2e98a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/monkey-chunk-4a3161e6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/monkey-chunk-bea9cf54.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/moonscript-chunk-08019c2b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/moonscript-chunk-cf34ad38.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/n1ql-chunk-363c10f0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/n1ql-chunk-aa9e5bc5.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/n4js-chunk-730e05a7.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nand2tetris-hdl-chunk-a56edcf0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/naniscript-chunk-b71d91bd.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nasm-chunk-9d8d1e6f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/neon-chunk-fd5dd656.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nevod-chunk-74fd85c3.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nginx-chunk-2506ef4a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nginx-chunk-50157660.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nim-chunk-a5aca633.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nim-chunk-d8120832.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nix-chunk-0fe2e74c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nix-chunk-ba9419eb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/node-repl-chunk-f022757e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nsis-chunk-80e062e3.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/nsis-chunk-ac5494ad.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/objectivec-chunk-5796daa2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/objectivec-chunk-639656fa.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ocaml-chunk-64f5957c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ocaml-chunk-9d92904e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/opencl-chunk-755d7e8a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/openqasm-chunk-22d4f50f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/openscad-chunk-03202c53.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/oxygene-chunk-2f316c3f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/oz-chunk-ea5bac6a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/parigp-chunk-484ca83c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/parser-chunk-5c4d79d8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/parser3-chunk-49d66b81.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/pascal-chunk-4d56c16b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/pascaligo-chunk-d65d305a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/pcaxis-chunk-39e35a85.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/peoplecode-chunk-c12f6e7d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/perl-chunk-2cbbcb44.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/perl-chunk-447f0f75.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/pf-chunk-da67ce23.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/pgsql-chunk-60944929.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/php-chunk-4af7faee.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/php-chunk-c0d3f115.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/php-extras-chunk-dd017f22.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/php-template-chunk-873df19c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/phpdoc-chunk-b4431706.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/plaintext-chunk-f919ce10.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/plsql-chunk-4f358bd6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/pony-chunk-fcf49d57.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/powerquery-chunk-a2a8cd69.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/powershell-chunk-1ebb95a2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/powershell-chunk-5d0a5d0d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/processing-chunk-53239578.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/processing-chunk-993762a2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/profile-chunk-85711326.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/prolog-chunk-431532d2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/prolog-chunk-8d2feb5d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/promql-chunk-46535670.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/properties-chunk-471a6dc6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/properties-chunk-fe58e64d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/protobuf-chunk-aa7b969a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/protobuf-chunk-e2a4da42.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/psl-chunk-6f39f776.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/pug-chunk-bafb2cfe.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/puppet-chunk-2abdaeb9.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/puppet-chunk-31de043e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/pure-chunk-db91485c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/purebasic-chunk-1dfe26de.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/purebasic-chunk-b0af2121.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/purescript-chunk-b7638210.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/python-chunk-05d04bcc.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/python-chunk-faaecd1b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/python-repl-chunk-0e39f25e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/q-chunk-36ad3c00.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/q-chunk-dbd07cc8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/qml-chunk-666feba1.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/qml-chunk-8206b6b5.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/qore-chunk-f2faae3c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/qsharp-chunk-2ea2ed67.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/r-chunk-737abdf2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/r-chunk-c2728af1.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/racket-chunk-3cb5cc11.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/reason-chunk-b6c39011.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/reasonml-chunk-95085fdc.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/regex-chunk-9a1d94ed.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/rego-chunk-08965d65.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/renpy-chunk-5bfe5e5b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/rest-chunk-bfde815b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/rib-chunk-5389bb92.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/rip-chunk-0bba695f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/roboconf-chunk-69b3b89f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/roboconf-chunk-b5485245.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/robotframework-chunk-93912e5a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/routeros-chunk-ec724674.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/rsl-chunk-970049f3.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ruby-chunk-46f557cf.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ruby-chunk-94a054ec.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/ruleslanguage-chunk-8f8a9bbe.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/rust-chunk-0ea82bdb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/rust-chunk-ec3602ba.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sas-chunk-80083e92.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sas-chunk-87eed382.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sass-chunk-13ed514f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/scala-chunk-2df27c95.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/scala-chunk-e1ba54bc.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/scheme-chunk-0963f4c1.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/scheme-chunk-466fe1e8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/scilab-chunk-5f1a0b9e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/scss-chunk-8bb80e24.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/scss-chunk-f52516ab.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/secureStorage-chunk-2b01d984.js",
+              "size": "1.72 KB"
+            },
+            {
+              "file": "/js/shell-chunk-7d83f021.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/shell-session-chunk-9149d4d6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/smali-chunk-78d3677d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/smali-chunk-c04df43d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/smalltalk-chunk-66a13b49.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/smalltalk-chunk-f3681b27.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/smarty-chunk-1d68dc46.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sml-chunk-36f1e767.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sml-chunk-bd0175f1.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/solidity-chunk-261beebd.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/solution-file-chunk-5b796b01.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/soy-chunk-ec3a4121.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sparql-chunk-796dd034.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/splunk-spl-chunk-4df99eb8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sqf-chunk-272034eb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sqf-chunk-9f126883.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sql-chunk-02164bd8.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sql-chunk-ef20422e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/sql_more-chunk-553dfa3b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/squirrel-chunk-4405d115.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/stan-chunk-539d5eae.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/stan-chunk-a07d9a45.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/stata-chunk-ce7bad66.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/step21-chunk-fa52c0db.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/stylus-chunk-87a4b55b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/stylus-chunk-cbb5daeb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/subunit-chunk-7ba1ea2e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/swift-chunk-b9fd3922.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/swift-chunk-ea7e1905.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/systemd-chunk-ef2f636f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/t4-cs-chunk-ee21767c.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/t4-templating-chunk-1a9aafd6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/t4-vb-chunk-ebbe1d96.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/taggerscript-chunk-22ddf367.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/tap-chunk-6553f180.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/tap-chunk-92912bf6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/tcl-chunk-526d1516.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/tcl-chunk-730445c6.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/textile-chunk-0c8d05f7.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/thrift-chunk-973dbb1e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/toml-chunk-81858536.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/tp-chunk-816c2661.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/tremor-chunk-6064a00a.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/triangle-alert-chunk-caea074c.js",
+              "size": "0.43 KB"
+            },
+            {
+              "file": "/js/tsx-chunk-70f7fffb.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/tt2-chunk-d069d36b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/turtle-chunk-cac0659b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/twig-chunk-0009bd20.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/twig-chunk-99b8ae54.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/typescript-chunk-bcb87a69.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/typescript-chunk-f168d405.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/typoscript-chunk-bc289cc1.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/unrealscript-chunk-ebcca3ec.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/uorazor-chunk-df0f5073.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/uri-chunk-e9803c81.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/utils-chunk-4ed993c7.js",
+              "size": "0.00 KB"
+            },
+            {
+              "file": "/js/v-chunk-0ff32f03.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/vala-chunk-e76ac884.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/vala-chunk-f903b8d3.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/vbnet-chunk-7092eef0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/vbnet-chunk-8b64c906.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/vbscript-chunk-754bd12f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/vbscript-html-chunk-e1aa8188.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/velocity-chunk-4674edfe.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/verilog-chunk-5815f4f0.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/verilog-chunk-fc6e614b.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/vhdl-chunk-70973005.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/vhdl-chunk-846180b7.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/vim-chunk-af40f79e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/vim-chunk-bf57d845.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/visual-basic-chunk-ad1d3441.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/visualization-chunk-77209cec.js",
+              "size": "198.49 KB"
+            },
+            {
+              "file": "/js/warpscript-chunk-37170d95.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/wasm-chunk-45719215.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/web-idl-chunk-65610141.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/wiki-chunk-be47f9a3.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/wolfram-chunk-d88cf499.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/wren-chunk-251f927e.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/x86asm-chunk-1c5bb033.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/xeora-chunk-bd3b14ce.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/xl-chunk-6316439d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/xml-chunk-d962e819.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/xml-doc-chunk-648d564d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/xojo-chunk-0363fd79.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/xquery-chunk-0f24c2db.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/xquery-chunk-657594f3.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/yaml-chunk-02588846.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/yaml-chunk-15481ea2.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/yang-chunk-b5581c0d.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/zephir-chunk-48c19b6f.js",
+              "size": "0.46 KB"
+            },
+            {
+              "file": "/js/zig-chunk-c40cce28.js",
+              "size": "0.46 KB"
+            }
+          ]
+        },
+        "totalSize": "5407.10 KB",
+        "totalSizeMB": "5.28 MB"
+      },
+      "dependencies": {
+        "total": 63,
+        "categories": {
+          "ui": [
+            {
+              "name": "@emotion/react",
+              "version": "^11.14.0"
+            },
+            {
+              "name": "@emotion/styled",
+              "version": "^11.14.0"
+            },
+            {
+              "name": "@mui/icons-material",
+              "version": "^6.4.8"
+            },
+            {
+              "name": "@mui/material",
+              "version": "^6.4.8"
+            },
+            {
+              "name": "lucide-react",
+              "version": "^0.454.0"
+            }
+          ],
+          "dataFetching": [
+            {
+              "name": "@tanstack/react-query",
+              "version": "^5.68.2"
+            },
+            {
+              "name": "axios",
+              "version": "^1.8.4"
+            }
+          ],
+          "visualization": [
+            {
+              "name": "chart.js",
+              "version": "^4.4.8"
+            },
+            {
+              "name": "d3",
+              "version": "^7.8.5"
+            },
+            {
+              "name": "react-chartjs-2",
+              "version": "^5.3.0"
+            },
+            {
+              "name": "@types/d3",
+              "version": "^7.4.0"
+            }
+          ],
+          "utilities": [
+            {
+              "name": "@types/qrcode.react",
+              "version": "^1.0.5"
+            },
+            {
+              "name": "date-fns",
+              "version": "^4.1.0"
+            },
+            {
+              "name": "marked",
+              "version": "^9.1.6"
+            },
+            {
+              "name": "qrcode.react",
+              "version": "^4.2.0"
+            },
+            {
+              "name": "react",
+              "version": "^18.3.1"
+            },
+            {
+              "name": "react-dom",
+              "version": "^18.3.1"
+            },
+            {
+              "name": "react-hot-toast",
+              "version": "^2.5.2"
+            },
+            {
+              "name": "react-icons",
+              "version": "^5.5.0"
+            },
+            {
+              "name": "react-markdown",
+              "version": "^9.1.0"
+            },
+            {
+              "name": "react-monaco-editor",
+              "version": "^0.54.0"
+            },
+            {
+              "name": "react-router-dom",
+              "version": "^6.26.2"
+            },
+            {
+              "name": "react-syntax-highlighter",
+              "version": "^15.5.0"
+            },
+            {
+              "name": "react-toastify",
+              "version": "^11.0.5"
+            },
+            {
+              "name": "@types/marked",
+              "version": "^6.0.0"
+            },
+            {
+              "name": "@types/react",
+              "version": "^18.3.14"
+            },
+            {
+              "name": "@types/react-dom",
+              "version": "^18.3.0"
+            },
+            {
+              "name": "@types/react-syntax-highlighter",
+              "version": "^15.5.13"
+            }
+          ],
+          "buildTools": [
+            {
+              "name": "@eslint/js",
+              "version": "^9.21.0"
+            },
+            {
+              "name": "@typescript-eslint/eslint-plugin",
+              "version": "^8.30.0"
+            },
+            {
+              "name": "@typescript-eslint/parser",
+              "version": "^8.30.0"
+            },
+            {
+              "name": "@vitejs/plugin-react",
+              "version": "^4.3.5"
+            },
+            {
+              "name": "eslint",
+              "version": "^9.21.0"
+            },
+            {
+              "name": "eslint-plugin-react",
+              "version": "^7.37.4"
+            },
+            {
+              "name": "eslint-plugin-react-hooks",
+              "version": "^5.2.0"
+            },
+            {
+              "name": "typescript",
+              "version": "^5.5.4"
+            },
+            {
+              "name": "typescript-eslint",
+              "version": "^8.30.0"
+            },
+            {
+              "name": "vite",
+              "version": "^4.3.9"
+            }
+          ],
+          "monitoring": [
+            {
+              "name": "@opentelemetry/api",
+              "version": "^1.9.0"
+            },
+            {
+              "name": "@opentelemetry/context-zone",
+              "version": "^1.30.1"
+            },
+            {
+              "name": "@opentelemetry/exporter-metrics-otlp-http",
+              "version": "^0.46.0"
+            },
+            {
+              "name": "@opentelemetry/exporter-trace-otlp-http",
+              "version": "^0.46.0"
+            },
+            {
+              "name": "@opentelemetry/instrumentation",
+              "version": "^0.203.0"
+            },
+            {
+              "name": "@opentelemetry/instrumentation-document-load",
+              "version": "^0.34.1"
+            },
+            {
+              "name": "@opentelemetry/instrumentation-fetch",
+              "version": "^0.46.0"
+            },
+            {
+              "name": "@opentelemetry/instrumentation-user-interaction",
+              "version": "^0.35.0"
+            },
+            {
+              "name": "@opentelemetry/instrumentation-xml-http-request",
+              "version": "^0.46.0"
+            },
+            {
+              "name": "@opentelemetry/resources",
+              "version": "^1.30.1"
+            },
+            {
+              "name": "@opentelemetry/sdk-metrics",
+              "version": "^1.30.1"
+            },
+            {
+              "name": "@opentelemetry/sdk-trace-base",
+              "version": "^2.0.1"
+            },
+            {
+              "name": "@opentelemetry/sdk-trace-web",
+              "version": "^1.30.1"
+            },
+            {
+              "name": "@opentelemetry/semantic-conventions",
+              "version": "^1.36.0"
+            }
+          ],
+          "other": [
+            {
+              "name": "cors",
+              "version": "^2.8.5"
+            },
+            {
+              "name": "dompurify",
+              "version": "^3.1.4"
+            },
+            {
+              "name": "express",
+              "version": "^5.1.0"
+            },
+            {
+              "name": "jszip",
+              "version": "^3.10.1"
+            },
+            {
+              "name": "monaco-editor",
+              "version": "^0.39.0"
+            },
+            {
+              "name": "web-vitals",
+              "version": "^3.5.2"
+            },
+            {
+              "name": "@types/dompurify",
+              "version": "^3.0.5"
+            },
+            {
+              "name": "autoprefixer",
+              "version": "^10.4.20"
+            },
+            {
+              "name": "postcss",
+              "version": "^8.4.24"
+            },
+            {
+              "name": "tailwindcss",
+              "version": "^3.4.10"
+            },
+            {
+              "name": "terser",
+              "version": "^5.43.1"
+            }
+          ]
+        },
+        "heavyDependencies": [
+          {
+            "name": "@mui/material",
+            "impact": "Large bundle size (~300KB gzipped)",
+            "suggestion": "Consider tree-shaking or using lighter alternatives"
+          },
+          {
+            "name": "monaco-editor",
+            "impact": "Very large (~2MB)",
+            "suggestion": "Lazy load only when needed"
+          },
+          {
+            "name": "d3",
+            "impact": "Large library (~100KB)",
+            "suggestion": "Import only needed modules"
+          },
+          {
+            "name": "chart.js",
+            "impact": "Moderate size (~60KB)",
+            "suggestion": "Consider lightweight alternatives like uPlot"
+          }
+        ]
+      },
+      "codeIssues": [
+        {
+          "file": "./src/frontend/src/api/aiAgent.ts",
+          "issue": "Large component file (301 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/api/assistantsApi.ts",
+          "issue": "Large component file (394 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/AIAnalysisPanel.tsx",
+          "issue": "Large component file (477 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/AIFeatures.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/AIFeatures.tsx",
+          "issue": "Large component file (517 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/Agentic/AgentChat.tsx",
+          "issue": "Large component file (431 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/Agentic/PleaseMethodAgent.tsx",
+          "issue": "Multiple useEffect hooks (4)",
+          "impact": "Potential unnecessary re-renders",
+          "suggestion": "Consider combining effects or using custom hooks"
+        },
+        {
+          "file": "./src/frontend/src/components/Agentic/PleaseMethodAgent.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/Agentic/PleaseMethodAgent.tsx",
+          "issue": "Large component file (497 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/Agentic/ScriptExamplesViewer.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/Agentic/ScriptExamplesViewer.tsx",
+          "issue": "Large component file (335 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/ChatMessage.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/ErrorBoundary.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/GlobalErrorBoundary.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/Layout.tsx",
+          "issue": "Multiple useEffect hooks (4)",
+          "impact": "Potential unnecessary re-renders",
+          "suggestion": "Consider combining effects or using custom hooks"
+        },
+        {
+          "file": "./src/frontend/src/components/Navbar.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/PowerShellDocExplorer.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/ScriptDownloadButton.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/Sidebar.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/Sidebar.tsx",
+          "issue": "Large component file (334 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/VirtualTable.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/components/VirtualTable.tsx",
+          "issue": "Large component file (385 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/VoiceChatInterface.jsx",
+          "issue": "Multiple useEffect hooks (4)",
+          "impact": "Potential unnecessary re-renders",
+          "suggestion": "Consider combining effects or using custom hooks"
+        },
+        {
+          "file": "./src/frontend/src/components/VoiceChatInterface.jsx",
+          "issue": "Large component file (477 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/VoicePlayback.jsx",
+          "issue": "Multiple useEffect hooks (5)",
+          "impact": "Potential unnecessary re-renders",
+          "suggestion": "Consider combining effects or using custom hooks"
+        },
+        {
+          "file": "./src/frontend/src/components/VoicePlayback.jsx",
+          "issue": "Large component file (362 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/VoiceRecorder.jsx",
+          "issue": "Large component file (409 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/VoiceSettings.jsx",
+          "issue": "Large component file (475 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/components/auth/SessionManager.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/contexts/EnhancedAuthContext.tsx",
+          "issue": "Multiple useEffect hooks (4)",
+          "impact": "Potential unnecessary re-renders",
+          "suggestion": "Consider combining effects or using custom hooks"
+        },
+        {
+          "file": "./src/frontend/src/contexts/EnhancedAuthContext.tsx",
+          "issue": "Large component file (351 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/hooks/useChat.tsx",
+          "issue": "Multiple useEffect hooks (5)",
+          "impact": "Potential unnecessary re-renders",
+          "suggestion": "Consider combining effects or using custom hooks"
+        },
+        {
+          "file": "./src/frontend/src/hooks/useChat.tsx",
+          "issue": "Large component file (448 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/AgentOrchestrationPage.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/AgentOrchestrationPage.tsx",
+          "issue": "Large component file (407 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/AgenticAIPage.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/AgenticAIPage.tsx",
+          "issue": "Large component file (674 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/Categories.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/ChatHistory.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/ChatHistory.tsx",
+          "issue": "Large component file (367 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/Dashboard.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/Dashboard.tsx",
+          "issue": "Large component file (454 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/Documentation.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/Documentation.tsx",
+          "issue": "Large component file (546 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/DocumentationCrawl.tsx",
+          "issue": "Large component file (306 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/LandingPage.tsx",
+          "issue": "Large component file (415 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/ManageFiles.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/ManageFiles.tsx",
+          "issue": "Large component file (509 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/Profile.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/ScriptAnalysis.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/ScriptAnalysis.tsx",
+          "issue": "Large component file (1112 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/ScriptDetail.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/ScriptDetail.tsx",
+          "issue": "Large component file (508 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/ScriptManagement.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/ScriptManagement.tsx",
+          "issue": "Large component file (558 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/ScriptUpload.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/ScriptUpload.tsx",
+          "issue": "Large component file (659 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/Search.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/Search.tsx",
+          "issue": "Large component file (451 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings/AppearanceSettings.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings/ApplicationSettings.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings/NotificationSettings.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings/NotificationSettings.tsx",
+          "issue": "Large component file (328 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings/ProfileSettings.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings/SecuritySettings.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings/SecuritySettings.tsx",
+          "issue": "Large component file (366 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings/Settings.tsx",
+          "issue": "Large component file (301 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings/UserManagement.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings/UserManagement.tsx",
+          "issue": "Large component file (576 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/Settings.tsx",
+          "issue": "Large component file (591 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/pages/SimpleChatWithAI.tsx",
+          "issue": "Inline function in render",
+          "impact": "Creates new function on every render",
+          "suggestion": "Use useCallback or extract to stable function"
+        },
+        {
+          "file": "./src/frontend/src/pages/SimpleChatWithAI.tsx",
+          "issue": "Large component file (494 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/services/api.ts",
+          "issue": "Large component file (836 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/services/readmeService.ts",
+          "issue": "Large component file (476 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        },
+        {
+          "file": "./src/frontend/src/services/secureAuth.ts",
+          "issue": "Large component file (375 lines)",
+          "impact": "Hard to maintain, potentially doing too much",
+          "suggestion": "Consider splitting into smaller components"
+        }
+      ],
+      "optimizationOpportunities": [],
+      "bundleConfig": {
+        "codeSpittingEnabled": true,
+        "minificationEnabled": true,
+        "treeshakingEnabled": true,
+        "chunks": [
+          "react-vendor",
+          "router",
+          "data-fetching",
+          "visualization",
+          "editor",
+          "syntax-highlighter",
+          "markdown",
+          "date-utils",
+          "utils",
+          "telemetry"
+        ]
+      }
+    },
+    "backend": {
+      "dependencies": {
+        "total": 61,
+        "categories": {
+          "database": [
+            {
+              "name": "@opentelemetry/instrumentation-ioredis",
+              "version": "^0.35.3"
+            },
+            {
+              "name": "@opentelemetry/instrumentation-pg",
+              "version": "^0.38.0"
+            },
+            {
+              "name": "@opentelemetry/instrumentation-redis-4",
+              "version": "^0.36.0"
+            },
+            {
+              "name": "ioredis",
+              "version": "^5.4.2"
+            },
+            {
+              "name": "pg",
+              "version": "^8.13.3"
+            },
+            {
+              "name": "pg-hstore",
+              "version": "^2.3.4"
+            },
+            {
+              "name": "pgvector",
+              "version": "^0.2.0"
+            },
+            {
+              "name": "rate-limit-redis",
+              "version": "^4.2.1"
+            },
+            {
+              "name": "redis",
+              "version": "^4.7.0"
+            },
+            {
+              "name": "sequelize",
+              "version": "^6.37.5"
+            }
+          ],
+          "authentication": [
+            {
+              "name": "@types/passport",
+              "version": "^1.0.17"
+            },
+            {
+              "name": "@types/passport-github2",
+              "version": "^1.2.9"
+            },
+            {
+              "name": "@types/passport-google-oauth20",
+              "version": "^2.0.16"
+            },
+            {
+              "name": "bcrypt",
+              "version": "^5.1.1"
+            },
+            {
+              "name": "passport",
+              "version": "^0.7.0"
+            },
+            {
+              "name": "passport-github2",
+              "version": "^0.1.12"
+            },
+            {
+              "name": "passport-google-oauth20",
+              "version": "^2.0.0"
+            },
+            {
+              "name": "passport-microsoft",
+              "version": "^2.1.0"
+            }
+          ],
+          "monitoring": [
+            {
+              "name": "@opentelemetry/api",
+              "version": "^1.7.0"
+            },
+            {
+              "name": "@opentelemetry/auto-instrumentations-node",
+              "version": "^0.40.3"
+            },
+            {
+              "name": "@opentelemetry/exporter-logs-otlp-grpc",
+              "version": "^0.46.0"
+            },
+            {
+              "name": "@opentelemetry/exporter-metrics-otlp-grpc",
+              "version": "^0.46.0"
+            },
+            {
+              "name": "@opentelemetry/exporter-trace-otlp-grpc",
+              "version": "^0.46.0"
+            },
+            {
+              "name": "@opentelemetry/instrumentation-express",
+              "version": "^0.34.1"
+            },
+            {
+              "name": "@opentelemetry/instrumentation-http",
+              "version": "^0.46.0"
+            },
+            {
+              "name": "@opentelemetry/resources",
+              "version": "^1.19.0"
+            },
+            {
+              "name": "@opentelemetry/sdk-logs",
+              "version": "^0.46.0"
+            },
+            {
+              "name": "@opentelemetry/sdk-metrics",
+              "version": "^1.19.0"
+            },
+            {
+              "name": "@opentelemetry/sdk-node",
+              "version": "^0.46.0"
+            },
+            {
+              "name": "@opentelemetry/sdk-trace-node",
+              "version": "^1.19.0"
+            },
+            {
+              "name": "@opentelemetry/semantic-conventions",
+              "version": "^1.19.0"
+            },
+            {
+              "name": "@opentelemetry/winston-transport",
+              "version": "^0.2.0"
+            },
+            {
+              "name": "prom-client",
+              "version": "^15.1.0"
+            },
+            {
+              "name": "winston",
+              "version": "^3.16.0"
+            },
+            {
+              "name": "winston-daily-rotate-file",
+              "version": "^5.0.0"
+            }
+          ],
+          "api": [
+            {
+              "name": "cors",
+              "version": "^2.8.5"
+            },
+            {
+              "name": "express",
+              "version": "^5.1.0"
+            },
+            {
+              "name": "express-rate-limit",
+              "version": "^7.5.0"
+            },
+            {
+              "name": "express-validator",
+              "version": "^7.2.1"
+            },
+            {
+              "name": "helmet",
+              "version": "^8.0.0"
+            },
+            {
+              "name": "swagger-ui-express",
+              "version": "^5.0.1"
+            }
+          ],
+          "utilities": [
+            {
+              "name": "@types/qrcode",
+              "version": "^1.5.5"
+            },
+            {
+              "name": "@types/sanitize-html",
+              "version": "^2.15.0"
+            },
+            {
+              "name": "@types/shell-escape",
+              "version": "^0.2.3"
+            },
+            {
+              "name": "@types/speakeasy",
+              "version": "^2.0.10"
+            },
+            {
+              "name": "axios",
+              "version": "^1.8.4"
+            },
+            {
+              "name": "compression",
+              "version": "^1.7.5"
+            },
+            {
+              "name": "dotenv",
+              "version": "^16.4.7"
+            },
+            {
+              "name": "jsonwebtoken",
+              "version": "^9.0.2"
+            },
+            {
+              "name": "lru-cache",
+              "version": "^11.1.0"
+            },
+            {
+              "name": "morgan",
+              "version": "^1.10.0"
+            },
+            {
+              "name": "multer",
+              "version": "^2.0.0"
+            },
+            {
+              "name": "node-powershell",
+              "version": "^5.0.1"
+            },
+            {
+              "name": "openai",
+              "version": "^4.67.3"
+            },
+            {
+              "name": "qrcode",
+              "version": "^1.5.4"
+            },
+            {
+              "name": "sanitize-html",
+              "version": "^2.15.0"
+            },
+            {
+              "name": "shell-escape",
+              "version": "^0.2.0"
+            },
+            {
+              "name": "speakeasy",
+              "version": "^2.0.0"
+            },
+            {
+              "name": "swagger-jsdoc",
+              "version": "^6.2.8"
+            },
+            {
+              "name": "tsconfig-paths",
+              "version": "^4.2.0"
+            },
+            {
+              "name": "uuid",
+              "version": "^10.0.0"
+            }
+          ]
+        },
+        "performanceConcerns": [
+          {
+            "dependency": "sequelize",
+            "concern": "ORM overhead",
+            "suggestion": "Use raw queries for performance-critical paths"
+          },
+          {
+            "dependency": "bcrypt",
+            "concern": "CPU-intensive",
+            "suggestion": "Consider using worker threads for hashing"
+          },
+          {
+            "dependency": "multiple auth strategies",
+            "concern": "Memory overhead",
+            "suggestion": "Lazy load auth strategies"
+          }
+        ]
+      },
+      "databaseQueries": [
+        {
+          "file": "./src/backend/src/controllers/AuthController.ts",
+          "query": "Query on email/username field",
+          "suggestion": "Ensure database index exists"
+        },
+        {
+          "file": "./src/backend/src/controllers/EnhancedAuthController.ts",
+          "query": "Query on email/username field",
+          "suggestion": "Ensure database index exists"
+        },
+        {
+          "file": "./src/backend/src/controllers/ScriptController.ts",
+          "query": "Query on email/username field",
+          "suggestion": "Ensure database index exists"
+        },
+        {
+          "file": "./src/backend/src/controllers/UserController.ts",
+          "query": "Query on email/username field",
+          "suggestion": "Ensure database index exists"
+        },
+        {
+          "file": "./src/backend/src/services/OAuthService.ts",
+          "query": "Query on email/username field",
+          "suggestion": "Ensure database index exists"
+        }
+      ],
+      "apiEndpoints": [
+        {
+          "method": "POST",
+          "path": "/",
+          "file": "./src/backend/src/routes/agents.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/threads",
+          "file": "./src/backend/src/routes/agents.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/threads/:threadId",
+          "file": "./src/backend/src/routes/agents.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/threads/:threadId/messages",
+          "file": "./src/backend/src/routes/agents.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/threads/:threadId/messages",
+          "file": "./src/backend/src/routes/agents.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/threads/:threadId/runs",
+          "file": "./src/backend/src/routes/agents.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/runs/:runId",
+          "file": "./src/backend/src/routes/agents.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/rag",
+          "file": "./src/backend/src/routes/ai-advanced.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/semantic-search",
+          "file": "./src/backend/src/routes/ai-advanced.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/similarity-search",
+          "file": "./src/backend/src/routes/ai-advanced.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/embeddings/status",
+          "file": "./src/backend/src/routes/ai-advanced.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/regenerate-embeddings",
+          "file": "./src/backend/src/routes/ai-advanced.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/please",
+          "file": "./src/backend/src/routes/ai-agent.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/analyze/assistant",
+          "file": "./src/backend/src/routes/ai-agent.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/generate",
+          "file": "./src/backend/src/routes/ai-agent.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/explain",
+          "file": "./src/backend/src/routes/ai-agent.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/examples",
+          "file": "./src/backend/src/routes/ai-agent.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/scripts/:id/documentation",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/scripts/:id/refactor",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/nl-to-script",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/scripts/:id/categorize",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/scripts/:id/security-scan",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/scripts/:id/review",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/scripts/:id/generate-tests",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/explain-error",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/scripts/:id/similar-enhanced",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/scripts/:id/predict-performance",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/scripts/merge",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/scripts/generate-template",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/scripts/:id/convert-language",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/scripts/:id/optimize",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/scripts/:id/dependencies",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/scripts/generate-module",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/chat",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/scripts/:id/predict-execution",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/scripts/:id/code-smells",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/scripts/:id/changelog",
+          "file": "./src/backend/src/routes/ai-features.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/please",
+          "file": "./src/backend/src/routes/ai.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/analyze",
+          "file": "./src/backend/src/routes/ai.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/generate",
+          "file": "./src/backend/src/routes/ai.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/explain",
+          "file": "./src/backend/src/routes/ai.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/examples",
+          "file": "./src/backend/src/routes/ai.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/please",
+          "file": "./src/backend/src/routes/aiagent.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/analyze",
+          "file": "./src/backend/src/routes/aiagent.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/generate",
+          "file": "./src/backend/src/routes/aiagent.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/explain",
+          "file": "./src/backend/src/routes/aiagent.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/examples",
+          "file": "./src/backend/src/routes/aiagent.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/security",
+          "file": "./src/backend/src/routes/analytics.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/usage",
+          "file": "./src/backend/src/routes/analytics.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/dashboard-stats",
+          "file": "./src/backend/src/routes/analytics.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/security-metrics",
+          "file": "./src/backend/src/routes/analytics.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/usage-analytics",
+          "file": "./src/backend/src/routes/analytics.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/summary",
+          "file": "./src/backend/src/routes/analytics.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/:assistantId",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "PUT",
+          "path": "/:assistantId",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "DELETE",
+          "path": "/:assistantId",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/threads",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/threads/:threadId",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "PUT",
+          "path": "/threads/:threadId",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "DELETE",
+          "path": "/threads/:threadId",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/threads/:threadId/messages",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/threads/:threadId/messages/:messageId",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/threads/:threadId/messages",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/threads/:threadId/runs",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/threads/:threadId/runs/:runId",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/threads/:threadId/runs",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/threads/:threadId/runs/:runId/cancel",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/threads/:threadId/runs/:runId/submit_tool_outputs",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/threads/:threadId/runs/:runId/steps",
+          "file": "./src/backend/src/routes/assistants.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/simple-login",
+          "file": "./src/backend/src/routes/auth-simple.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/login",
+          "file": "./src/backend/src/routes/auth.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/register",
+          "file": "./src/backend/src/routes/auth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/me",
+          "file": "./src/backend/src/routes/auth.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/logout",
+          "file": "./src/backend/src/routes/auth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/verify",
+          "file": "./src/backend/src/routes/auth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/stats",
+          "file": "./src/backend/src/routes/cache.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/clear",
+          "file": "./src/backend/src/routes/cache.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/warm",
+          "file": "./src/backend/src/routes/cache.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "file": "./src/backend/src/routes/categories.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "file": "./src/backend/src/routes/categories.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/:id/scripts",
+          "file": "./src/backend/src/routes/categories.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/refresh/cache",
+          "file": "./src/backend/src/routes/categories.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/",
+          "file": "./src/backend/src/routes/categories.ts"
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "file": "./src/backend/src/routes/categories.ts"
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "file": "./src/backend/src/routes/categories.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/",
+          "file": "./src/backend/src/routes/chat.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/history",
+          "file": "./src/backend/src/routes/chat.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/history",
+          "file": "./src/backend/src/routes/chat.ts"
+        },
+        {
+          "method": "DELETE",
+          "path": "/history",
+          "file": "./src/backend/src/routes/chat.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/history/search",
+          "file": "./src/backend/src/routes/chat.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/login",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/refresh-token",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/mfa/setup",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/mfa/verify",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/mfa/disable",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/forgot-password",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/reset-password",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/sessions",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "DELETE",
+          "path": "/sessions/:sessionId",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/google",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/google/callback",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/github",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/github/callback",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/microsoft",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/microsoft/callback",
+          "file": "./src/backend/src/routes/enhancedAuth.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "file": "./src/backend/src/routes/health.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/db/status",
+          "file": "./src/backend/src/routes/health.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/network-test",
+          "file": "./src/backend/src/routes/health.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/db/:action",
+          "file": "./src/backend/src/routes/health.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/diagnostics",
+          "file": "./src/backend/src/routes/health.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/cache/persistence",
+          "file": "./src/backend/src/routes/health.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/cache",
+          "file": "./src/backend/src/routes/health.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/upload/async",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/upload/status/:uploadId",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/search",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/upload",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/clear-cache",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/upload/large",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/:id/analysis",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/:id/analyze",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/:id/execute",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/:id/similar",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/analyze",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/delete",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/generate",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/analyze/assistant",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/analyze/security",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/please",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/analyze/assistant",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/explain",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/examples",
+          "file": "./src/backend/src/routes/scripts.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/hybrid",
+          "file": "./src/backend/src/routes/search.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/text",
+          "file": "./src/backend/src/routes/search.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/vector",
+          "file": "./src/backend/src/routes/search.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/cache/clear",
+          "file": "./src/backend/src/routes/search.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/ai-status",
+          "file": "./src/backend/src/routes/settings.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/ai-mode",
+          "file": "./src/backend/src/routes/settings.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/openai-key",
+          "file": "./src/backend/src/routes/settings.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/secure-store",
+          "file": "./src/backend/src/routes/settings.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/secure-store/:key",
+          "file": "./src/backend/src/routes/settings.ts"
+        },
+        {
+          "method": "DELETE",
+          "path": "/secure-store/:key",
+          "file": "./src/backend/src/routes/settings.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/api-key-status",
+          "file": "./src/backend/src/routes/settings.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "file": "./src/backend/src/routes/tags.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "file": "./src/backend/src/routes/tags.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/",
+          "file": "./src/backend/src/routes/users.ts"
+        },
+        {
+          "method": "GET",
+          "path": "/:id",
+          "file": "./src/backend/src/routes/users.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/",
+          "file": "./src/backend/src/routes/users.ts"
+        },
+        {
+          "method": "PUT",
+          "path": "/:id",
+          "file": "./src/backend/src/routes/users.ts"
+        },
+        {
+          "method": "DELETE",
+          "path": "/:id",
+          "file": "./src/backend/src/routes/users.ts"
+        },
+        {
+          "method": "POST",
+          "path": "/:id/reset-password",
+          "file": "./src/backend/src/routes/users.ts"
+        }
+      ],
+      "codeIssues": [
+        {
+          "file": "./src/backend/src/controllers/AIController.ts",
+          "issue": "Synchronous I/O operation",
+          "impact": "Blocks event loop",
+          "suggestion": "Use async alternatives"
+        },
+        {
+          "file": "./src/backend/src/controllers/Agentic/AgentController.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/controllers/Agentic/AssistantsController.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/controllers/AiAgentController.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/controllers/AnalyticsController.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/controllers/AsyncUploadController.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/controllers/AuthController.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/controllers/CategoryController.ts",
+          "issue": "Potential N+1 query pattern",
+          "impact": "Database performance degradation",
+          "suggestion": "Use includes/joins or batch queries"
+        },
+        {
+          "file": "./src/backend/src/controllers/ChatController.ts",
+          "issue": "Potential N+1 query pattern",
+          "impact": "Database performance degradation",
+          "suggestion": "Use includes/joins or batch queries"
+        },
+        {
+          "file": "./src/backend/src/controllers/DocumentationController.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/controllers/EnhancedAuthController.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/controllers/ScriptController.instrumented.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/controllers/ScriptController.ts",
+          "issue": "Potential N+1 query pattern",
+          "impact": "Database performance degradation",
+          "suggestion": "Use includes/joins or batch queries"
+        },
+        {
+          "file": "./src/backend/src/controllers/SettingsController.ts",
+          "issue": "Synchronous I/O operation",
+          "impact": "Blocks event loop",
+          "suggestion": "Use async alternatives"
+        },
+        {
+          "file": "./src/backend/src/controllers/SettingsController.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/controllers/UserController.ts",
+          "issue": "Missing pagination",
+          "impact": "Could return large datasets",
+          "suggestion": "Implement pagination with limit/offset"
+        },
+        {
+          "file": "./src/backend/src/controllers/UserController.ts",
+          "issue": "No caching implementation",
+          "impact": "Repeated expensive operations",
+          "suggestion": "Implement Redis caching for frequently accessed data"
+        },
+        {
+          "file": "./src/backend/src/index.ts",
+          "issue": "Synchronous I/O operation",
+          "impact": "Blocks event loop",
+          "suggestion": "Use async alternatives"
+        },
+        {
+          "file": "./src/backend/src/routes/health.ts",
+          "issue": "Synchronous I/O operation",
+          "impact": "Blocks event loop",
+          "suggestion": "Use async alternatives"
+        },
+        {
+          "file": "./src/backend/src/utils/swagger.ts",
+          "issue": "Synchronous I/O operation",
+          "impact": "Blocks event loop",
+          "suggestion": "Use async alternatives"
+        }
+      ]
+    },
+    "overall": {
+      "totalFiles": 0,
+      "totalLinesOfCode": 0,
+      "techStack": {}
+    }
+  },
+  "recommendations": {
+    "immediate": [
+      {
+        "area": "Frontend Dependencies",
+        "action": "Optimize heavy dependencies",
+        "details": [
+          "@mui/material: Consider tree-shaking or using lighter alternatives",
+          "monaco-editor: Lazy load only when needed",
+          "d3: Import only needed modules",
+          "chart.js: Consider lightweight alternatives like uPlot"
+        ],
+        "estimatedImpact": "30-50% bundle size reduction"
+      },
+      {
+        "area": "Frontend Code",
+        "action": "Fix React performance anti-patterns",
+        "details": "76 issues found",
+        "estimatedImpact": "20-30% render performance improvement"
+      },
+      {
+        "area": "Backend Queries",
+        "action": "Fix N+1 query patterns",
+        "details": "3 potential N+1 queries found",
+        "estimatedImpact": "50-90% query time reduction"
+      }
+    ],
+    "shortTerm": [
+      {
+        "area": "Backend Caching",
+        "action": "Implement comprehensive caching strategy",
+        "details": "11 controllers without caching",
+        "estimatedImpact": "60-80% response time improvement for cached endpoints"
+      }
+    ],
+    "longTerm": [
+      {
+        "area": "Architecture",
+        "action": "Implement micro-frontend architecture",
+        "details": "Current bundle size exceeds 2MB",
+        "estimatedImpact": "Enable independent deployment and better caching"
+      }
+    ]
+  },
+  "summary": {
+    "frontendIssues": 76,
+    "backendIssues": 20,
+    "totalDependencies": 124,
+    "criticalFindings": [
+      {
+        "file": "./src/backend/src/controllers/AIController.ts",
+        "issue": "Synchronous I/O operation",
+        "impact": "Blocks event loop",
+        "suggestion": "Use async alternatives"
+      },
+      {
+        "file": "./src/backend/src/controllers/CategoryController.ts",
+        "issue": "Potential N+1 query pattern",
+        "impact": "Database performance degradation",
+        "suggestion": "Use includes/joins or batch queries"
+      },
+      {
+        "file": "./src/backend/src/controllers/ChatController.ts",
+        "issue": "Potential N+1 query pattern",
+        "impact": "Database performance degradation",
+        "suggestion": "Use includes/joins or batch queries"
+      },
+      {
+        "file": "./src/backend/src/controllers/ScriptController.ts",
+        "issue": "Potential N+1 query pattern",
+        "impact": "Database performance degradation",
+        "suggestion": "Use includes/joins or batch queries"
+      },
+      {
+        "file": "./src/backend/src/controllers/SettingsController.ts",
+        "issue": "Synchronous I/O operation",
+        "impact": "Blocks event loop",
+        "suggestion": "Use async alternatives"
+      },
+      {
+        "file": "./src/backend/src/index.ts",
+        "issue": "Synchronous I/O operation",
+        "impact": "Blocks event loop",
+        "suggestion": "Use async alternatives"
+      },
+      {
+        "file": "./src/backend/src/routes/health.ts",
+        "issue": "Synchronous I/O operation",
+        "impact": "Blocks event loop",
+        "suggestion": "Use async alternatives"
+      },
+      {
+        "file": "./src/backend/src/utils/swagger.ts",
+        "issue": "Synchronous I/O operation",
+        "impact": "Blocks event loop",
+        "suggestion": "Use async alternatives"
+      }
+    ]
+  }
+}

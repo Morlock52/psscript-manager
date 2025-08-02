@@ -31,7 +31,7 @@ const Login: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await api.post('/auth/login', formData);
+      const response = await api.post('/api/auth/legacy/login', formData);
       const { token, user: userData } = response.data;
       
       login(token, userData);

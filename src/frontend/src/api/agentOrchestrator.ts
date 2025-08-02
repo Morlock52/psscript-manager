@@ -130,7 +130,7 @@ export const createAgent = async (params: Partial<Agent>): Promise<Agent> => {
     const response = await apiClient.post(AGENT_API_BASE_URL, params);
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'create agent');
+    throw handleApiError(error as Error | AxiosError, 'create agent');
   }
 };
 
@@ -145,7 +145,7 @@ export const createThread = async (agentId: string, initialMessage?: string): Pr
     });
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'create thread');
+    throw handleApiError(error as Error | AxiosError, 'create thread');
   }
 };
 
@@ -157,7 +157,7 @@ export const getThread = async (threadId: string): Promise<Thread> => {
     const response = await apiClient.get(`${AGENT_API_BASE_URL}/threads/${threadId}`);
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'get thread');
+    throw handleApiError(error as Error | AxiosError, 'get thread');
   }
 };
 
@@ -169,7 +169,7 @@ export const getThreadMessages = async (threadId: string): Promise<Message[]> =>
     const response = await apiClient.get(`${AGENT_API_BASE_URL}/threads/${threadId}/messages`);
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'get thread messages');
+    throw handleApiError(error as Error | AxiosError, 'get thread messages');
   }
 };
 
@@ -184,7 +184,7 @@ export const addMessage = async (threadId: string, content: string, role: 'user'
     });
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'add message');
+    throw handleApiError(error as Error | AxiosError, 'add message');
   }
 };
 
@@ -196,7 +196,7 @@ export const createRun = async (threadId: string): Promise<Run> => {
     const response = await apiClient.post(`${AGENT_API_BASE_URL}/threads/${threadId}/runs`);
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'create run');
+    throw handleApiError(error as Error | AxiosError, 'create run');
   }
 };
 
@@ -208,7 +208,7 @@ export const getRun = async (runId: string): Promise<Run> => {
     const response = await apiClient.get(`${AGENT_API_BASE_URL}/runs/${runId}`);
     return response.data;
   } catch (error) {
-    throw handleApiError(error, 'get run');
+    throw handleApiError(error as Error | AxiosError, 'get run');
   }
 };
 

@@ -327,7 +327,7 @@ router.get('/clear-cache', authenticateJWT, apiRateLimiter, async (req, res) => 
  *         description: Unauthorized
  */
 // Use special CORS middleware and network error handling for large upload endpoint as well
-router.post('/upload/large', uploadCorsMiddleware, authenticateJWT, handleNetworkErrors, handleUploadProgress, diskUpload.single('script_file'), handleMulterError, ScriptController.uploadScript); // Added authenticateJWT
+router.post('/upload/large', authenticateJWT, handleNetworkErrors, handleUploadProgress, diskUpload.single('script_file'), handleMulterError, ScriptController.uploadScript); // Added authenticateJWT
 
 /**
  * @swagger

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
+import { ROUTES, matchesRoute } from '../constants/routes';
 import AIStatusIndicator from './AIStatusIndicator';
+import GlobalSearch from './GlobalSearch';
 // import { useAuth } from '../hooks/useAuth'; // Removed
 
 // Define props for Navbar
@@ -17,6 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
   
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
   
   // Toggle user menu
   const toggleUserMenu = () => {
@@ -33,21 +36,29 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
   // Handle logout - Removed
   // const handleLogout = () => { ... };
 
-  // Get page title based on current route
+  // Get page title based on current route - Updated with proper route mappings
   const getPageTitle = () => {
     const path = location.pathname;
     
-    if (path === '/') return 'Dashboard';
-    if (path === '/scripts') return 'Script Management';
-    if (path.startsWith('/scripts/') && path.includes('/edit')) return 'Edit Script';
-    if (path.startsWith('/scripts/') && path.includes('/analysis')) return 'Script Analysis';
-    if (path.startsWith('/scripts/')) return 'Script Details';
-    if (path === '/chat') return 'AI Assistant';
-    if (path === '/chat/history') return 'Chat History';
-    if (path === '/documentation') return 'Documentation';
-    if (path === '/settings') return 'Settings';
-    if (path === '/login') return 'Login';
-    if (path === '/register') return 'Register';
+    // Use constants for consistent routing
+    if (path === ROUTES.HOME || path === ROUTES.DASHBOARD) return 'Dashboard';
+    if (path === ROUTES.SCRIPTS) return 'Script Management';
+    if (matchesRoute(path, ROUTES.SCRIPT_DETAIL)) return 'Script Details';
+    if (path === ROUTES.EDITOR || matchesRoute(path, ROUTES.EDITOR_WITH_ID)) return 'Script Editor';
+    if (path === ROUTES.UPLOAD) return 'Script Upload';
+    if (path === ROUTES.ANALYSIS) return 'Script Analysis';
+    if (path === ROUTES.AI_CHAT) return 'AI Assistant';
+    if (path === ROUTES.CHAT_HISTORY) return 'Chat History';
+    if (path === ROUTES.AI_FEATURES) return 'AI Features';
+    if (path === ROUTES.AGENTIC_AI) return 'Agentic AI';
+    if (path === ROUTES.AGENT_ORCHESTRATION) return 'Agent Orchestration';
+    if (path === ROUTES.DOCUMENTATION) return 'Documentation';
+    if (path === ROUTES.DOCUMENTATION_CRAWL) return 'Documentation Crawl';
+    if (path === ROUTES.SETTINGS || path.startsWith('/settings')) return 'Settings';
+    if (path === ROUTES.UI_DEMO) return 'UI Components Demo';
+    if (path === ROUTES.LOGIN) return 'Login';
+    if (path === ROUTES.REGISTER) return 'Register';
+    if (path === ROUTES.UNAUTHORIZED) return 'Access Denied';
     
     return 'PSScript';
   };
@@ -86,8 +97,8 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
                 ? 'hover:bg-gray-700' 
                 : 'hover:bg-gray-100'
             }`}
-            aria-label="Search"
-            onClick={() => navigate('/scripts?search=true')}
+            aria-label="Open global search"
+            onClick={() => setShowSearch(true)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -168,6 +179,12 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
           {/* <div className="relative"> ... </div> */}
         </div>
       </div>
+      
+      {/* Global Search Modal */}
+      <GlobalSearch 
+        isOpen={showSearch} 
+        onClose={() => setShowSearch(false)} 
+      />
     </header>
   );
 };

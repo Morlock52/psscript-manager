@@ -146,7 +146,7 @@ const StatCard: React.FC<StatCardProps> = ({
       
       {isLoading ? (
         <div className="flex justify-center py-2">
-          <LoadingSpinner size="sm" />
+          <LoadingSpinner size="small" />
         </div>
       ) : (
         <div className="flex items-baseline">

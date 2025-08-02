@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 import LoadingSpinner from './LoadingSpinner';
 
 interface ProtectedRouteProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   requiredRole?: string;
 }
 
@@ -30,7 +30,8 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Navigate to="/unauthorized" replace />;
   }
 
-  return <>{children}</>;
+  // Render children if provided, otherwise render Outlet for nested routes
+  return children ? <>{children}</> : <Outlet />;
 };
 
 export default ProtectedRoute;

@@ -1,0 +1,457 @@
+{
+  "timestamp": "2025-08-01T15:02:34.369Z",
+  "url": "http://localhost:3002",
+  "apiUrl": "http://localhost:4005/api",
+  "results": [
+    {
+      "category": "Homepage",
+      "test": "Page Load",
+      "status": "PASS",
+      "details": {
+        "statusCode": 200
+      },
+      "timestamp": "2025-08-01T15:02:38.976Z"
+    },
+    {
+      "category": "Homepage",
+      "test": "Page Title",
+      "status": "PASS",
+      "details": {
+        "title": "PSScript - PowerShell Script Management"
+      },
+      "timestamp": "2025-08-01T15:02:39.465Z"
+    },
+    {
+      "category": "Homepage",
+      "test": "Navigation Present",
+      "status": "FAIL",
+      "details": {},
+      "timestamp": "2025-08-01T15:02:39.470Z"
+    },
+    {
+      "category": "Homepage",
+      "test": "Main Content Present",
+      "status": "FAIL",
+      "details": {},
+      "timestamp": "2025-08-01T15:02:39.471Z"
+    },
+    {
+      "category": "Navigation",
+      "test": "Links Found",
+      "status": "INFO",
+      "details": {
+        "count": 0,
+        "links": []
+      },
+      "timestamp": "2025-08-01T15:02:39.474Z"
+    },
+    {
+      "category": "Authentication",
+      "test": "Login Form Present",
+      "status": "FAIL",
+      "details": {},
+      "timestamp": "2025-08-01T15:02:40.510Z"
+    },
+    {
+      "category": "Interactive",
+      "test": "Buttons Found",
+      "status": "INFO",
+      "details": {
+        "count": 0,
+        "buttons": []
+      },
+      "timestamp": "2025-08-01T15:02:41.511Z"
+    },
+    {
+      "category": "Interactive",
+      "test": "Links Found",
+      "status": "INFO",
+      "details": {
+        "count": 0
+      },
+      "timestamp": "2025-08-01T15:02:41.514Z"
+    },
+    {
+      "category": "Interactive",
+      "test": "All Links Valid",
+      "status": "PASS",
+      "details": {},
+      "timestamp": "2025-08-01T15:02:41.514Z"
+    },
+    {
+      "category": "API",
+      "test": "Health Endpoint",
+      "status": "PASS",
+      "details": {
+        "status": 200,
+        "ok": true,
+        "data": {
+          "dbStatus": "connected",
+          "cacheStatus": "connected",
+          "status": "healthy",
+          "message": "",
+          "time": "2025-08-01T15:02:41.925Z",
+          "uptime": 1652.061877,
+          "tables": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "cache": {
+            "size": 1,
+            "keys": [
+              "api:cache:/api"
+            ],
+            "hitRatio": 0,
+            "memoryUsage": {
+              "heapUsed": "60MB",
+              "heapTotal": "64MB",
+              "cacheEstimate": "0MB",
+              "cachePercentage": "0%"
+            },
+            "topHits": []
+          },
+          "database": {
+            "responseTime": 298,
+            "connectionInfo": {
+              "host": "localhost",
+              "port": 5432,
+              "database": "psscript",
+              "connected": true,
+              "isDocker": false
+            },
+            "serverInfo": {
+              "database": "psscript",
+              "server_time": "2025-08-01T15:02:41.820Z",
+              "version": "PostgreSQL 16.9 (Homebrew) on aarch64-apple-darwin24.4.0, compiled by Apple clang version 17.0.0 (clang-1700.0.13.3), 64-bit",
+              "db_size": "10 MB",
+              "active_connections": "6"
+            }
+          },
+          "environment": {
+            "nodeEnv": "development",
+            "dockerEnv": false,
+            "port": "4005"
+          },
+          "isDocker": false,
+          "platform": "darwin",
+          "nodeVersion": "v22.16.0",
+          "hostname": "Davids-MacBook-Air.local"
+        }
+      },
+      "timestamp": "2025-08-01T15:02:41.939Z"
+    },
+    {
+      "category": "API",
+      "test": "Endpoint /api/auth/login",
+      "status": "INFO",
+      "details": {
+        "status": 404,
+        "ok": false,
+        "statusText": "Not Found"
+      },
+      "timestamp": "2025-08-01T15:02:41.944Z"
+    },
+    {
+      "category": "API",
+      "test": "Endpoint /api/users",
+      "status": "INFO",
+      "details": {
+        "status": 403,
+        "ok": false,
+        "statusText": "Forbidden"
+      },
+      "timestamp": "2025-08-01T15:02:41.947Z"
+    },
+    {
+      "category": "API",
+      "test": "Endpoint /api/scripts",
+      "status": "INFO",
+      "details": {
+        "status": 200,
+        "ok": true,
+        "statusText": "OK"
+      },
+      "timestamp": "2025-08-01T15:02:42.065Z"
+    },
+    {
+      "category": "Responsive",
+      "test": "Mobile View",
+      "status": "PASS",
+      "details": {
+        "viewport": {
+          "name": "Mobile",
+          "width": 375,
+          "height": 667
+        },
+        "navigationVisible": false
+      },
+      "timestamp": "2025-08-01T15:02:43.104Z"
+    },
+    {
+      "category": "Responsive",
+      "test": "Tablet View",
+      "status": "PASS",
+      "details": {
+        "viewport": {
+          "name": "Tablet",
+          "width": 768,
+          "height": 1024
+        },
+        "navigationVisible": false
+      },
+      "timestamp": "2025-08-01T15:02:44.632Z"
+    },
+    {
+      "category": "Responsive",
+      "test": "Desktop View",
+      "status": "PASS",
+      "details": {
+        "viewport": {
+          "name": "Desktop",
+          "width": 1920,
+          "height": 1080
+        },
+        "navigationVisible": false
+      },
+      "timestamp": "2025-08-01T15:02:46.758Z"
+    },
+    {
+      "category": "Accessibility",
+      "test": "All images have alt text",
+      "status": "PASS",
+      "details": {},
+      "timestamp": "2025-08-01T15:02:47.915Z"
+    },
+    {
+      "category": "Accessibility",
+      "test": "All form inputs have labels",
+      "status": "PASS",
+      "details": {},
+      "timestamp": "2025-08-01T15:02:47.915Z"
+    },
+    {
+      "category": "Accessibility",
+      "test": "Heading hierarchy correct",
+      "status": "PASS",
+      "details": {},
+      "timestamp": "2025-08-01T15:02:47.916Z"
+    },
+    {
+      "category": "Accessibility",
+      "test": "ARIA Landmarks",
+      "status": "INFO",
+      "details": {
+        "landmarks": {
+          "banner": 0,
+          "navigation": 0,
+          "main": 0,
+          "contentinfo": 0
+        }
+      },
+      "timestamp": "2025-08-01T15:02:47.917Z"
+    },
+    {
+      "category": "Console",
+      "test": "JavaScript Errors",
+      "status": "FAIL",
+      "details": {
+        "count": 9,
+        "errors": [
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://localhost:3002/@vite/client"
+            }
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://localhost:3002/@vite/client"
+            }
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://localhost:3002/@vite/client"
+            }
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://localhost:4005/api/auth/login"
+            }
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 403 (Forbidden)",
+            "location": {
+              "url": "http://localhost:4005/api/users"
+            }
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://localhost:3002/@vite/client"
+            }
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://localhost:3002/@vite/client"
+            }
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://localhost:3002/@vite/client"
+            }
+          },
+          {
+            "type": "error",
+            "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "location": {
+              "url": "http://localhost:3002/@vite/client"
+            }
+          }
+        ]
+      },
+      "timestamp": "2025-08-01T15:02:47.917Z"
+    },
+    {
+      "category": "Console",
+      "test": "No JavaScript Warnings",
+      "status": "PASS",
+      "details": {},
+      "timestamp": "2025-08-01T15:02:47.917Z"
+    },
+    {
+      "category": "Page",
+      "test": "No Page Errors",
+      "status": "PASS",
+      "details": {},
+      "timestamp": "2025-08-01T15:02:47.917Z"
+    },
+    {
+      "category": "Network",
+      "test": "Failed Requests",
+      "status": "FAIL",
+      "details": {
+        "count": 10,
+        "failures": [
+          {
+            "url": "http://localhost:3002/@vite/client",
+            "method": "GET",
+            "failure": {
+              "errorText": "net::ERR_ABORTED"
+            }
+          },
+          {
+            "url": "http://localhost:3002/@vite/client",
+            "method": "GET",
+            "failure": {
+              "errorText": "net::ERR_ABORTED"
+            }
+          },
+          {
+            "url": "http://localhost:3002/@vite/client",
+            "method": "GET",
+            "failure": {
+              "errorText": "net::ERR_ABORTED"
+            }
+          },
+          {
+            "url": "http://localhost:4005/api/auth/login",
+            "method": "GET",
+            "failure": {
+              "errorText": "net::ERR_ABORTED"
+            }
+          },
+          {
+            "url": "http://localhost:4005/api/users",
+            "method": "GET",
+            "failure": {
+              "errorText": "net::ERR_ABORTED"
+            }
+          },
+          {
+            "url": "http://localhost:4005/api/scripts",
+            "method": "GET",
+            "failure": {
+              "errorText": "net::ERR_ABORTED"
+            }
+          },
+          {
+            "url": "http://localhost:3002/@vite/client",
+            "method": "GET",
+            "failure": {
+              "errorText": "net::ERR_ABORTED"
+            }
+          },
+          {
+            "url": "http://localhost:3002/@vite/client",
+            "method": "GET",
+            "failure": {
+              "errorText": "net::ERR_ABORTED"
+            }
+          },
+          {
+            "url": "http://localhost:3002/@vite/client",
+            "method": "GET",
+            "failure": {
+              "errorText": "net::ERR_ABORTED"
+            }
+          },
+          {
+            "url": "http://localhost:3002/@vite/client",
+            "method": "GET",
+            "failure": {
+              "errorText": "net::ERR_ABORTED"
+            }
+          }
+        ]
+      },
+      "timestamp": "2025-08-01T15:02:47.917Z"
+    }
+  ],
+  "summary": {
+    "totalTests": 24,
+    "passed": 12,
+    "failed": 5,
+    "warnings": 0,
+    "info": 7
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "psscript-blazing-demo",
+  "scripts": {
+    "dev": "bun --hot server.ts"
+  },
+  "dependencies": {
+    "hono": "^4.0.0"
+  }
+}

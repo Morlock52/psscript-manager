@@ -1,0 +1,158 @@
+{
+  "timestamp": "2025-08-01T20:49:17.562Z",
+  "summary": {
+    "performanceScore": "Good",
+    "grades": {
+      "frontend": "A",
+      "backend": "C",
+      "scalability": "C"
+    },
+    "criticalIssues": [
+      {
+        "severity": "CRITICAL",
+        "area": "Scalability",
+        "issue": "Error rate reaches 100.00% under load",
+        "impact": "Service degradation under normal traffic"
+      }
+    ],
+    "keyMetrics": {
+      "avgApiResponse": "NaN ms",
+      "cacheImprovement": "NaN%"
+    }
+  },
+  "metrics": {
+    "frontend": {
+      "coreWebVitals": {},
+      "resourceTiming": [],
+      "navigationTiming": {},
+      "bundleSizes": {},
+      "memoryUsage": {}
+    },
+    "backend": {
+      "apiResponseTimes": {
+        "Health Check": {
+          "min": null,
+          "max": null,
+          "avg": "NaN",
+          "p95": 0,
+          "p99": 0,
+          "errorRate": "100.00%"
+        },
+        "Get Scripts": {
+          "min": null,
+          "max": null,
+          "avg": "NaN",
+          "p95": 0,
+          "p99": 0,
+          "errorRate": "100.00%"
+        },
+        "Get Categories": {
+          "min": null,
+          "max": null,
+          "avg": "NaN",
+          "p95": 0,
+          "p99": 0,
+          "errorRate": "100.00%"
+        },
+        "Get Analytics": {
+          "min": null,
+          "max": null,
+          "avg": "NaN",
+          "p95": 0,
+          "p99": 0,
+          "errorRate": "100.00%"
+        }
+      },
+      "databaseQueryTimes": [],
+      "throughput": {},
+      "errorRates": {}
+    },
+    "system": {
+      "cpuUsage": {
+        "1min": "8.57",
+        "5min": "14.46",
+        "15min": "19.84",
+        "cores": 8
+      },
+      "memoryUsage": {
+        "total": "16.00 GB",
+        "used": "15.89 GB",
+        "free": "0.11 GB",
+        "percentage": "99.29%"
+      },
+      "networkLatency": {
+        "min": null,
+        "max": null,
+        "avg": "NaN"
+      }
+    },
+    "cache": {
+      "avgResponseTimeWithoutCache": "NaN ms",
+      "avgResponseTimeWithCache": "NaN ms",
+      "improvement": "NaN%",
+      "hitRate": "N/A (requires cache instrumentation)"
+    },
+    "scalability": {
+      "responseTimeByLoad": {
+        "1 users": {
+          "min": null,
+          "max": null,
+          "avg": "NaN",
+          "p95": 0,
+          "throughput": "0.00 req/s",
+          "errorRate": "100.00%"
+        },
+        "10 users": {
+          "min": null,
+          "max": null,
+          "avg": "NaN",
+          "p95": 0,
+          "throughput": "0.00 req/s",
+          "errorRate": "100.00%"
+        },
+        "50 users": {
+          "min": null,
+          "max": null,
+          "avg": "NaN",
+          "p95": 0,
+          "throughput": "0.00 req/s",
+          "errorRate": "100.00%"
+        },
+        "100 users": {
+          "min": null,
+          "max": null,
+          "avg": "NaN",
+          "p95": 0,
+          "throughput": "0.00 req/s",
+          "errorRate": "100.00%"
+        }
+      },
+      "throughputByLoad": {},
+      "errorRateByLoad": {}
+    }
+  },
+  "recommendations": {
+    "immediate": [
+      "Enable gzip/brotli compression for all text assets",
+      "Add database indexes for frequently queried fields",
+      "Implement Redis caching for API responses",
+      "Optimize images with WebP format and responsive sizes",
+      "Remove unused JavaScript dependencies"
+    ],
+    "shortTerm": [
+      "Implement code splitting for route-based chunks",
+      "Add service worker for offline functionality",
+      "Optimize database queries with query analysis",
+      "Implement pagination for list endpoints",
+      "Add CDN for static assets"
+    ],
+    "longTerm": [
+      "Consider micro-frontend architecture for better code splitting",
+      "Implement read replicas for database scaling",
+      "Add edge computing for global performance",
+      "Migrate to faster runtime (e.g., Bun, Deno)",
+      "Implement GraphQL for efficient data fetching"
+    ]
+  },
+  "optimizationOpportunities": []
+}

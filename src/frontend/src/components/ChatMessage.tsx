@@ -33,7 +33,9 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, theme, onSaveScript 
     let match;
     
     while ((match = regex.exec(content)) !== null) {
-      matches.push(match[1]);
+      if (match[1]) {
+        matches.push(match[1]);
+      }
     }
     
     return matches;

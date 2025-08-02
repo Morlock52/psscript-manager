@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -52,7 +52,7 @@ class ErrorBoundary extends Component<Props, State> {
     });
   };
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       // Custom fallback UI
       if (this.props.fallback) {
@@ -78,7 +78,7 @@ class ErrorBoundary extends Component<Props, State> {
             </p>
 
             {/* Error details for development */}
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            {process.env['NODE_ENV'] === 'development' && this.state.error && (
               <details className="mt-4 text-xs text-gray-600 dark:text-gray-300">
                 <summary className="cursor-pointer hover:text-gray-800 dark:hover:text-gray-100">
                   Error Details

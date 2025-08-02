@@ -58,7 +58,7 @@ export class EnhancedAuthController {
       const isValidPassword = await user.validatePassword(password, requestId);
       
       if (!isValidPassword) {
-        await this.handleFailedLogin(user, requestId);
+        await EnhancedAuthController.handleFailedLogin(user, requestId);
         res.status(401).json({ 
           error: 'Invalid credentials',
           message: 'Invalid email or password' 
@@ -79,7 +79,7 @@ export class EnhancedAuthController {
         // Verify MFA token
         const mfaSecret = await MFAService.getUserMFASecret(user.id);
         if (!mfaSecret || !MFAService.verifyToken(mfaSecret, mfaToken)) {
-          await this.handleFailedLogin(user, requestId);
+          await EnhancedAuthController.handleFailedLogin(user, requestId);
           res.status(401).json({ 
             error: 'Invalid MFA token',
             message: 'Invalid or expired MFA token' 
@@ -94,7 +94,7 @@ export class EnhancedAuthController {
       await user.save();
 
       // Generate tokens
-      const tokens = await this.generateTokenPair(user);
+      const tokens = await EnhancedAuthController.generateTokenPair(user);
 
       // Create session
       const sessionId = await SessionService.createSession({
@@ -110,7 +110,7 @@ export class EnhancedAuthController {
       await user.updateLoginTimestamp(requestId);
 
       // Log authentication event
-      await this.logAuthEvent(user.id, 'login', { 
+      await EnhancedAuthController.logAuthEvent(user.id, 'login', { 
         ipAddress, 
         userAgent,
         mfaUsed: user.mfaEnabled 
@@ -214,10 +214,10 @@ export class EnhancedAuthController {
 
       // Store backup codes
       if (result.backupCodes) {
-        await this.storeBackupCodes(userId, result.backupCodes);
+        await EnhancedAuthController.storeBackupCodes(userId, result.backupCodes);
       }
 
-      await this.logAuthEvent(userId, 'mfa_enabled', {}, true);
+      await EnhancedAuthController.logAuthEvent(userId, 'mfa_enabled', {}, true);
 
       res.status(200).json({
         success: true,
@@ -253,7 +253,7 @@ export class EnhancedAuthController {
       }
 
       await MFAService.disableMFA(userId);
-      await this.logAuthEvent(userId, 'mfa_disabled', {}, true);
+      await EnhancedAuthController.logAuthEvent(userId, 'mfa_disabled', {}, true);
 
       res.status(200).json({
         success: true,
@@ -310,7 +310,7 @@ export class EnhancedAuthController {
       }
 
       // Generate new token pair
-      const tokens = await this.generateTokenPair(user);
+      const tokens = await EnhancedAuthController.generateTokenPair(user);
 
       res.status(200).json({
         success: true,
@@ -360,7 +360,7 @@ export class EnhancedAuthController {
         email: user.email
       });
 
-      await this.logAuthEvent(user.id, 'password_reset_requested', {}, true);
+      await EnhancedAuthController.logAuthEvent(user.id, 'password_reset_requested', {}, true);
 
       res.status(200).json({
         success: true,
@@ -436,7 +436,7 @@ export class EnhancedAuthController {
       // Invalidate all existing sessions
       await SessionService.destroyUserSessions(user.id);
 
-      await this.logAuthEvent(user.id, 'password_reset_completed', {}, true);
+      await EnhancedAuthController.logAuthEvent(user.id, 'password_reset_completed', {}, true);
 
       res.status(200).json({
         success: true,
@@ -533,7 +533,7 @@ export class EnhancedAuthController {
     }
 
     await user.save();
-    await this.logAuthEvent(user.id, 'login_failed', { 
+    await EnhancedAuthController.logAuthEvent(user.id, 'login_failed', { 
       failedAttempts: user.failedLoginAttempts 
     }, false);
   }

@@ -49,7 +49,7 @@ const Register: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await api.post('/auth/register', {
+      const response = await api.post('/api/auth/legacy/register', {
         username: formData.username,
         email: formData.email,
         password: formData.password,

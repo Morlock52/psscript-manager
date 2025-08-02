@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frontend Test</title>
+</head>
+<body>
+    <h1>Testing PSScript Frontend Connection</h1>
+    <div id="results"></div>
+    
+    <script>
+        const API_URL = 'http://localhost:4005/api';
+        const results = document.getElementById('results');
+        
+        // Test 1: Health check
+        fetch(`${API_URL}/health`)
+            .then(res => res.json())
+            .then(data => {
+                results.innerHTML += `<p>✅ Health check: ${data.status}</p>`;
+            })
+            .catch(err => {
+                results.innerHTML += `<p>❌ Health check failed: ${err.message}</p>`;
+            });
+            
+        // Test 2: Scripts endpoint
+        fetch(`${API_URL}/scripts`)
+            .then(res => res.json())
+            .then(data => {
+                results.innerHTML += `<p>✅ Scripts endpoint: Found ${data.scripts?.length || 0} scripts</p>`;
+            })
+            .catch(err => {
+                results.innerHTML += `<p>❌ Scripts endpoint failed: ${err.message}</p>`;
+            });
+            
+        // Test 3: Frontend connection
+        fetch('http://localhost:3002/')
+            .then(res => res.text())
+            .then(data => {
+                results.innerHTML += `<p>✅ Frontend server is running</p>`;
+            })
+            .catch(err => {
+                results.innerHTML += `<p>❌ Frontend server error: ${err.message}</p>`;
+            });
+    </script>
+</body>
+</html>

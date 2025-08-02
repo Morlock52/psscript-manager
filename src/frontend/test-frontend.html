@@ -1,0 +1,22 @@
+<\!DOCTYPE html>
+<html>
+<head>
+    <title>Frontend Test</title>
+</head>
+<body>
+    <h1>Testing PSScript Frontend</h1>
+    <iframe src="http://localhost:3002" width="100%" height="600px"></iframe>
+    <script>
+        // Wait for page to load
+        setTimeout(() => {
+            console.log('Frontend loaded');
+            // Try to access the API
+            fetch('http://localhost:4005/api/health')
+                .then(res => res.json())
+                .then(data => console.log('API Health:', data))
+                .catch(err => console.error('API Error:', err));
+        }, 2000);
+    </script>
+</body>
+</html>
+EOF < /dev/null

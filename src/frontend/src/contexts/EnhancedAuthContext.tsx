@@ -100,7 +100,7 @@ export const EnhancedAuthProvider: React.FC<EnhancedAuthProviderProps> = ({ chil
 
           try {
             // Verify session
-            const response = await api.get('/api/auth/me');
+            const response = await api.get('/api/auth/legacy/me');
             if (response.data.user) {
               setUser({ ...parsedUser, ...response.data.user });
               setAccessToken(storedAccessToken);
@@ -184,7 +184,7 @@ export const EnhancedAuthProvider: React.FC<EnhancedAuthProviderProps> = ({ chil
   const logout = useCallback(async () => {
     try {
       if (accessToken) {
-        await api.post('/api/auth/logout');
+        await api.post('/api/auth/legacy/logout');
       }
     } catch (error) {
       console.error('Logout error:', error);
@@ -301,7 +301,8 @@ export const EnhancedAuthProvider: React.FC<EnhancedAuthProviderProps> = ({ chil
           
           if (response.data.user) {
             // Create session
-            const sessionResponse = await api.post('/api/auth/session');
+            // Session is already created by backend on OAuth callback
+            const sessionId = response.data.sessionId || 'oauth-session';
             
             storeAuth(response.data.user, {
               accessToken: callbackAccessToken,

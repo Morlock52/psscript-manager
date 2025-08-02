@@ -61,6 +61,7 @@
     "speakeasy": "^2.0.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
+    "tsconfig-paths": "^4.2.0",
     "uuid": "^10.0.0",
     "winston": "^3.16.0",
     "winston-daily-rotate-file": "^5.0.0"
@@ -94,6 +95,9 @@
     "test:db": "node test-db.js",
     "test:redis": "node test-redis.js",
     "test:conn": "node -e \"const db = require('./dist/database/connection').default; db.healthCheck().then(result => console.log('Database health check:', JSON.stringify(result, null, 2))).catch(err => console.error('Database health check error:', err))\"",
-    "diagnose:db": "node db-diagnostics.js"
+    "diagnose:db": "node db-diagnostics.js",
+    "setup:db": "node setup-local-db.js",
+    "setup:postgres": "./setup-postgres-user.sh",
+    "fix:db": "./fix-db-connection.sh"
   }
 }

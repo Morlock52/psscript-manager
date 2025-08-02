@@ -2,28 +2,52 @@ import { Model, DataTypes, Sequelize } from 'sequelize';
 import bcrypt from 'bcrypt';
 import logger from '../utils/logger';
 
-export default class User extends Model {
-  public id!: number;
-  public username!: string;
-  public email!: string;
-  public password!: string;
-  public role!: string;
-  public lastLoginAt?: Date;
-  public loginAttempts?: number;
-  public mfaEnabled!: boolean;
-  public mfaSecret?: string;
-  public emailVerified!: boolean;
-  public emailVerificationToken?: string;
-  public passwordResetToken?: string;
-  public passwordResetExpires?: Date;
-  public accountLockedUntil?: Date;
-  public failedLoginAttempts!: number;
-  public lastFailedLoginAt?: Date;
-  public refreshToken?: string;
-  public refreshTokenExpires?: Date;
+interface UserAttributes {
+  id?: number;
+  username: string;
+  email: string;
+  password: string;
+  role: string;
+  lastLoginAt?: Date;
+  loginAttempts?: number;
+  mfaEnabled?: boolean;
+  mfaSecret?: string;
+  emailVerified?: boolean;
+  emailVerificationToken?: string;
+  passwordResetToken?: string;
+  passwordResetExpires?: Date;
+  accountLockedUntil?: Date;
+  failedLoginAttempts?: number;
+  lastFailedLoginAt?: Date;
+  refreshToken?: string;
+  refreshTokenExpires?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export default class User extends Model<UserAttributes, Partial<UserAttributes>> {
+  // Remove explicit field declarations to prevent shadowing Sequelize's getters/setters
+  declare id: number;
+  declare username: string;
+  declare email: string;
+  declare password: string;
+  declare role: string;
+  declare lastLoginAt: Date | null;
+  declare loginAttempts: number | null;
+  declare mfaEnabled: boolean;
+  declare mfaSecret: string | null;
+  declare emailVerified: boolean;
+  declare emailVerificationToken: string | null;
+  declare passwordResetToken: string | null;
+  declare passwordResetExpires: Date | null;
+  declare accountLockedUntil: Date | null;
+  declare failedLoginAttempts: number;
+  declare lastFailedLoginAt: Date | null;
+  declare refreshToken: string | null;
+  declare refreshTokenExpires: Date | null;
   
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare readonly createdAt: Date;
+  declare readonly updatedAt: Date;
 
   /**
    * Validate a password against the stored hash
@@ -250,6 +274,9 @@ export default class User extends Model {
       hooks: {
         beforeCreate: async (user: User) => {
           try {
+            if (!user.password) {
+              throw new Error('Password is required');
+            }
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(user.password, salt);
             logger.debug('User password hashed for new user', {

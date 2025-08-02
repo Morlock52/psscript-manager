@@ -30,7 +30,7 @@ export class DocumentationErrorBoundary extends Component<Props, State> {
     window.location.reload();
   };
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900">
@@ -44,7 +44,7 @@ export class DocumentationErrorBoundary extends Component<Props, State> {
                 Something went wrong while loading the documentation.
               </p>
               
-              {process.env.NODE_ENV === 'development' && this.state.error && (
+              {process.env['NODE_ENV'] === 'development' && this.state.error && (
                 <details className="w-full mb-6">
                   <summary className="cursor-pointer text-gray-500 hover:text-gray-300">
                     Error Details

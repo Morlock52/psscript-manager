@@ -190,7 +190,7 @@ const AgentChat: React.FC<AgentChatProps> = ({
       });
       
       // Remove the loading message
-      setMessages(prev => prev.filter(m => !m.metadata?.isLoading));
+      setMessages(prev => prev.filter(m => !m.metadata?.['isLoading']));
     } finally {
       setIsProcessing(false);
     }
@@ -212,7 +212,7 @@ const AgentChat: React.FC<AgentChatProps> = ({
   // Render a message based on its role
   const renderMessage = (message: Message) => {
     const isUser = message.role === 'user';
-    const isLoading = message.metadata?.isLoading;
+    const isLoading = message.metadata?.['isLoading'];
     
     return (
       <Box 

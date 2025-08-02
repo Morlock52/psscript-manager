@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>Testing PSScript API</h1>
+    <div id="results"></div>
+    <script>
+        const results = document.getElementById('results');
+        
+        // Test auth check
+        fetch('http://localhost:4005/api/auth/me', {
+            credentials: 'include'
+        })
+        .then(res => {
+            results.innerHTML += `<p>Auth check: ${res.status} ${res.statusText}</p>`;
+            return res.text();
+        })
+        .then(data => {
+            results.innerHTML += `<pre>${data}</pre>`;
+        })
+        .catch(err => {
+            results.innerHTML += `<p>Auth error: ${err}</p>`;
+        });
+        
+        // Test health
+        fetch('http://localhost:4005/api/health')
+        .then(res => res.json())
+        .then(data => {
+            results.innerHTML += `<p>Health: ${JSON.stringify(data.status)}</p>`;
+        })
+        .catch(err => {
+            results.innerHTML += `<p>Health error: ${err}</p>`;
+        });
+    </script>
+</body>
+</html>

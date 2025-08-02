@@ -1,43 +1,70 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
-    "module": "CommonJS",
+    // Language and Environment
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "commonjs",
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
+    
+    // Strict Type Checking - Temporarily relaxed for development
     "strict": false,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "sourceMap": true,
-    "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*"]
-    },
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/types"
-    ],
-    "types": ["node", "express"],
-    "strictNullChecks": false,
     "noImplicitAny": false,
-    "noEmitOnError": false,
-    "allowJs": true,
-    "checkJs": false,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "noFallthroughCasesInSwitch": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "strictBindCallApply": false,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": false,
+    "useUnknownInCatchVariables": false,
+    "alwaysStrict": false,
+    
+    // Additional Checks - Temporarily relaxed
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "skipDefaultLibCheck": true,
-    "useUnknownInCatchVariables": false
+    "exactOptionalPropertyTypes": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "noUncheckedIndexedAccess": false,
+    "noImplicitOverride": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "allowUnusedLabels": true,
+    "allowUnreachableCode": true,
+    
+    // Module Resolution
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    
+    // Emit
+    "outDir": "./dist",
+    "rootDir": "./",
+    "removeComments": true,
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    
+    // Skip Lib Check
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    
+    // Experimental
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*"
+    "**/*.ts",
+    "**/*.d.ts"
   ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts"
-  ]
+    "dist",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true
+  }
 }

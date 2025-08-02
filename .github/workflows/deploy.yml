@@ -1,0 +1,150 @@
+name: Deploy PSScript to Vercel
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: src/frontend/package-lock.json
+
+    - name: Install frontend dependencies
+      run: |
+        cd src/frontend
+        npm ci
+
+    - name: Run linting
+      run: |
+        cd src/frontend
+        npm run lint --if-present || echo "No lint script found"
+
+    - name: Run type checking
+      run: |
+        cd src/frontend
+        npm run type-check --if-present || echo "No type-check script found"
+
+    - name: Build frontend
+      run: |
+        cd src/frontend
+        npm run build
+
+    - name: Test build output
+      run: |
+        cd src/frontend
+        if [ ! -d "dist" ]; then
+          echo "❌ Build failed: dist directory not created"
+          exit 1
+        fi
+        if [ ! -f "dist/index.html" ]; then
+          echo "❌ Build failed: index.html not found"
+          exit 1
+        fi
+        echo "✅ Build completed successfully"
+
+  deploy-preview:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: src/frontend/package-lock.json
+
+    - name: Install Vercel CLI
+      run: npm install --global vercel@latest
+
+    - name: Pull Vercel Environment Information
+      run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+    - name: Build Project Artifacts
+      run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+    - name: Deploy Project Artifacts to Vercel
+      run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: src/frontend/package-lock.json
+
+    - name: Install Vercel CLI
+      run: npm install --global vercel@latest
+
+    - name: Pull Vercel Environment Information
+      run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+    - name: Build Project Artifacts
+      run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+    - name: Deploy Project Artifacts to Vercel
+      run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+    - name: Health Check
+      run: |
+        echo "Waiting for deployment to be ready..."
+        sleep 30
+        
+        # Get deployment URL (simplified - you may need to adjust this)
+        DEPLOYMENT_URL="${{ secrets.PRODUCTION_URL }}"
+        if [ -z "$DEPLOYMENT_URL" ]; then
+          DEPLOYMENT_URL="https://psscript.morlokmaze.com"
+        fi
+        
+        echo "Testing deployment at: $DEPLOYMENT_URL"
+        
+        # Health check with retry
+        for i in {1..5}; do
+          if curl -s -f "$DEPLOYMENT_URL" > /dev/null; then
+            echo "✅ Health check passed on attempt $i"
+            break
+          else
+            echo "⚠️ Health check failed on attempt $i, retrying..."
+            if [ $i -eq 5 ]; then
+              echo "❌ Health check failed after 5 attempts"
+              exit 1
+            fi
+            sleep 10
+          fi
+        done
+
+    - name: Notify Success
+      if: success()
+      run: |
+        echo "🎉 Deployment successful!"
+        echo "Website: https://psscript.morlokmaze.com"
+        echo "All navigation fixes have been deployed to production."

@@ -339,7 +339,7 @@ const PleaseMethodAgent: React.FC<PleaseMethodAgentProps> = ({
                 const match = /language-(\w+)/.exec(className || '');
                 return !inline && match ? (
                   <CodeBlock
-                    language={match[1]}
+                    language={match[1] || 'text'}
                     value={String(children).replace(/\n$/, '')}
                   />
                 ) : (

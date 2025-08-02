@@ -11,10 +11,12 @@ import { ThemeProvider } from './contexts/ThemeContext';
 // Components that should load immediately
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import Breadcrumb from './components/Breadcrumb';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoadingScreen from './components/LoadingScreen';
 import PageLoadingFallback from './components/PageLoadingFallback';
 import ErrorBoundary from './components/ErrorBoundary';
+import GlobalErrorBoundary from './components/GlobalErrorBoundary';
 
 // Utilities
 import { preloadCommonModules } from './utils/dynamicImports';
@@ -31,12 +33,14 @@ const Login = lazy(() => import(/* webpackChunkName: "auth" */ './pages/Login'))
 const Register = lazy(() => import(/* webpackChunkName: "auth" */ './pages/Register'));
 const Settings = lazy(() => import(/* webpackChunkName: "settings" */ './pages/Settings'));
 const NotFound = lazy(() => import(/* webpackChunkName: "error" */ './pages/NotFound'));
+const Unauthorized = lazy(() => import(/* webpackChunkName: "error" */ './pages/Unauthorized'));
 const ChatHistory = lazy(() => import(/* webpackChunkName: "chat-history" */ './pages/ChatHistory'));
 const DocumentationCrawl = lazy(() => import(/* webpackChunkName: "docs-crawl" */ './pages/DocumentationCrawl'));
 const ScriptUpload = lazy(() => import(/* webpackChunkName: "upload", webpackPrefetch: true */ './pages/ScriptUpload'));
 const AgenticAIPage = lazy(() => import(/* webpackChunkName: "agentic-ai" */ './pages/AgenticAIPage'));
 const AgentOrchestrationPage = lazy(() => import(/* webpackChunkName: "agent-orchestration" */ './pages/AgentOrchestrationPage'));
 const UIComponentsDemo = lazy(() => import(/* webpackChunkName: "demo" */ './pages/UIComponentsDemo'));
+const LinkTester = lazy(() => import(/* webpackChunkName: "link-tester" */ './components/LinkTester'));
 
 // Lazy load settings pages
 const ProfileSettings = lazy(() => import('./pages/Settings/ProfileSettings'));
@@ -49,6 +53,9 @@ const UserManagement = lazy(() => import('./pages/Settings/UserManagement'));
 // Lazy load heavy components
 const AIFeatures = lazy(() => import('./components/AIFeatures'));
 const DocumentationErrorBoundary = lazy(() => import('./components/DocumentationErrorBoundary'));
+
+// Development/Testing components
+const NavigationTest = lazy(() => import('./components/NavigationTest'));
 
 // Create a client for React Query with optimized settings
 const queryClient = new QueryClient({
@@ -64,7 +71,7 @@ const queryClient = new QueryClient({
 
 // Wrapper component for lazy-loaded routes
 const LazyRoute: React.FC<{ children: React.ReactNode; name?: string }> = ({ children, name }) => (
-  <Suspense fallback={<PageLoadingFallback pageName={name} />}>
+  <Suspense fallback={<PageLoadingFallback pageName={name || ''} />}>
     {children}
   </Suspense>
 );
@@ -88,7 +95,7 @@ function App() {
   }
 
   return (
-    <ErrorBoundary>
+    <GlobalErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <ThemeProvider>
@@ -97,10 +104,16 @@ function App() {
                 <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
                 <div className="flex-1 flex flex-col overflow-hidden">
                   <Navbar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+                  <Breadcrumb />
                   <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 dark:bg-gray-900">
                     <ErrorBoundary>
                       <Routes>
                     {/* Public routes */}
+                    <Route path="/unauthorized" element={
+                      <LazyRoute name="Unauthorized">
+                        <Unauthorized />
+                      </LazyRoute>
+                    } />
                     <Route path="/login" element={
                       <LazyRoute name="Login">
                         <Login />
@@ -237,6 +250,22 @@ function App() {
                           <UIComponentsDemo />
                         </LazyRoute>
                       } />
+                      
+                      {/* Link Testing route */}
+                      <Route path="link-test" element={
+                        <LazyRoute name="Link Tester">
+                          <LinkTester />
+                        </LazyRoute>
+                      } />
+                      
+                      {/* Navigation test route (development) */}
+                      <Route path="nav-test" element={
+                        <LazyRoute name="Navigation Test">
+                          <div className="p-6">
+                            <NavigationTest />
+                          </div>
+                        </LazyRoute>
+                      } />
                     </Route>
 
                     {/* 404 route */}
@@ -255,7 +284,7 @@ function App() {
           </ThemeProvider>
         </AuthProvider>
       </QueryClientProvider>
-    </ErrorBoundary>
+    </GlobalErrorBoundary>
   );
 }
 
