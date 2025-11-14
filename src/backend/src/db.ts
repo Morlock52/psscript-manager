@@ -4,8 +4,8 @@ import dotenv from 'dotenv';
 // Load environment variables
 dotenv.config();
 
-// Create a connection pool
-const pool = new Pool({
+// Create a connection pool that can be reused across the application
+const defaultPool = new Pool({
   user: process.env.DB_USER || 'postgres',
   host: process.env.DB_HOST || 'localhost',
   database: process.env.DB_NAME || 'psscript',
@@ -13,25 +13,37 @@ const pool = new Pool({
   port: parseInt(process.env.DB_PORT || '5432'),
 });
 
-// Test the connection
-pool.query('SELECT NOW()', (err) => {
-  if (err) {
-    console.error('Database connection error:', err.stack);
-  } else {
-    console.log('Database connected successfully');
-  }
-});
+// Avoid running the connection test when we're executing isolated unit tests.
+if (process.env.NODE_ENV !== 'test') {
+  // Test the connection so developers get fast feedback during local runs
+  defaultPool.query('SELECT NOW()', (err) => {
+    if (err) {
+      console.error('Database connection error:', err.stack);
+    } else {
+      console.log('Database connected successfully');
+    }
+  });
+}
+
+// Minimal Pool interface we rely on (helps with dependency injection during tests)
+type PoolLike = Pick<Pool, 'query' | 'connect'>;
 
 /**
  * Database interface with error handling and common operations
  */
 class Database {
+  private pool: PoolLike;
+
+  constructor(poolInstance: PoolLike = defaultPool) {
+    this.pool = poolInstance;
+  }
+
   /**
    * Execute a SQL query with parameters
    */
   async query(text: string, params: any[] = []): Promise<any[]> {
     try {
-      const result: QueryResult = await pool.query(text, params);
+      const result: QueryResult = await this.pool.query(text, params);
       return result.rows;
     } catch (error) {
       console.error('Database query error:', error);
@@ -93,15 +105,15 @@ class Database {
    */
   async delete(table: string, id: number): Promise<boolean> {
     const query = `DELETE FROM ${table} WHERE id = $1`;
-    const result = await this.query(query, [id]);
-    return !!result;
+    const result: QueryResult = await this.pool.query(query, [id]);
+    return result.rowCount > 0;
   }
 
   /**
    * Execute a transaction
    */
   async transaction<T>(callback: (client: PoolClient) => Promise<T>): Promise<T> {
-    const client = await pool.connect();
+    const client = await this.pool.connect();
     try {
       await client.query('BEGIN');
       
@@ -118,5 +130,6 @@ class Database {
   }
 }
 
-// Export a singleton instance
+// Export a singleton instance while still allowing tests to inject a mock pool
+export { Database };
 export default new Database();

@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "test": "npm run test:db && npm run test:ai-service",
+    "test:db": "NODE_ENV=test ./src/backend/node_modules/.bin/ts-node --project tsconfig.test.json tests/database.test.ts",
+    "test:ai-service": "NODE_ENV=test node --test tests/ai-service.test.js"
+  },
   "devDependencies": {
     "puppeteer": "^24.15.0"
   },

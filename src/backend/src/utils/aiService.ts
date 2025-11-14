@@ -15,6 +15,19 @@ const AI_SERVICE_URL = isDocker
  * AI Service client for handling all AI-related operations
  */
 class AiServiceClient {
+  private getHeaders(): Record<string, string> {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json'
+    };
+
+    const apiKey = process.env.OPENAI_API_KEY || process.env.AI_SERVICE_API_KEY;
+    if (apiKey) {
+      headers['x-api-key'] = apiKey;
+    }
+
+    return headers;
+  }
+
   /**
    * Ask a question to the AI assistant
    */
@@ -26,11 +39,9 @@ class AiServiceClient {
         useAgent
       }, {
         timeout: 60000, // 60 seconds timeout
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: this.getHeaders()
       });
-      
+
       return response.data;
     } catch (error) {
       logger.error('Error calling AI service for question:', error);
@@ -47,9 +58,7 @@ class AiServiceClient {
         description
       }, {
         timeout: 60000,
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: this.getHeaders()
       });
       
       return response.data;
@@ -71,9 +80,7 @@ class AiServiceClient {
         analysisOptions
       }, {
         timeout: 60000,
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: this.getHeaders()
       });
       
       return response.data;
@@ -93,9 +100,7 @@ class AiServiceClient {
         type
       }, {
         timeout: 60000,
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: this.getHeaders()
       });
       
       return response.data;
@@ -115,9 +120,7 @@ class AiServiceClient {
         limit
       }, {
         timeout: 60000,
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: this.getHeaders()
       });
       
       return response.data;
