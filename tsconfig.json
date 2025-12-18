@@ -14,6 +14,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true
   },
-  "include": ["demo-app/**/*.ts"],
+  "include": ["demo-app/**/*.ts", "demo-app/**/*.tsx"],
   "exclude": ["node_modules", "src", "dist", "**/*.spec.ts", "**/*.test.ts"]
 }
