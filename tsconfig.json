@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "es2022",
     "module": "commonjs",
     "outDir": "./dist",
     "esModuleInterop": true,
@@ -14,6 +14,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true
   },
-  "include": ["playwright.config.ts", "demo-app/**/*.ts"],
+  "include": ["demo-app/**/*.ts"],
   "exclude": ["node_modules", "src", "dist", "**/*.spec.ts", "**/*.test.ts"]
 }
