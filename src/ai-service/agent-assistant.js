@@ -23,6 +23,42 @@ dotenv.config();
 const app = express();
 app.use(express.json({ limit: '10mb' }));
 app.use(cors());
+const SERVICE_STARTED_AT = Date.now();
+
+const SERVER_VERSION = '1.1.0';
+const VALID_MODES = new Set(['live', 'mock']);
+const DEFAULT_MODE = (process.env.AI_SERVICE_MODE || '').toLowerCase();
+
+const getInitialMode = () => {
+  if (VALID_MODES.has(DEFAULT_MODE)) {
+    return DEFAULT_MODE;
+  }
+  return process.env.OPENAI_API_KEY ? 'live' : 'mock';
+};
+
+const createRequestId = () => Math.random().toString(36).substring(2, 10);
+
+const createHttpError = (statusCode, message) => {
+  const error = new Error(message);
+  error.statusCode = statusCode;
+  return error;
+};
+
+const resolveApiKeyFromRequest = (req) => {
+  return req.headers['x-api-key'] ||
+    req.headers['x-openai-api-key'] ||
+    req.body?.api_key ||
+    process.env.OPENAI_API_KEY ||
+    null;
+};
+
+const sanitizeLimit = (value, fallback = 5) => {
+  const parsed = parseInt(value, 10);
+  if (Number.isNaN(parsed)) {
+    return fallback;
+  }
+  return Math.min(Math.max(parsed, 1), 25);
+};
 
 // Configure axios retry
 axiosRetry(axios, {
@@ -52,6 +88,69 @@ class AgentAssistant {
     this.defaultAssistantId = process.env.OPENAI_ASSISTANT_ID;
     this.defaultModel = process.env.OPENAI_MODEL || "gpt-4o";
     this.isConnected = false;
+    this.mode = getInitialMode();
+  }
+
+  getMode() {
+    return this.mode;
+  }
+
+  shouldUseMockResponses() {
+    return this.mode === 'mock';
+  }
+
+  buildMetadata(operation, extra = {}) {
+    return {
+      operation,
+      mode: this.mode,
+      timestamp: new Date().toISOString(),
+      ...extra
+    };
+  }
+
+  ensureApiKey(apiKey) {
+    if (!apiKey) {
+      throw createHttpError(400, 'OpenAI API key is required for live mode');
+    }
+  }
+
+  extractTextFromResponse(message) {
+    if (!message || !message.content) {
+      return '';
+    }
+
+    return message.content
+      .filter(part => part.type === 'text')
+      .map(part => part.text.value)
+      .join('\n')
+      .trim();
+  }
+
+  async executeAssistantRun(apiKey, { message, attachments = [], assistantId = null, additionalInstructions = null }) {
+    const client = this.initClient(apiKey);
+    const actualAssistantId = await this.getAssistant(client, assistantId);
+    const threadId = await this.createThread(client);
+
+    const fileIds = [];
+    for (const attachment of attachments) {
+      const fileId = await this.uploadFile(client, attachment.content, attachment.filename);
+      fileIds.push(fileId);
+    }
+
+    await this.addMessage(client, threadId, message, fileIds);
+
+    const run = await this.runAssistant(client, actualAssistantId, additionalInstructions);
+    await this.waitForRunCompletion(client, threadId, run.id);
+
+    const messages = await this.getMessages(client, threadId);
+    const assistantResponses = messages.filter(msg => msg.role === 'assistant');
+    const latestResponse = assistantResponses[0];
+
+    return {
+      latestResponse,
+      threadId,
+      assistantId: actualAssistantId
+    };
   }
 
   /**
@@ -625,43 +724,30 @@ class AgentAssistant {
    * @param {string} assistantId - Optional assistant ID
    * @returns {Promise<object>} Analysis results
    */
-  async analyzeScript(apiKey, content, filename, assistantId = null) {
-    const client = this.initClient(apiKey);
-    
+  async analyzeScript(apiKey, content, filename = 'script.ps1', assistantId = null, requestType = 'standard', analysisOptions = {}) {
+    if (this.shouldUseMockResponses()) {
+      return this.buildMockAnalysis(content, requestType, analysisOptions);
+    }
+
+    this.ensureApiKey(apiKey);
+
     try {
-      // Get or create assistant
-      const actualAssistantId = await this.getAssistant(client, assistantId);
-      
-      // Create a thread
-      const threadId = await this.createThread(client);
-      
-      // Upload the script as a file
-      const fileId = await this.uploadFile(client, content, filename);
-      
-      // Add message with the script content
-      await this.addMessage(client, threadId, `Analyze this PowerShell script (${filename}). Identify security risks, suggest improvements, and document its functionality:`, [fileId]);
-      
-      // Run the assistant
-      const run = await this.runAssistant(client, actualAssistantId, threadId, 
-        "Use web search when needed to find up-to-date information about PowerShell best practices and security considerations. Find similar scripts to use as reference if helpful.");
-      
-      // Wait for completion
-      await this.waitForRunCompletion(client, threadId, run.id);
-      
-      // Get the messages
-      const messages = await this.getMessages(client, threadId);
-      
-      // Extract assistant's response
-      const assistantResponses = messages.filter(msg => msg.role === 'assistant');
-      const latestResponse = assistantResponses[0];
-      
-      // Process and format the response
+      const optionSummary = analysisOptions && Object.keys(analysisOptions).length > 0
+        ? `\nOptions: ${JSON.stringify(analysisOptions)}`
+        : '';
+
+      const { latestResponse, threadId, assistantId: actualAssistantId } = await this.executeAssistantRun(apiKey, {
+        message: `Analyze this PowerShell script (${filename}) with a ${requestType} report. Identify security risks, suggest improvements, and document its functionality.${optionSummary}`,
+        attachments: [{ content, filename }]
+      });
+
       const analysis = this.formatAnalysisResponse(latestResponse);
-      
+
       return {
         analysis,
         threadId,
-        assistantId: actualAssistantId
+        assistantId: actualAssistantId,
+        metadata: this.buildMetadata('analyze', { requestType })
       };
     } catch (error) {
       logger.error('Error analyzing script:', error);
@@ -816,61 +902,313 @@ class AgentAssistant {
     
     return commandDetails;
   }
+
+  parseScriptFromText(text) {
+    if (!text) {
+      return { script: '', explanation: '' };
+    }
+
+    const codeBlock = text.match(/```(?:powershell|ps1|shell)?\n([\s\S]*?)```/i);
+    if (codeBlock) {
+      const script = codeBlock[1].trim();
+      const explanation = text.replace(codeBlock[0], '').trim();
+      return { script, explanation };
+    }
+
+    return { script: text.trim(), explanation: '' };
+  }
+
+  buildMockAnalysis(content, requestType) {
+    const preview = (content || '').split('\n').slice(0, 5).join('\n');
+    return {
+      analysis: {
+        purpose: 'Mock analysis response',
+        securityScore: requestType === 'detailed' ? 92 : 80,
+        codeQualityScore: requestType === 'detailed' ? 90 : 78,
+        riskScore: requestType === 'detailed' ? 12 : 20,
+        suggestions: [
+          'Use parameter validation to harden the script inputs.',
+          'Prefer Write-Verbose for operational logging over Write-Host.',
+          'Document prerequisites at the top of the script.'
+        ],
+        rawAnalysis: preview || 'No script content provided.',
+        commandDetails: {
+          'Get-Content': {
+            description: 'Reads files from disk',
+            parameters: [
+              { name: 'Path', description: 'Specifies the file path' }
+            ]
+          }
+        },
+        msDocsReferences: [
+          { title: 'PowerShell Scripting Best Practices', url: 'https://learn.microsoft.com/powershell/scripting/learn/remoting' }
+        ]
+      },
+      threadId: null,
+      assistantId: 'mock-assistant',
+      metadata: this.buildMetadata('analyze', { mock: true, requestType })
+    };
+  }
+
+  buildMockAnswer(question, context) {
+    return {
+      response: `Mock response: ${question || 'No question provided.'}`,
+      contextEcho: context || null,
+      threadId: null,
+      assistantId: 'mock-assistant',
+      metadata: this.buildMetadata('ask', { mock: true })
+    };
+  }
+
+  buildMockGeneratedScript(description) {
+    return {
+      script: `# Mock PowerShell script\nWrite-Output "${description || 'Hello from mock mode'}"`,
+      explanation: 'Mock mode is enabled. Provide a valid OpenAI API key to generate real scripts.',
+      threadId: null,
+      assistantId: 'mock-assistant',
+      metadata: this.buildMetadata('generate', { mock: true })
+    };
+  }
+
+  buildMockExplanation(content, type) {
+    return {
+      explanation: `Mock explanation (${type}): The script appears to manipulate PowerShell content.`,
+      originalLength: content ? content.length : 0,
+      metadata: this.buildMetadata('explain', { mock: true, type })
+    };
+  }
+
+  async buildMockExamples(description, limit) {
+    const result = await this.handleSimilarScriptsSearch(description || '');
+    const scripts = result?.scripts || [];
+    return {
+      scripts: scripts.slice(0, limit),
+      metadata: this.buildMetadata('examples', { mock: true, limit })
+    };
+  }
+
+  async answerQuestion(apiKey, { question, context, useAgent = true, assistantId = null }) {
+    if (this.shouldUseMockResponses()) {
+      return this.buildMockAnswer(question, context);
+    }
+
+    this.ensureApiKey(apiKey);
+
+    const contextSection = context ? `\nContext:\n${context}` : '';
+    const instructions = useAgent
+      ? 'Think step-by-step and cross-check PowerShell references before responding.'
+      : 'Return a concise answer.';
+
+    const { latestResponse, threadId, assistantId: actualAssistantId } = await this.executeAssistantRun(apiKey, {
+      message: `You are a senior PowerShell engineer. Answer the following question with actionable guidance.${contextSection}\n\nQuestion: ${question}`,
+      assistantId,
+      additionalInstructions: instructions
+    });
+
+    const response = this.extractTextFromResponse(latestResponse);
+
+    return {
+      response,
+      threadId,
+      assistantId: actualAssistantId,
+      metadata: this.buildMetadata('ask', { useAgent })
+    };
+  }
+
+  async generateScript(apiKey, description, assistantId = null) {
+    if (this.shouldUseMockResponses()) {
+      return this.buildMockGeneratedScript(description);
+    }
+
+    this.ensureApiKey(apiKey);
+
+    const { latestResponse, threadId, assistantId: actualAssistantId } = await this.executeAssistantRun(apiKey, {
+      message: `Generate a production-ready PowerShell script that ${description}. Include clear inline comments and a summary after the code.`,
+      assistantId
+    });
+
+    const text = this.extractTextFromResponse(latestResponse);
+    const parsed = this.parseScriptFromText(text);
+
+    return {
+      ...parsed,
+      threadId,
+      assistantId: actualAssistantId,
+      metadata: this.buildMetadata('generate')
+    };
+  }
+
+  async explainScript(apiKey, content, type = 'simple', assistantId = null) {
+    if (this.shouldUseMockResponses()) {
+      return this.buildMockExplanation(content, type);
+    }
+
+    this.ensureApiKey(apiKey);
+
+    const detailLevel = type === 'detailed'
+      ? 'Provide a deeply detailed explanation, include potential risks and remediation steps.'
+      : 'Provide a concise explanation suitable for quick reviews.';
+
+    const { latestResponse, threadId, assistantId: actualAssistantId } = await this.executeAssistantRun(apiKey, {
+      message: `Explain the following PowerShell script. ${detailLevel}\n\n${content}`,
+      assistantId
+    });
+
+    const explanation = this.extractTextFromResponse(latestResponse);
+
+    return {
+      explanation,
+      threadId,
+      assistantId: actualAssistantId,
+      metadata: this.buildMetadata('explain', { type })
+    };
+  }
+
+  async getSimilarExamples(description, limit = 5) {
+    const cappedLimit = Math.max(1, Math.min(limit, 25));
+    if (this.shouldUseMockResponses()) {
+      return this.buildMockExamples(description, cappedLimit);
+    }
+
+    const result = await this.handleSimilarScriptsSearch(description || '');
+    return {
+      scripts: (result.scripts || []).slice(0, cappedLimit),
+      metadata: this.buildMetadata('examples', { limit: cappedLimit })
+    };
+  }
 }
 
 // Create an instance of the AgentAssistant
 const agentAssistant = new AgentAssistant();
 
-// Set up API routes
-app.post('/analyze/assistant', async (req, res) => {
-  const requestId = Math.random().toString(36).substring(2, 15);
-  
+const withRequestContext = (handler) => async (req, res) => {
+  const requestId = createRequestId();
+  const startedAt = Date.now();
+
   try {
-    logger.info(`[${requestId}] Received script analysis request`);
-    
-    const { content, filename = 'script.ps1', assistant_id } = req.body;
-    
-    if (!content) {
-      return res.status(400).json({ error: 'Script content is required' });
-    }
-    
-    // Extract API key from headers or request body
-    const apiKey = req.headers['x-api-key'] || req.body.api_key;
-    
-    if (!apiKey) {
-      return res.status(400).json({ error: 'OpenAI API key is required' });
-    }
-    
-    logger.info(`[${requestId}] Starting script analysis with AI Assistant`);
-    
-    const result = await agentAssistant.analyzeScript(apiKey, content, filename, assistant_id);
-    
-    logger.info(`[${requestId}] Script analysis completed successfully`);
-    
-    res.json(result);
+    const result = (await handler(req, res, requestId)) || {};
+    const metadata = {
+      requestId,
+      durationMs: Date.now() - startedAt,
+      mode: agentAssistant.getMode(),
+      version: SERVER_VERSION,
+      ...(result.metadata || {})
+    };
+
+    res.json({
+      ...result,
+      metadata
+    });
   } catch (error) {
-    logger.error(`[${requestId}] Error analyzing script:`, error);
-    
-    // Format error response
-    const statusCode = error.status || 500;
-    const errorMessage = error.message || 'An unexpected error occurred';
-    
+    const statusCode = error.statusCode || error.status || 500;
+    logger.error(`[${requestId}] ${error.message}`, error);
     res.status(statusCode).json({
-      error: 'Script analysis failed',
-      details: errorMessage,
+      status: 'error',
+      message: error.message || 'An unexpected error occurred',
       requestId
     });
   }
-});
+};
+
+const buildAnalyzeHandler = (req) => {
+  const body = req.body || {};
+  const {
+    content,
+    filename = 'script.ps1',
+    assistant_id,
+    assistantId,
+    requestType = 'standard',
+    analysisOptions = {}
+  } = body;
+
+  if (!content) {
+    throw createHttpError(400, 'Script content is required');
+  }
+
+  const normalizedOptions = (analysisOptions && typeof analysisOptions === 'object' && !Array.isArray(analysisOptions))
+    ? analysisOptions
+    : {};
+
+  const apiKey = resolveApiKeyFromRequest(req);
+  return agentAssistant.analyzeScript(
+    apiKey,
+    content,
+    filename,
+    assistant_id || assistantId || null,
+    requestType,
+    normalizedOptions
+  );
+};
+
+app.post('/api/ask', withRequestContext((req) => {
+  const { question, context, useAgent = true, assistantId } = req.body || {};
+  if (!question) {
+    throw createHttpError(400, 'Question is required');
+  }
+
+  const apiKey = resolveApiKeyFromRequest(req);
+  return agentAssistant.answerQuestion(apiKey, { question, context, useAgent, assistantId: assistantId || null });
+}));
+
+app.post('/api/analyze', withRequestContext((req) => buildAnalyzeHandler(req)));
+
+app.post('/analyze/assistant', withRequestContext((req) => buildAnalyzeHandler(req)));
+
+app.post('/api/generate', withRequestContext((req) => {
+  const { description, assistantId } = req.body || {};
+  if (!description) {
+    throw createHttpError(400, 'Description is required');
+  }
+
+  const apiKey = resolveApiKeyFromRequest(req);
+  return agentAssistant.generateScript(apiKey, description, assistantId || null);
+}));
+
+app.post('/api/explain', withRequestContext((req) => {
+  const { content, type = 'simple', assistantId } = req.body || {};
+  if (!content) {
+    throw createHttpError(400, 'Script content is required');
+  }
+
+  const apiKey = resolveApiKeyFromRequest(req);
+  return agentAssistant.explainScript(apiKey, content, type, assistantId || null);
+}));
+
+app.post('/api/examples', withRequestContext((req) => {
+  const body = req.body || {};
+  const description = body.description || req.query?.description;
+  if (!description) {
+    throw createHttpError(400, 'Description is required');
+  }
+
+  const limit = sanitizeLimit(body.limit || req.query?.limit || 5);
+  return agentAssistant.getSimilarExamples(description, limit);
+}));
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', version: '1.0.0' });
+  res.json({
+    status: 'ok',
+    version: SERVER_VERSION,
+    mode: agentAssistant.getMode(),
+    uptimeMs: Date.now() - SERVICE_STARTED_AT,
+    openAiConnected: agentAssistant.isConnected
+  });
 });
 
-// Start the server
-app.listen(PORT, () => {
-  logger.info(`AI Service running on port ${PORT}`);
-});
+let serverInstance = null;
+const startServer = () => {
+  if (serverInstance) {
+    return serverInstance;
+  }
+  serverInstance = app.listen(PORT, () => {
+    logger.info(`AI Service running on port ${PORT} (mode=${agentAssistant.getMode()})`);
+  });
+  return serverInstance;
+};
 
-module.exports = app;
+if (require.main === module) {
+  startServer();
+}
+
+module.exports = { app, startServer, agentAssistant };

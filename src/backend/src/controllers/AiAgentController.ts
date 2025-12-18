@@ -25,8 +25,8 @@ class AiAgentController {
       
       // Call AI service to answer the question
       const result = await aiService.askQuestion(question, context, useAgent);
-      
-      return res.json({ response: result.response });
+
+      return res.json(result);
     } catch (error) {
       logger.error('Error in AI agent question endpoint:', error);
       const errorMessage = error instanceof Error && error.message.includes('API key') 
