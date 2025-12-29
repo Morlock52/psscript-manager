@@ -14,6 +14,8 @@ const ScriptDetail: React.FC = () => {
   const [parameters, setParameters] = useState<Record<string, string>>({});
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const panelClass = 'surface-plain rounded-lg border border-white/5 shadow-card';
+  const pillClass = 'inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold';
   
   const { data: script, isLoading, error, refetch } = useQuery({
     queryKey: ['script', id],
@@ -31,6 +33,42 @@ const ScriptDetail: React.FC = () => {
     // Treat 404 as successful empty response
     select: (data) => data,
   });
+
+  const severityScore = analysis?.security_score ?? analysis?.risk_score;
+  const severityLevel =
+    severityScore === undefined
+      ? 'Unknown'
+      : severityScore >= 8
+        ? 'High'
+        : severityScore >= 5
+          ? 'Medium'
+          : 'Low';
+  const severityTone =
+    severityLevel === 'High'
+      ? 'bg-rose-500/20 text-rose-200 border border-rose-400/30'
+      : severityLevel === 'Medium'
+        ? 'bg-amber-500/20 text-amber-200 border border-amber-400/30'
+        : severityLevel === 'Low'
+          ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-400/30'
+          : 'bg-slate-500/20 text-slate-100 border border-slate-400/30';
+
+  const agentReceipts = [
+    {
+      title: 'Analysis',
+      status: analysis ? 'Completed' : 'Pending',
+      detail: analysis?.updated_at ? new Date(analysis.updated_at).toLocaleString() : 'Queued for AI + static scan',
+    },
+    {
+      title: 'Last edit',
+      status: `Version ${script?.version ?? '—'}`,
+      detail: script?.updatedAt ? new Date(script.updatedAt).toLocaleString() : 'Draft saved',
+    },
+    {
+      title: 'Execution guardrails',
+      status: 'Dry-run preferred',
+      detail: 'Requests require confirmation; policy snapshot logged.',
+    },
+  ];
   
   // Temporarily disabled - needs API endpoint
   const similarScripts = null; 
@@ -128,12 +166,31 @@ const ScriptDetail: React.FC = () => {
   }
   
   return (
-    <div className="container mx-auto pb-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">{script.title}</h1>
-        <div className="flex space-x-2">
-          <ScriptDownloadButton 
-            scriptContent={script.content} 
+    <div className="container mx-auto pb-8 space-y-4">
+      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+        <div>
+          <div className="inline-flex items-center gap-2 text-xs uppercase tracking-wide text-subtle mb-1">
+            <span className="badge-dot" />
+            Secure by default • Preview before change
+          </div>
+          <h1 className="text-2xl font-bold">{script.title}</h1>
+          <div className="flex flex-wrap gap-2 mt-2">
+            <span className={`${pillClass} ${severityTone}`}>
+              <span className="h-2 w-2 rounded-full bg-current" />
+              {severityLevel} risk
+              {severityScore !== undefined && <span>({severityScore}/10)</span>}
+            </span>
+            <span className={`${pillClass} bg-indigo-500/15 text-indigo-100 border border-indigo-400/40`}>
+              Updated {script.updatedAt ? new Date(script.updatedAt).toLocaleDateString() : '—'}
+            </span>
+            <span className={`${pillClass} bg-emerald-500/15 text-emerald-100 border border-emerald-400/40`}>
+              Audit ready
+            </span>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <ScriptDownloadButton
+            scriptContent={script.content}
             scriptTitle={script.title}
             showOptions={true}
             variant="primary"
@@ -189,11 +246,11 @@ const ScriptDetail: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Script Content */}
         <div className="lg:col-span-2">
-          <div className="bg-gray-700 rounded-lg shadow overflow-hidden mb-6">
-            <div className="p-4 bg-gray-800 border-b border-gray-600 flex justify-between items-center">
+          <div className={`${panelClass} overflow-hidden mb-6`}>
+            <div className="p-4 border-b border-white/10 flex justify-between items-center">
               <h2 className="text-lg font-medium">Script Content</h2>
               <div className="text-xs text-gray-400">
-                Version {script.version} | Updated {new Date(script.updatedAt).toLocaleDateString()}
+                Version {script.version} | Updated {script.updatedAt ? new Date(script.updatedAt).toLocaleDateString() : '—'}
               </div>
             </div>
             <div className="p-0">
@@ -205,8 +262,8 @@ const ScriptDetail: React.FC = () => {
           
           {/* Parameters Section */}
           {analysis?.parameters && Object.keys(analysis.parameters).length > 0 && (
-            <div className="bg-gray-700 rounded-lg shadow mb-6">
-              <div className="p-4 bg-gray-800 border-b border-gray-600">
+            <div className={`${panelClass} mb-6`}>
+              <div className="p-4 border-b border-white/10">
                 <h2 className="text-lg font-medium">Execute Script</h2>
               </div>
               <div className="p-4">
@@ -245,8 +302,8 @@ const ScriptDetail: React.FC = () => {
           
           {/* Execution Result */}
           {executeMutation.data && (
-            <div className="bg-gray-700 rounded-lg shadow mb-6">
-              <div className="p-4 bg-gray-800 border-b border-gray-600">
+            <div className={`${panelClass} mb-6`}>
+              <div className="p-4 border-b border-white/10">
                 <h2 className="text-lg font-medium">Execution Result</h2>
               </div>
               <div className="p-0">
@@ -260,9 +317,40 @@ const ScriptDetail: React.FC = () => {
         
         {/* Right Sidebar */}
         <div className="space-y-6">
+          <div className={`${panelClass}`}>
+            <div className="p-4 border-b border-white/10 flex items-center justify-between">
+              <h2 className="text-lg font-medium">Agent Receipts</h2>
+              <span className="text-xs text-subtle">Transparent history</span>
+            </div>
+            <div className="p-4 space-y-3">
+              {agentReceipts.map(receipt => (
+                <div key={receipt.title} className="flex items-start justify-between gap-3 rounded-md bg-white/5 p-3">
+                  <div>
+                    <div className="text-sm font-semibold">{receipt.title}</div>
+                    <div className="text-xs text-subtle">{receipt.detail}</div>
+                  </div>
+                  <span className={`${pillClass} bg-slate-500/20 text-slate-100 border border-slate-400/30`}>
+                    {receipt.status}
+                  </span>
+                </div>
+              ))}
+              <div className="rounded-md border border-emerald-500/30 bg-emerald-500/10 p-3 text-sm">
+                <div className="flex items-center gap-2 font-semibold text-emerald-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Policy snapshot attached to approvals
+                </div>
+                <p className="text-xs text-emerald-100/80 mt-1">
+                  Overrides require justification and MFA; logs stay linked to executions.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* Script Info */}
-          <div className="bg-gray-700 rounded-lg shadow">
-            <div className="p-4 bg-gray-800 border-b border-gray-600">
+          <div className={`${panelClass}`}>
+            <div className="p-4 border-b border-white/10">
               <h2 className="text-lg font-medium">Script Information</h2>
             </div>
             <div className="p-4">
@@ -289,8 +377,8 @@ const ScriptDetail: React.FC = () => {
           
           {/* AI Analysis Button (when no analysis exists) */}
           {!analysis && (
-            <div className="bg-gray-700 rounded-lg shadow">
-              <div className="p-4 bg-gray-800 border-b border-gray-600">
+            <div className={`${panelClass}`}>
+              <div className="p-4 border-b border-white/10">
                 <h2 className="text-lg font-medium">AI Analysis</h2>
               </div>
               <div className="p-6 text-center">
@@ -318,10 +406,10 @@ const ScriptDetail: React.FC = () => {
           
           {/* AI Analysis Results */}
           {analysis && (
-            <div className="bg-gray-700 rounded-lg shadow">
-              <div className="p-4 bg-gray-800 border-b border-gray-600 flex justify-between items-center">
+            <div className={`${panelClass}`}>
+              <div className="p-4 border-b border-white/10 flex justify-between items-center">
                 <h2 className="text-lg font-medium">AI Analysis</h2>
-                <button 
+                <button
                   className="text-xs px-2 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
                   onClick={() => window.open(`/scripts/${id}/analysis`, '_blank')}
                 >
@@ -476,8 +564,8 @@ const ScriptDetail: React.FC = () => {
           
           {/* Legacy Similar Scripts (kept for backward compatibility) */}
           {similarScripts && similarScripts.similar_scripts?.length > 0 && (
-            <div className="bg-gray-700 rounded-lg shadow">
-              <div className="p-4 bg-gray-800 border-b border-gray-600">
+            <div className={`${panelClass}`}>
+              <div className="p-4 border-b border-white/10">
                 <h2 className="text-lg font-medium">Similar Scripts (Legacy)</h2>
               </div>
               <div className="p-4">

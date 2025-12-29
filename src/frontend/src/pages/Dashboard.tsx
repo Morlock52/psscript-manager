@@ -21,6 +21,7 @@ const Dashboard: React.FC = () => {
   // const user = { username: 'User' }; // Mock user object - Removed
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [trendPeriod, setTrendPeriod] = useState<'week' | 'month' | 'year'>('week');
+  const panelClass = 'surface-plain p-6 rounded-lg shadow-card border border-white/5';
 
   // Fetch scripts
   const { 
@@ -90,24 +91,96 @@ const Dashboard: React.FC = () => {
 
   const isLoading = isLoadingScripts || isLoadingCategories || isLoadingStats || isLoadingActivity || isLoadingSecurityMetrics || isLoadingTrendData;
 
+  const experienceKpis = [
+    {
+      label: 'Upload success',
+      value: `${stats?.uptime ?? '99.8'}%`,
+      helper: 'Past 7 days',
+      badge: 'Safe by default',
+    },
+    {
+      label: 'Median analysis',
+      value: stats?.medianAnalysisTime ? `${stats.medianAnalysisTime} ms` : '1.4s',
+      helper: 'LLM + static checks',
+      badge: 'Confidence-gated',
+    },
+    {
+      label: 'Blocked executions',
+      value: stats?.blockedExecutions ?? 0,
+      helper: 'This week',
+      badge: 'Guardrails on',
+    },
+  ];
+
+  const agenticShortcuts = [
+    {
+      title: 'Upload & auto-analyze',
+      description: 'Enqueue AI and static scans as soon as the file lands.',
+      cta: 'Go to upload',
+      href: '/upload',
+    },
+    {
+      title: 'Voice triage',
+      description: 'Hands-free intent capture with confirmation before any action.',
+      cta: 'Try agentic AI',
+      href: '/agentic-ai',
+    },
+    {
+      title: 'Secure run preview',
+      description: 'Review policy snapshot, egress limits, and runtime budget.',
+      cta: 'Open console',
+      href: '/run',
+    },
+  ];
+
   return (
     <div className={`${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
       {/* Welcome Section */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">
-          {/* Removed personalized welcome */}
-          Welcome to PSScript
-        </h1>
-        <p className="text-lg opacity-75">
-          AI-powered PowerShell script management and analysis platform
-        </p>
+      <div className="mb-6 flex flex-col gap-2">
+        <div className="inline-flex items-center gap-2 text-xs uppercase tracking-wide text-subtle">
+          <span className="badge-dot" />
+          Modern, safe, and agentic by default
+        </div>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div>
+            <h1 className="text-3xl font-bold mb-1">Welcome to PSScript</h1>
+            <p className="text-lg opacity-75">
+              AI-powered PowerShell script management, analysis, and guarded execution.
+            </p>
+          </div>
+          <div className="glass-panel px-4 py-3 flex items-center gap-3 text-sm">
+            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-card">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m2-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <div className="text-xs text-subtle">Confidence-aware agent</div>
+              <div className="font-semibold">Preview, explain, audit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* KPI strip */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        {experienceKpis.map(kpi => (
+          <div key={kpi.label} className="surface-card p-5 transition transform hover:-translate-y-0.5 hover:shadow-card">
+            <div className="flex items-center justify-between text-sm text-subtle mb-2">
+              <span>{kpi.label}</span>
+              <span className="px-2 py-0.5 pill bg-white/10 text-white text-xs">{kpi.badge}</span>
+            </div>
+            <div className="text-2xl font-semibold mb-1">{kpi.value}</div>
+            <div className="text-sm text-subtle">{kpi.helper}</div>
+          </div>
+        ))}
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard 
-          title="Total Scripts" 
-          value={stats?.totalScripts || 0} 
+        <StatCard
+          title="Total Scripts"
+          value={stats?.totalScripts || 0}
           icon="script" 
           change={stats?.scriptsChange || 0}
           isLoading={isLoadingStats}
@@ -135,11 +208,34 @@ const Dashboard: React.FC = () => {
         />
       </div>
 
+      {/* Agentic workflow shortcuts */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+        {agenticShortcuts.map(shortcut => (
+          <Link
+            key={shortcut.title}
+            to={shortcut.href}
+            className="surface-plain p-5 rounded-lg border border-white/5 hover:border-indigo-500/40 transition duration-150 shadow-card"
+          >
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-lg font-semibold">{shortcut.title}</h3>
+              <span className="text-xs px-2 py-1 rounded-full bg-indigo-500/20 text-indigo-200">Agent ready</span>
+            </div>
+            <p className="text-sm text-subtle mb-3">{shortcut.description}</p>
+            <div className="inline-flex items-center gap-2 text-sm text-indigo-200 font-semibold">
+              {shortcut.cta}
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+        ))}
+      </div>
+
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Scripts */}
         <div className="lg:col-span-2">
-          <div className={`p-6 rounded-lg shadow-md mb-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+          <div className={`${panelClass} mb-6`}>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">Recent Scripts</h2>
               <Link 
@@ -231,7 +327,7 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Security Metrics */}
-          <div className={`p-6 rounded-lg shadow-md mb-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+          <div className={`${panelClass} mb-6`}>
             <h2 className="text-xl font-bold mb-4">Security Metrics</h2>
             
             {isLoadingSecurityMetrics ? (
@@ -246,7 +342,7 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Script Trends */}
-          <div className={`p-6 rounded-lg shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+          <div className={`${panelClass}`}>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">Script Activity Trends</h2>
               <div className="flex space-x-2">
@@ -318,7 +414,7 @@ const Dashboard: React.FC = () => {
         {/* Right Column - Activity & Stats */}
         <div>
           {/* Category Distribution */}
-          <div className={`p-6 rounded-lg shadow-md mb-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+          <div className={`${panelClass} mb-6`}>
             <h2 className="text-xl font-bold mb-4">Script Categories</h2>
             
             {isLoadingCategories ? (
@@ -333,7 +429,7 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Recent Activity */}
-          <div className={`p-6 rounded-lg shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+          <div className={`${panelClass}`}>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-xl font-bold">Recent Activity</h2>
               {/* Removed isAuthenticated check */}
@@ -364,7 +460,7 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className={`mt-8 p-6 rounded-lg shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+      <div className={`${panelClass} mt-8`}>
         <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">

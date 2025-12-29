@@ -63,15 +63,15 @@ const AIStatusIndicator: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center space-x-2 px-3 py-1 rounded-md bg-gray-700 bg-opacity-50">
+    <div className="flex items-center space-x-2 px-3 py-1 rounded-md glass-panel border border-white/10 text-xs">
       <div className={`relative flex h-3 w-3`}>
         <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${getStatusColor()}`}></span>
         <span className={`relative inline-flex rounded-full h-3 w-3 ${getStatusColor()}`}></span>
       </div>
-      <span className="text-xs text-gray-300">
+      <span className="font-semibold">
         {getStatusText()}
         {aiStatus.status === 'active' && aiStatus.responseTime && (
-          <span className="text-gray-500 ml-1">({aiStatus.responseTime}ms)</span>
+          <span className="text-subtle ml-1">({aiStatus.responseTime}ms)</span>
         )}
       </span>
     </div>

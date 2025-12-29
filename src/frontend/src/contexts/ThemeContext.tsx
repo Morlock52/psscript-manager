@@ -61,12 +61,16 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   useEffect(() => {
     // Save theme to localStorage
     localStorage.setItem('psscript_theme', theme);
-    
-    // Update document class for global styling
+
+    // Update document class and data attribute for global styling and CSS variables
+    const root = document.documentElement;
+
     if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
+      root.classList.add('dark');
+      root.setAttribute('data-theme', 'dark');
     } else {
-      document.documentElement.classList.remove('dark');
+      root.classList.remove('dark');
+      root.setAttribute('data-theme', 'light');
     }
   }, [theme]);
 

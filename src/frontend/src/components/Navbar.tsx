@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
 import { ROUTES, matchesRoute } from '../constants/routes';
 import AIStatusIndicator from './AIStatusIndicator';
 import GlobalSearch from './GlobalSearch';
+import EnvironmentBadge from './EnvironmentBadge';
 // import { useAuth } from '../hooks/useAuth'; // Removed
 
 // Define props for Navbar
@@ -14,18 +15,10 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
   const { theme, toggleTheme } = useTheme();
   // const { user, isAuthenticated, logout } = useAuth(); // Removed
-  const navigate = useNavigate();
   const location = useLocation();
-  
-  const [showUserMenu, setShowUserMenu] = useState(false);
+
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  
-  // Toggle user menu
-  const toggleUserMenu = () => {
-    // setShowUserMenu(!showUserMenu); // Removed
-    if (showNotifications) setShowNotifications(false);
-  };
 
   // Toggle notifications
   const toggleNotifications = () => {
@@ -64,15 +57,21 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
   };
   
   return (
-    <header className={`px-4 py-2 ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900 border-b'}`}>
+    <header
+      className={`px-4 py-3 sticky top-0 z-30 backdrop-blur-md ${
+        theme === 'dark'
+          ? 'bg-[rgba(17,24,39,0.75)] text-white border-b border-white/5'
+          : 'bg-white/90 text-gray-900 border-b border-gray-200'
+      }`}
+    >
       <div className="flex items-center justify-between">
         {/* Left side - Menu button and title */}
         <div className="flex items-center">
           <button
             onClick={onMenuClick}
             className={`p-2 rounded-md mr-2 ${
-              theme === 'dark' 
-                ? 'hover:bg-gray-700' 
+              theme === 'dark'
+                ? 'hover:bg-gray-700'
                 : 'hover:bg-gray-100'
             }`}
             aria-label="Open menu"
@@ -87,6 +86,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
         
         {/* Right side - Actions */}
         <div className="flex items-center space-x-2">
+          <EnvironmentBadge />
           {/* AI Status Indicator */}
           <AIStatusIndicator />
           
