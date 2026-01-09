@@ -8,6 +8,7 @@ import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import logger from './utils/logger';
+import axios from 'axios';
 // import { initializeTelemetry } from './telemetry/tracing'; // Temporarily disabled
 // import { telemetryMiddleware, errorTrackingMiddleware } from './middleware/telemetryMiddleware';
 // import { getPrometheusMetrics } from './telemetry/metrics'; // Temporarily disabled
@@ -626,6 +627,43 @@ app.use((req, res, next) => {
 // app.use(errorTrackingMiddleware); // Temporarily disabled
 app.use(errorHandler);
 
+const getAiServiceUrl = (): string => {
+  if (process.env.AI_SERVICE_URL) {
+    return process.env.AI_SERVICE_URL;
+  }
+  return process.env.DOCKER_ENV === 'true'
+    ? 'http://ai-service:8000'
+    : 'http://localhost:8000';
+};
+
+const checkAiEmbeddingEndpoint = async (): Promise<void> => {
+  const aiServiceUrl = getAiServiceUrl();
+  try {
+    const response = await axios.post(
+      `${aiServiceUrl}/embedding`,
+      { text: 'health-check' },
+      {
+        timeout: 4000,
+        validateStatus: (status) => status < 500
+      }
+    );
+
+    if (response.status === 404) {
+      logger.warn('AI service embedding endpoint not found', { url: `${aiServiceUrl}/embedding` });
+      return;
+    }
+
+    logger.info('AI service embedding endpoint check completed', {
+      status: response.status
+    });
+  } catch (error) {
+    logger.warn('AI service embedding endpoint check failed', {
+      message: error instanceof Error ? error.message : error,
+      url: `${aiServiceUrl}/embedding`
+    });
+  }
+};
+
 // Create HTTP server with proper error handling
 const startServer = async () => {
   try {
@@ -651,6 +689,8 @@ const startServer = async () => {
         await new Promise(resolve => setTimeout(resolve, 5000));
       }
     }
+
+    await checkAiEmbeddingEndpoint();
     
     // Add endpoint to clear cache
     app.get('/api/cache/clear', (req, res) => {

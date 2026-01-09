@@ -92,7 +92,7 @@ class HybridSearchService {
   private async getQueryEmbedding(query: string): Promise<number[]> {
     try {
       const response = await axios.post(
-        `${this.AI_SERVICE_URL}/embeddings`,
+        `${this.AI_SERVICE_URL}/embedding`,
         { text: query },
         { timeout: 5000 }
       );
