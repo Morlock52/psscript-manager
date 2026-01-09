@@ -12,7 +12,7 @@ import numpy as np
 
 from fastapi import FastAPI, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, root_validator
 import openai
 from openai import OpenAI
 import psycopg2
@@ -130,7 +130,16 @@ class ScriptAnalysisResponse(BaseModel):
     metadata: Dict[str, Any]
 
 class EmbeddingRequest(BaseModel):
-    text: str = Field(..., description="Text to generate embedding for")
+    text: Optional[str] = Field(None, description="Text to generate embedding for")
+    content: Optional[str] = Field(None, description="Alias for text input")
+
+    @root_validator(pre=True)
+    def ensure_text(cls, values):
+        text = values.get("text") or values.get("content")
+        if not text:
+            raise ValueError("text or content is required to generate an embedding")
+        values["text"] = text
+        return values
 
 class EmbeddingResponse(BaseModel):
     embedding: List[float] = Field(..., description="Vector embedding")
@@ -350,6 +359,11 @@ async def generate_embedding(request: EmbeddingRequest):
     except Exception as e:
         logger.error(f"Embedding generation error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/embed", response_model=EmbeddingResponse, include_in_schema=False)
+async def generate_embedding_alias(request: EmbeddingRequest):
+    """Compatibility alias for the embedding endpoint."""
+    return await generate_embedding(request)
 
 @app.post("/generate-embeddings")
 async def generate_embeddings(scripts: List[Dict[str, Any]]):

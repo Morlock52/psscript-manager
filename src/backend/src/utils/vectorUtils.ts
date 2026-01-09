@@ -33,7 +33,7 @@ export const generateEmbedding = async (text: string): Promise<number[]> => {
     }
     
     // Request embedding from AI service
-    const response = await axios.post(`${AI_SERVICE_URL}/embed`, {
+    const response = await axios.post(`${AI_SERVICE_URL}/embedding`, {
       text: text.substring(0, 8000), // Limit text length
       model: process.env.EMBEDDING_MODEL || 'text-embedding-3-small'
     }, config);

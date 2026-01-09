@@ -11,7 +11,7 @@ from typing import Dict, List, Optional, Any
 
 from fastapi import FastAPI, HTTPException, Header, Query
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, root_validator
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import numpy as np
@@ -197,8 +197,20 @@ class ScriptContent(BaseModel):
 
 
 class ScriptEmbeddingRequest(BaseModel):
-    content: str = Field(..., 
-                        description="PowerShell script content to generate embedding for")
+    content: Optional[str] = Field(
+        None, description="PowerShell script content to generate embedding for"
+    )
+    text: Optional[str] = Field(
+        None, description="Alias for content when generating embeddings"
+    )
+
+    @root_validator(pre=True)
+    def ensure_content(cls, values):
+        content = values.get("content") or values.get("text")
+        if not content:
+            raise ValueError("content or text is required to generate an embedding")
+        values["content"] = content
+        return values
 
 
 class SimilarScriptsRequest(BaseModel):
@@ -627,6 +639,12 @@ async def create_embedding(request: ScriptEmbeddingRequest):
     except Exception as e:
         raise HTTPException(status_code=500, 
                            detail=f"Embedding generation failed: {str(e)}")
+
+
+@app.post("/embed", response_model=EmbeddingResponse, tags=["Embeddings"], include_in_schema=False)
+async def create_embedding_alias(request: ScriptEmbeddingRequest):
+    """Compatibility alias for the embedding endpoint."""
+    return await create_embedding(request)
 
 
 @app.post("/similar", response_model=SimilarScriptsResponse, tags=["Search"])
