@@ -26,7 +26,11 @@ class AiAgentController {
       // Call AI service to answer the question
       const result = await aiService.askQuestion(question, context, useAgent);
       
-      return res.json({ response: result.response });
+      if (!result.ok) {
+        throw new Error(result.error);
+      }
+      
+      return res.json({ response: result.data.response });
     } catch (error) {
       logger.error('Error in AI agent question endpoint:', error);
       const errorMessage = error instanceof Error && error.message.includes('API key') 
@@ -58,7 +62,11 @@ class AiAgentController {
       // Call AI service to analyze the script
       const analysisResult = await aiService.analyzeScript(content, filename, requestType, analysisOptions);
       
-      return res.json(analysisResult);
+      if (!analysisResult.ok) {
+        throw new Error(analysisResult.error);
+      }
+      
+      return res.json(analysisResult.data);
     } catch (error) {
       logger.error('Error in AI assistant analysis endpoint:', error);
       const errorMessage = error instanceof Error && error.message.includes('API key') 
@@ -90,7 +98,11 @@ class AiAgentController {
       // Call AI service to generate the script
       const result = await aiService.generateScript(description);
       
-      return res.json(result);
+      if (!result.ok) {
+        throw new Error(result.error);
+      }
+      
+      return res.json(result.data);
     } catch (error) {
       logger.error('Error in script generation endpoint:', error);
       const errorMessage = error instanceof Error && error.message.includes('API key') 
@@ -122,7 +134,11 @@ class AiAgentController {
       // Call AI service to explain the script
       const result = await aiService.explainScript(content, type);
       
-      return res.json(result);
+      if (!result.ok) {
+        throw new Error(result.error);
+      }
+      
+      return res.json(result.data);
     } catch (error) {
       logger.error('Error in script explanation endpoint:', error);
       const errorMessage = error instanceof Error && error.message.includes('API key') 
@@ -155,7 +171,11 @@ class AiAgentController {
       // Call AI service to get similar examples
       const result = await aiService.getSimilarExamples(description, limit);
       
-      return res.json(result);
+      if (!result.ok) {
+        throw new Error(result.error);
+      }
+      
+      return res.json(result.data);
     } catch (error) {
       logger.error('Error in script examples endpoint:', error);
       const errorMessage = error instanceof Error && error.message.includes('API key') 
