@@ -92,6 +92,12 @@ class SimilaritySearchResponse(BaseModel):
     source_script: Dict[str, Any]
     similar_scripts: List[Dict[str, Any]]
     search_time_ms: float
+
+class EmbeddingBatchRequest(BaseModel):
+    scripts: List[Dict[str, Any]] = Field(default_factory=list)
+    persist: bool = Field(True, description="Persist embeddings to the database")
+    model: Optional[str] = Field(None, description="Embedding model to use")
+    dimensions: Optional[int] = Field(None, description="Embedding dimensions")
 class ScriptAnalysisRequest(BaseModel):
     script_content: str = Field(..., description="PowerShell script content")
     script_id: Optional[int] = Field(None, description="Optional script ID from the database")
@@ -352,9 +358,19 @@ async def generate_embedding(request: EmbeddingRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/generate-embeddings")
-async def generate_embeddings(scripts: List[Dict[str, Any]]):
+async def generate_embeddings(payload: Any):
     """Generate embeddings for multiple scripts"""
     try:
+        if isinstance(payload, list):
+            request = EmbeddingBatchRequest(scripts=payload)
+        elif isinstance(payload, dict):
+            request = EmbeddingBatchRequest(**payload)
+        else:
+            raise HTTPException(status_code=400, detail="Invalid payload for embeddings")
+
+        scripts = request.scripts
+        embedding_model = request.model or "text-embedding-3-large"
+        embedding_dimensions = request.dimensions or 3072
         results = []
         
         for script in scripts:
@@ -363,45 +379,53 @@ async def generate_embeddings(scripts: List[Dict[str, Any]]):
             
             # Generate embedding
             response = client.embeddings.create(
-                model="text-embedding-3-large",
+                model=embedding_model,
                 input=text,
-                dimensions=3072  # text-embedding-3-large has 3072 dimensions by default
+                dimensions=embedding_dimensions
             )
             
             embedding = response.data[0].embedding
+            persisted = False
             
-            # Store in database
-            conn = get_db_connection()
-            cur = conn.cursor()
+            if request.persist:
+                # Store in database
+                conn = get_db_connection()
+                cur = conn.cursor()
+                
+                try:
+                    cur.execute("""
+                        INSERT INTO script_embeddings (script_id, embedding, embedding_model, embedding_dimensions, created_at)
+                        VALUES (%s, %s, %s, %s, NOW())
+                        ON CONFLICT (script_id) 
+                        DO UPDATE SET 
+                            embedding = EXCLUDED.embedding, 
+                            embedding_model = EXCLUDED.embedding_model,
+                            embedding_dimensions = EXCLUDED.embedding_dimensions,
+                            updated_at = NOW()
+                    """, (script['id'], embedding, embedding_model, embedding_dimensions))
+                    
+                    conn.commit()
+                    persisted = True
+                except Exception as e:
+                    conn.rollback()
+                    results.append({
+                        "script_id": script.get('id'),
+                        "success": False,
+                        "error": str(e)
+                    })
+                    continue
+                finally:
+                    cur.close()
+                    conn.close()
             
-            try:
-                cur.execute("""
-                    INSERT INTO script_embeddings (script_id, embedding, embedding_model, embedding_dimensions, created_at)
-                    VALUES (%s, %s, %s, %s, NOW())
-                    ON CONFLICT (script_id) 
-                    DO UPDATE SET 
-                        embedding = EXCLUDED.embedding, 
-                        embedding_model = EXCLUDED.embedding_model,
-                        embedding_dimensions = EXCLUDED.embedding_dimensions,
-                        updated_at = NOW()
-                """, (script['id'], embedding, 'text-embedding-3-large', 3072))
-                
-                conn.commit()
-                
-                results.append({
-                    "script_id": script['id'],
-                    "success": True
-                })
-            except Exception as e:
-                conn.rollback()
-                results.append({
-                    "script_id": script['id'],
-                    "success": False,
-                    "error": str(e)
-                })
-            finally:
-                cur.close()
-                conn.close()
+            results.append({
+                "script_id": script.get('id'),
+                "success": True,
+                "embedding": embedding,
+                "model": embedding_model,
+                "dimensions": embedding_dimensions,
+                "persisted": persisted
+            })
         
         return {
             "total": len(scripts),
