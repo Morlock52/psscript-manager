@@ -4,6 +4,8 @@
  */
 import express from 'express';
 import axios from 'axios';
+import { QueryTypes } from 'sequelize';
+import { sequelize } from '../database/connection';
 import { corsMiddleware } from '../middleware/corsMiddleware';
 import logger from '../utils/logger';
 
@@ -14,6 +16,10 @@ router.use(corsMiddleware);
 
 // AI service configuration
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://ai:8000';
+const DEFAULT_EMBEDDING_MODEL = process.env.EMBEDDING_MODEL || 'text-embedding-3-large';
+const DEFAULT_EMBEDDING_DIMENSIONS = Number(process.env.EMBEDDING_DIMENSIONS) || 3072;
+
+const formatVectorLiteral = (embedding: number[]): string => `[${embedding.join(',')}]`;
 
 /**
  * @swagger
@@ -248,25 +254,202 @@ router.get('/embeddings/status', async (req, res) => {
 router.post('/regenerate-embeddings', async (req, res) => {
   try {
     const { script_ids, batch_size = 10 } = req.body;
+    const scriptIds = Array.isArray(script_ids) ? script_ids : undefined;
+    const batchSize = Math.max(1, Number(batch_size) || 10);
+    const embeddingModel = DEFAULT_EMBEDDING_MODEL;
+    const embeddingDimensions = DEFAULT_EMBEDDING_DIMENSIONS;
     
-    logger.info('Regenerate embeddings request', { script_ids, batch_size });
+    logger.info('Regenerate embeddings request', { script_ids: scriptIds, batch_size: batchSize });
+
+    if (scriptIds && scriptIds.length === 0) {
+      res.json({
+        message: 'No script IDs provided for embedding regeneration',
+        batch_size: batchSize,
+        total_scripts: 0
+      });
+      return;
+    }
     
     // Get scripts that need regeneration
-    const scriptsQuery = script_ids 
-      ? `SELECT * FROM scripts WHERE id = ANY($1::int[])` 
-      : `SELECT s.* FROM scripts s 
+    const scriptsQuery = scriptIds
+      ? `SELECT s.id, s.title, s.description, s.content
+         FROM scripts s
+         WHERE s.id = ANY(:scriptIds::int[])`
+      : `SELECT s.id, s.title, s.description, s.content
+         FROM scripts s
          LEFT JOIN script_embeddings se ON s.id = se.script_id
-         WHERE se.embedding IS NULL 
-            OR se.embedding_model != 'text-embedding-3-large'
-            OR se.embedding_dimensions != 3072
-         LIMIT $1`;
-    
-    // This would be implemented in the actual controller
-    // For now, we'll return a placeholder response
+         WHERE se.embedding IS NULL
+            OR se.embedding_model IS NULL
+            OR se.embedding_model != :embeddingModel
+            OR se.embedding_dimensions IS NULL
+            OR se.embedding_dimensions != :embeddingDimensions
+            OR se.updated_at IS NULL
+            OR s.updated_at > se.updated_at`;
+
+    const scripts = await sequelize.query<{
+      id: number;
+      title: string;
+      description: string | null;
+      content: string;
+    }>(scriptsQuery, {
+      type: QueryTypes.SELECT,
+      replacements: scriptIds
+        ? { scriptIds }
+        : {
+            embeddingModel,
+            embeddingDimensions
+          }
+    });
+
+    if (scripts.length === 0) {
+      logger.info('No scripts require embedding regeneration');
+      res.json({
+        message: 'No scripts require embedding regeneration',
+        batch_size: batchSize,
+        total_scripts: 0
+      });
+      return;
+    }
+
+    logger.info('Scripts queued for embedding regeneration', {
+      totalScripts: scripts.length,
+      batchSize
+    });
+
+    const failedBatches: Array<{ batch: number; error: string; script_ids: number[] }> = [];
+    const failedScripts: Array<{ script_id: number; error: string; batch: number }> = [];
+    let processedScripts = 0;
+
+    for (let i = 0; i < scripts.length; i += batchSize) {
+      const batch = scripts.slice(i, i + batchSize);
+      const batchNumber = Math.floor(i / batchSize) + 1;
+      const scriptIds = batch.map((script) => script.id);
+
+      logger.info('Processing embedding batch', {
+        batch: batchNumber,
+        batchSize: batch.length,
+        totalScripts: scripts.length
+      });
+
+      try {
+        const response = await axios.post(`${AI_SERVICE_URL}/generate-embeddings`, {
+          scripts: batch.map((script) => ({
+            id: script.id,
+            name: script.title,
+            title: script.title,
+            description: script.description,
+            content: script.content
+          })),
+          persist: false,
+          model: embeddingModel,
+          dimensions: embeddingDimensions
+        });
+
+        const batchResults = response.data?.results;
+        const batchFailures: Array<{ script_id: number; error: string; batch: number }> = [];
+        let persistedCount = 0;
+        if (Array.isArray(batchResults)) {
+          for (const result of batchResults as Array<{
+            script_id: number;
+            success: boolean;
+            error?: string;
+            embedding?: number[];
+            model?: string;
+            dimensions?: number;
+          }>) {
+            if (!result.success) {
+              batchFailures.push({
+                script_id: result.script_id,
+                error: result.error || 'Unknown error',
+                batch: batchNumber
+              });
+              continue;
+            }
+
+            if (!Array.isArray(result.embedding)) {
+              batchFailures.push({
+                script_id: result.script_id,
+                error: 'Missing embedding payload',
+                batch: batchNumber
+              });
+              continue;
+            }
+
+            try {
+              await sequelize.query(
+                `INSERT INTO script_embeddings (
+                  script_id,
+                  embedding,
+                  embedding_model,
+                  embedding_dimensions,
+                  created_at,
+                  updated_at
+                )
+                VALUES (
+                  :scriptId,
+                  :embedding::vector,
+                  :embeddingModel,
+                  :embeddingDimensions,
+                  NOW(),
+                  NOW()
+                )
+                ON CONFLICT (script_id)
+                DO UPDATE SET
+                  embedding = EXCLUDED.embedding,
+                  embedding_model = EXCLUDED.embedding_model,
+                  embedding_dimensions = EXCLUDED.embedding_dimensions,
+                  updated_at = NOW()`,
+                {
+                  replacements: {
+                    scriptId: result.script_id,
+                    embedding: formatVectorLiteral(result.embedding),
+                    embeddingModel: result.model || embeddingModel,
+                    embeddingDimensions: result.dimensions || embeddingDimensions
+                  },
+                  type: QueryTypes.INSERT
+                }
+              );
+              persistedCount += 1;
+            } catch (persistError: any) {
+              batchFailures.push({
+                script_id: result.script_id,
+                error: persistError.message || 'Failed to persist embedding',
+                batch: batchNumber
+              });
+            }
+          }
+        }
+        failedScripts.push(...batchFailures);
+
+        const successfulCount = response.data?.successful ?? (batch.length - batchFailures.length);
+        logger.info('Completed embedding batch', {
+          batch: batchNumber,
+          successful: successfulCount,
+          failed: batch.length - successfulCount,
+          persisted: persistedCount
+        });
+      } catch (error: any) {
+        const errorMessage = error.response?.data?.detail || error.message || 'Unknown error';
+        logger.error('Embedding batch failed', {
+          batch: batchNumber,
+          error: errorMessage
+        });
+        failedBatches.push({ batch: batchNumber, error: errorMessage, script_ids: scriptIds });
+      }
+
+      processedScripts += batch.length;
+      logger.info('Embedding regeneration progress', {
+        processedScripts,
+        totalScripts: scripts.length
+      });
+    }
+
     res.json({
-      message: 'Embedding regeneration started',
-      batch_size,
-      script_ids: script_ids || 'all scripts needing update'
+      message: 'Embedding regeneration completed',
+      batch_size: batchSize,
+      total_scripts: scripts.length,
+      failed_batches: failedBatches,
+      failed_scripts: failedScripts
     });
     
   } catch (error: any) {
